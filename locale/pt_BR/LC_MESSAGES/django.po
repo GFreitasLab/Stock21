@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-18 10:50-0300\n"
+"POT-Creation-Date: 2025-12-18 17:50-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,163 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/templates/account_delete.html:3
+msgid "Delete Account"
+msgstr "Deletar Conta"
+
+#: accounts/templates/account_delete.html:7
+#: accounts/templates/account_delete.html:21
+msgid "Confirm Exclusion"
+msgstr "Confirmar Exclusão"
+
+#: accounts/templates/account_delete.html:9
+msgid "Are you sure you want to delete account"
+msgstr "Tem certeza que deseja excluir a conta de"
+
+#: accounts/templates/account_delete.html:11
+msgid "This action cannot be undone."
+msgstr "Essa ação não poderá ser desfeita."
+
+#: accounts/templates/account_delete.html:16
+msgid "Confirm with password"
+msgstr "Confirmar com senha"
+
+#: accounts/templates/account_delete.html:20
+#: accounts/templates/account_update.html:39
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: accounts/templates/account_detail.html:3
+msgid "Detail Account"
+msgstr "Detalhar Conta"
+
+#: accounts/templates/account_detail.html:7
+msgid "Account Details"
+msgstr "Detalhes da Conta"
+
+#: accounts/templates/account_detail.html:10
+#: accounts/templates/account_list.html:21
+#: accounts/templates/account_list.html:51
+#: accounts/templates/account_update.html:11
+#: accounts/templates/register.html:15 accounts/templates/register.html:16
+msgid "Name"
+msgstr "Nome"
+
+#: accounts/templates/account_detail.html:18
+#: accounts/templates/account_list.html:23
+#: accounts/templates/account_list.html:53
+#: accounts/templates/account_update.html:23
+#: accounts/templates/register.html:48
+msgid "Role"
+msgstr "Cargo"
+
+#: accounts/templates/account_detail.html:22
+msgid "Creation Date"
+msgstr "Data de Criação"
+
+#: accounts/templates/account_detail.html:26
+msgid "Last Change"
+msgstr "Ultima alteração"
+
+#: accounts/templates/account_detail.html:31
+msgid "Back to List"
+msgstr "Voltar para o início"
+
+#: accounts/templates/account_detail.html:32
+msgid "Edit"
+msgstr "Editar"
+
+#: accounts/templates/account_detail.html:33
+msgid "Delete"
+msgstr "Deletar"
+
+#: accounts/templates/account_list.html:4
+msgid "Account List"
+msgstr "Listar Contas"
+
+#: accounts/templates/account_list.html:11
+msgid "List of Accounts"
+msgstr "Lista de Contas"
+
+#: accounts/templates/account_list.html:19
+msgid "Filter By"
+msgstr "Filtrar por"
+
+#: accounts/templates/account_list.html:27
+msgid "Value"
+msgstr "Valor"
+
+#: accounts/templates/account_list.html:29
+msgid "Type the Value..."
+msgstr "Digite o valor..."
+
+#: accounts/templates/account_list.html:37
+msgid "Filter"
+msgstr "Filtrar"
+
+#: accounts/templates/account_list.html:46 accounts/templates/register.html:75
+msgid "Create Account"
+msgstr "Criar Conta"
+
+#: accounts/templates/account_list.html:54
+msgid "Actions"
+msgstr "Ações"
+
+#: accounts/templates/account_list.html:85
+msgid "Previous"
+msgstr "Anterior"
+
+#: accounts/templates/account_list.html:90
+msgid "Page"
+msgstr "Página"
+
+#: accounts/templates/account_list.html:96
+msgid "Next"
+msgstr "Próximo"
+
+#: accounts/templates/account_update.html:3
+msgid "Edit Account"
+msgstr "Editar Conta"
+
+#: accounts/templates/account_update.html:7
+msgid "Update Account"
+msgstr "Atualizar Conta"
+
+#: accounts/templates/account_update.html:15
+#: accounts/templates/register.html:21 accounts/templates/register.html:22
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: accounts/templates/account_update.html:31 accounts/templates/login.html:23
+#: accounts/templates/register.html:35
+msgid "Password"
+msgstr "Senha"
+
+#: accounts/templates/account_update.html:35
+#: accounts/templates/register.html:41
+msgid "Confirm Password"
+msgstr "Senha"
+
+#: accounts/templates/account_update.html:40
+msgid "Update"
+msgstr "Atualizar"
+
+#: accounts/templates/login.html:3 accounts/templates/login.html:31
+msgid "Login"
+msgstr "Entrar"
+
+#: accounts/templates/login.html:19
+msgid "your@email.com"
+msgstr "seu@email.com"
+
+#: accounts/templates/register.html:3
+msgid "Register"
+msgstr "Registrar"
+
+#: accounts/templates/register.html:8
+msgid "Register Account"
+msgstr "Registrar Conta"
 
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."
@@ -29,27 +186,27 @@ msgstr "Talvez ela tenha sido movida, renomeada ou nunca existiu."
 msgid "Back to home"
 msgstr "Voltar para o início"
 
-#: templates/base.html:52 templates/base.html:97
+#: templates/base.html:51 templates/base.html:96
 msgid "Accounts"
 msgstr "Contas"
 
-#: templates/base.html:53 templates/base.html:98
+#: templates/base.html:52 templates/base.html:97
 msgid "Categories"
 msgstr "Categorias"
 
-#: templates/base.html:55 templates/base.html:99 templates/home.html:25
+#: templates/base.html:54 templates/base.html:98 templates/home.html:25
 msgid "Ingredients"
 msgstr "Ingredientes"
 
-#: templates/base.html:57 templates/base.html:100
+#: templates/base.html:56 templates/base.html:99
 msgid "Products"
 msgstr "Produtos"
 
-#: templates/base.html:59 templates/base.html:102
+#: templates/base.html:58 templates/base.html:101
 msgid "Stock Movements"
 msgstr "Movimentações"
 
-#: templates/base.html:88 templates/base.html:105
+#: templates/base.html:87 templates/base.html:104
 msgid "Logout"
 msgstr "Sair"
 
@@ -110,14 +267,14 @@ msgstr "Tipo"
 msgid "value"
 msgstr "Valor"
 
-#: templates/home.html:92
+#: templates/home.html:91
 msgid "No recent movement"
 msgstr "Sem movimentações recentes"
 
-#: templates/home.html:102
+#: templates/home.html:101
 msgid "Attention!"
 msgstr "Atenção!"
 
-#: templates/home.html:106 templates/home.html:109
+#: templates/home.html:106 templates/home.html:110
 msgid "below the minimum"
 msgstr "Abaixo do mínimo"

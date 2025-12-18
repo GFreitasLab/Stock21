@@ -1,42 +1,37 @@
 {% extends "base.html" %}
-{% block title %}
-    Detalhar Conta
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Detail Account" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="detail-container">
-            <h2 class="detail-title">Detalhes da Conta</h2>
-            <div class="space-y-4 text-gray-800 dark:text-gray-300">
-                <div>
-                    <span class="detail-text">Nome:</span>
-                    <span class="text-lg">{{ account.first_name }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Sobrenome:</span>
-                    <span class="text-lg">{{ account.last_name }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Email:</span>
-                    <span class="text-lg">{{ account.email }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Cargo:</span>
-                    <span class="text-lg">{{ account.get_role_display }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Data de Criação:</span>
-                    <span class="text-lg">{{ account.created_at|date:"d/m/Y H:i:s" }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Última Alteração:</span>
-                    <span class="text-lg">{{ account.updated_at|date:"d/m/Y H:i:s" }}</span>
-                </div>
-            </div>
-            <div class="detail-buttons">
-                <a href="{% url 'account_list' %}" class="gray-button">Voltar para Lista</a>
-                <a href="{% url 'account_update' account.id %}" class="yellow-button">Editar</a>
-                <a href="{% url 'account_delete' account.id %}" class="red-button">Deletar</a>
-            </div>
+  <div class="main-container">
+    <div class="detail-container">
+      <h2 class="detail-title">{% trans "Account Details" %}</h2>
+      <div class="space-y-4 text-gray-800 dark:text-gray-300">
+        <div>
+          <span class="detail-text">{% trans "Name" %}:</span>
+          <span class="text-lg">{{ account.first_name }} {{ account.last_name }}</span>
         </div>
+        <div>
+          <span class="detail-text">Email:</span>
+          <span class="text-lg">{{ account.email }}</span>
+        </div>
+        <div>
+          <span class="detail-text">{% trans "Role" %}:</span>
+          <span class="text-lg">{{ account.get_role_display }}</span>
+        </div>
+        <div>
+          <span class="detail-text">{% trans "Creation Date" %}:</span>
+          <span class="text-lg">{{ account.created_at|date:"d/m/Y H:i:s" }}</span>
+        </div>
+        <div>
+          <span class="detail-text">{% trans "Last Change" %}:</span>
+          <span class="text-lg">{{ account.updated_at|date:"d/m/Y H:i:s" }}</span>
+        </div>
+      </div>
+      <div class="detail-buttons">
+        <a href="{% url 'account_list' %}" class="gray-button">{% trans "Back to List" %}</a>
+        <a href="{% url 'account_update' account.id %}" class="yellow-button">{% trans "Edit" %}</a>
+        <a href="{% url 'account_delete' account.id %}" class="red-button">{% trans "Delete" %}</a>
+      </div>
     </div>
+  </div>
 {% endblock body %}

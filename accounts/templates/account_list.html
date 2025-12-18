@@ -1,104 +1,104 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Listar Contas
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Account List" %}{% endblock title %}
 {% block body %}
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <!-- Header -->
-            <div class="text-center">
-                <h2 class="title">Lista de Contas</h2>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+
+      <!-- Header -->
+      <div class="text-center">
+        <h2 class="title">{% trans "List of Accounts" %}</h2>
+      </div>
+
+      <!-- Filter -->
+      <div class="table-content">
+        <form method="GET" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+            <label for="filter-field" class="filter">{% trans "Filter By" %}</label>
+              <select name="field" id="filter-field" class="filter-field">
+              <option value="first_name" {% if field == "first_name" %}selected{% endif %}>{% trans "Name" %}</option>
+                <option value="email" {% if field == "email" %}selected{% endif %}>Email</option>
+                <option value="role" {% if field == "role" %}selected{% endif %}>{% trans "Role" %}</option>
+              </select>
             </div>
-            <!-- Filtro -->
-            <div class="table-content">
-                <form method="GET" class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label for="filter-field" class="filter">Filtrar por</label>
-                            <select name="field" id="filter-field" class="filter-field">
-                                <option value="first_name" {% if field == "first_name" %}selected{% endif %}>Nome</option>
-                                <option value="email" {% if field == "email" %}selected{% endif %}>Email</option>
-                                <option value="role" {% if field == "role" %}selected{% endif %}>Cargo</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="value-text" class="filter">Valor</label>
-                            <input type="text"
-                                   name="value"
-                                   id="value-text"
-                                   value="{{ value|default:'' }}"
-                                   placeholder="Digite o valor..."
-                                   class="filter-field" />
-                            <select id="value-role" style="display: none" class="filter-field">
-                                {% for val, label in role_choices %}
-                                    <option value="{{ val }}" {% if value == val %}selected{% endif %}>{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="flex items-end">
-                            <button type="submit" class="blue-button">Filtrar</button>
-                        </div>
-                    </div>
-                </form>
+            <div>
+              <label for="value-text" class="filter">{% trans "Value" %}</label>
+              <input type="text" name="value" id="value-text"
+                value="{{ value|default:'' }}" placeholder="{% trans "Type the Value..." %}" class="filter-field" />
+              <select id="value-role" style="display: none" class="filter-field">
+                {% for val, label in role_choices %}
+                    <option value="{{ val }}" {% if value == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
             </div>
-            <!-- Tabela -->
-            <div class="table-content">
-                <div class="flex justify-end mb-4">
-                    <a href="{% url 'register' %}" class="green-button">+ Criar Conta</a>
-                </div>
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <th class="text-left table-head">Nome</th>
-                            <th class="hidden sm:flex text-left table-head">Email</th>
-                            <th class="text-left table-head">Cargo</th>
-                            <th class="text-right table-head">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for account in page_obj %}
-                            <tr class="table-row"
-                                onclick="window.location='{% url 'account_detail' account.id %}'">
-                                <td class="table-text">{{ account.first_name }} {{ account.last_name }}</td>
-                                <td class="hidden sm:flex table-text">{{ account.email }}</td>
-                                <td class="table-text">{{ account.get_role_display }}</td>
-                                <td class="px-4 py-2 text-right">
-                                    <div class="flex flex-row justify-end space-x-2 space-y-0">
-                                        <a href="{% url 'account_update' account.id %}">
-                                            <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Editar">
-                                        </a>
-                                        <a href="{% url 'account_delete' account.id %}">
-                                            <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Deletar">
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="flex items-end">
+              <button type="submit" class="blue-button">{% trans "Filter" %}</button>
             </div>
-            {% if is_paginated %}
-                <div class="flex justify-center mt-6 space-x-2">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
-                           class="page-button">← Anterior</a>
-                    {% endif %}
-                    <div class="flex items-center space-x-2">
-                        <select id="page-select" class="page-info">
-                            {% for num in page_obj.paginator.page_range %}
-                                <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>Página {{ num }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
-                           class="page-button">Próxima →</a>
-                    {% endif %}
-                </div>
-            {% endif %}
+          </div>
+        </form>
+      </div>
+
+      <!-- Table -->
+      <div class="table-content">
+        <div class="flex justify-end mb-4">
+          <a href="{% url 'register' %}" class="green-button">+ {% trans "Create Account" %}</a>
         </div>
+        <table class="min-w-full">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+              <th class="text-left table-head">{% trans "Name" %}</th>
+                <th class="hidden sm:flex text-left table-head">Email</th>
+                <th class="text-left table-head">{% trans "Role" %}</th>
+                <th class="text-right table-head">{% trans "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for account in page_obj %}
+              <tr class="table-row"
+                onclick="window.location='{% url 'account_detail' account.id %}'">
+                <td class="table-text">{{ account.first_name }} {{ account.last_name }}</td>
+                <td class="hidden sm:flex table-text">{{ account.email }}</td>
+                <td class="table-text">{{ account.get_role_display }}</td>
+                <td class="px-4 py-2 text-right">
+                  <div class="flex flex-row justify-end space-x-2 space-y-0">
+                    <a href="{% url 'account_update' account.id %}">
+                      <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Edit">
+                    </a>
+                    <a href="{% url 'account_delete' account.id %}">
+                      <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Delete">
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- pagination -->
+      {% if is_paginated %}
+        <div class="flex justify-center mt-6 space-x-2">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
+              class="page-button">← {% trans "Previous" %}</a>
+          {% endif %}
+          <div class="flex items-center space-x-2">
+            <select id="page-select" class="page-info">
+              {% for num in page_obj.paginator.page_range %}
+                <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>{% trans "Page" %} {{ num }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
+              class="page-button">{% trans "Next" %} →</a>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
-    <script src="{% static 'accounts/js/toggle_role.js' %}"></script>
-    <script src="{% static "base/js/page_menu.js" %}"></script>
+  </div>
+  <script src="{% static 'accounts/js/toggle_role.js' %}"></script>
+  <script src="{% static "base/js/page_menu.js" %}"></script>
 {% endblock body %}

@@ -1,117 +1,82 @@
 {% extends "base.html" %}
-{% block title %}
-    Cadastro
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Register" %}{% endblock title %}
 {% block body %}
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-lg w-full space-y-8">
-            <div class="text-center">
-                <h2 class="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">Registrar Conta</h2>
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full space-y-8">
+      <div class="text-center">
+        <h2 class="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">{% trans "Register Account" %}</h2>
+      </div>
+      <div class="bg-white dark:bg-gray-800 py-8 px-6 shadow-xl rounded-lg border border-gray-200 dark:border-gray-700">
+        <form action="{% url 'register' %}" method="POST" class="space-y-6">
+          {% csrf_token %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "Name" %}:</label>
+              <input type="text" name="first_name" id="first_name" placeholder="{% trans "Name" %}" 
+                value="{{ old_data.first_name|default:'' }}" required
+                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
             </div>
-            <div class="bg-white dark:bg-gray-800 py-8 px-6 shadow-xl rounded-lg border border-gray-200 dark:border-gray-700">
-                <form action="{% url 'register' %}" method="POST" class="space-y-6">
-                    {% csrf_token %}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label for="first_name"
-                                   class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nome</label>
-                            <input type="text"
-                                   name="first_name"
-                                   id="first_name"
-                                   placeholder="Nome"
-                                   value="{{ old_data.first_name|default:'' }}"
-                                   required
-                                   class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
-                        </div>
-                        <div>
-                            <label for="last_name"
-                                   class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Sobrenome
-                            </label>
-                            <input type="text"
-                                   name="last_name"
-                                   id="last_name"
-                                   placeholder="Sobrenome"
-                                   value="{{ old_data.last_name|default:'' }}"
-                                   required
-                                   class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
-                        </div>
-                    </div>
-                    <div>
-                        <label for="email"
-                               class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
-                        <input type="email"
-                               name="email"
-                               id="email"
-                               placeholder="exemplo@email.com"
-                               value="{{ old_data.email|default:'' }}"
-                               required
-                               class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label for="password"
-                                   class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Senha
-                            </label>
-                            <input type="password"
-                                   name="password"
-                                   id="password"
-                                   placeholder="••••••••"
-                                   value="{{ old_data.password|default:'' }}"
-                                   required
-                                   class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
-                        </div>
-                        <div>
-                            <label for="confirm_password"
-                                   class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Confirmar Senha
-                            </label>
-                            <input type="password"
-                                   name="confirm_password"
-                                   id="confirm_password"
-                                   placeholder="••••••••"
-                                   value="{{ old_data.confirm_password|default:'' }}"
-                                   required
-                                   class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
-                        </div>
-                    </div>
-                    <div>
-                        <label for="role"
-                               class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cargo</label>
-                        <select id="role"
-                                name="role"
-                                required
-                                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
-                            {% for val, label in role_choices %}
-                                <option value="{{ val }}" {% if old_data.role == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
-                            <svg class="fill-current h-4 w-4"
-                                 xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit"
-                                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98]">
-                            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                <svg class="h-5 w-5 text-blue-500 group-hover:text-blue-400"
-                                     xmlns="http://www.w3.org/2000/svg"
-                                     fill="none"
-                                     viewBox="0 0 24 24"
-                                     stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                                </svg>
-                            </span>
-                            Criar Conta
-                        </button>
-                    </div>
-                </form>
+            <div>
+              <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "Last Name" %}:</label>
+              <input type="text" name="last_name" id="last_name" placeholder="{% trans "Last Name" %}"
+                value="{{ old_data.last_name|default:'' }}" required
+                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
             </div>
-        </div>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email:</label>
+            <input type="email" name="email" id="email" placeholder="example@email.com"
+              value="{{ old_data.email|default:'' }}" required
+              class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "Password" %}:</label>
+              <input type="password" name="password" id="password" placeholder="••••••••"
+                value="{{ old_data.password|default:'' }}" required
+                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
+            </div>
+            <div>
+              <label for="confirm_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "Confirm Password" %}:</label>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="••••••••"
+                  value="{{ old_data.confirm_password|default:'' }}" required
+                  class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" />
+            </div>
+          </div>
+          <div>
+            <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "Role" %}:</label>
+              <select id="role" name="role" required
+                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                  {% for val, label in role_choices %}
+                    <option value="{{ val }}" {% if old_data.role == val %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                <svg class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+          </div>
+          <div>
+            <button type="submit"
+              class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98]">
+              <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                <svg class="h-5 w-5 text-blue-500 group-hover:text-blue-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                </svg>
+              </span>
+              {% trans "Create Account" %}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 {% endblock body %}
