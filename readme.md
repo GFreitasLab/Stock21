@@ -1,6 +1,6 @@
-# DevsPizza
+# Stock21
 
-**DevsPizza** é uma aplicação web de sistema de gerenciamento de estoque simples e leve voltado para pizzarias de pequeno e médio porte.
+**Stock21** é uma aplicação web de sistema de gerenciamento de estoque simples e leve voltado para pizzarias de pequeno e médio porte.
 
 ## Características
 
@@ -79,8 +79,8 @@ devspizza
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/GGB0T11/DevsPizza.git
-   cd DevsPizza
+   git clone https://github.com/GGB0T11/Stock21.git
+   cd Stock21
    ```
 
 2. **Defina as variáveis de ambiente:**
@@ -105,7 +105,7 @@ devspizza
 ### Usando Docker Compose (Recomendado)
 
 ```bash
-# Constrou e inicia todos os serviços
+# Builda e inicia todos os serviços
 docker-compose up --build
 
 # Roda em segundo plano
