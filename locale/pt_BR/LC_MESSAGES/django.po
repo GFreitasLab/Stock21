@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-18 10:50-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/404.html:7
+msgid "Oops! The page you are looking for was not found."
+msgstr "Ops! A página que você procura não foi encontrada."
+
+#: templates/404.html:8
+msgid "Perhaps it has been moved, renamed, or never existed."
+msgstr "Talvez ela tenha sido movida, renomeada ou nunca existiu."
+
+#: templates/404.html:10
+msgid "Back to home"
+msgstr "Voltar para o início"
+
+#: templates/base.html:52 templates/base.html:97
+msgid "Accounts"
+msgstr "Contas"
+
+#: templates/base.html:53 templates/base.html:98
+msgid "Categories"
+msgstr "Categorias"
+
+#: templates/base.html:55 templates/base.html:99 templates/home.html:25
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+#: templates/base.html:57 templates/base.html:100
+msgid "Products"
+msgstr "Produtos"
+
+#: templates/base.html:59 templates/base.html:102
+msgid "Stock Movements"
+msgstr "Movimentações"
+
+#: templates/base.html:88 templates/base.html:105
+msgid "Logout"
+msgstr "Sair"
+
+#: templates/home.html:3
+msgid "Home"
+msgstr "Início"
+
+#: templates/home.html:7
+#, python-format
+msgid "Hello, %(name)s"
+msgstr "Olá, %(name)s"
+
+#: templates/home.html:8
+msgid "Welcome to the inventory system control panel."
+msgstr "Bem vindo ao sistema de controle de estoque"
+
+#: templates/home.html:13
+msgid "Total Movements"
+msgstr "Movimentações"
+
+#: templates/home.html:17
+msgid "Products in Stock"
+msgstr "Produtos"
+
+#: templates/home.html:21
+msgid "Low Stock"
+msgstr "Estoque Baixo"
+
+#: templates/home.html:33
+msgid "Today's Revenue"
+msgstr "Vendas do Dia"
+
+#: templates/home.html:41
+msgid "Weekly Revenue"
+msgstr "Vendas da Semana"
+
+#: templates/home.html:49
+msgid "Monthly Revenue"
+msgstr "Vendas do Mês"
+
+#: templates/home.html:61
+msgid "New Stock Movement"
+msgstr "Nova movimentação"
+
+#: templates/home.html:63
+msgid "Add Product"
+msgstr "Adicionar Produto"
+
+#: templates/home.html:72
+msgid "Date"
+msgstr "Data"
+
+#: templates/home.html:73
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/home.html:74
+msgid "value"
+msgstr "Valor"
+
+#: templates/home.html:92
+msgid "No recent movement"
+msgstr "Sem movimentações recentes"
+
+#: templates/home.html:102
+msgid "Attention!"
+msgstr "Atenção!"
+
+#: templates/home.html:106 templates/home.html:109
+msgid "below the minimum"
+msgstr "Abaixo do mínimo"
