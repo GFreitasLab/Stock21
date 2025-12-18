@@ -17,22 +17,22 @@ from .services import create_account, update_account
 
 @require_http_methods(["GET", "POST"])
 def login(request: HttpRequest) -> HttpResponse:
-    """Renderiza a página de login e processa a autenticação do usuário.
+    """Renders the login page and processes user authentication.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
+        request (HttpRequest): Django request object.
 
     GET:
-        Renderiza a tela de login com o formulário em branco.
+        Renders the login screen with a blank form.
 
     POST:
-        Valida o email e a senha fornecidos:
-            - Se válidos, redireciona para a página inicial (home).
-            - Se inválidos, redireciona de volta para a página de login com uma mensagem de erro.
+        Validates the email and password provided:
+            - If valid, redirects to the home page.
+            - If invalid, redirects back to the login page with an error message.
 
     Returns:
-        HttpResponse: Página de login (GET ou POST com dados inválidos).
-        HttpResponseRedirect: Redirecionamento para a página inicial (POST válido).
+        HttpResponse: Login page (GET or POST with invalid data).
+        HttpResponseRedirect: Redirect to home page (valid POST).
     """
 
     if request.method == "GET":
@@ -60,22 +60,22 @@ def login(request: HttpRequest) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET", "POST"])
 def register(request: HttpRequest) -> HttpResponse:
-    """Renderiza a página de registro e processa o cadastro do usuário.
+    """Renders the registration page and processes the user registration.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
+        request (HttpRequest): Django request object.
 
     GET:
-        Renderiza a tela de registro com o formulário em branco.
+        Renders the registration screen with a blank form.
 
     POST:
-        Valida os campos fornecidos:
-            - Se válidos, adiciona o novo usuário ao banco de dados e redireciona para a lista de usuários com uma mensagem confirmando a ação.
-            - Se inválidos, redireciona novamente com uma mensagem de erro para a página de registro preenchida com os dados.
+        Validates the fields provided:
+            - If valid, adds the new user to the database and redirects to the user list with a message confirming the action.
+            - If invalid, redirects again with an error message to the registration page filled with the data.
 
     Returns:
-        HttpResponse: Página de registro (GET ou POST com dados inválidos).
-        HttpResponseRedirect: Redirecionamento para a página a lista de usuários (POST válido).
+        HttpResponse: Registration page (GET or POST with invalid data).
+        HttpResponseRedirect: Redirect to the user list page (valid POST).
     """
 
     context = {"role_choices": CustomUser._meta.get_field("role").choices}
@@ -101,16 +101,16 @@ def register(request: HttpRequest) -> HttpResponse:
 @login_required
 @require_http_methods(["POST"])
 def logout(request: HttpRequest) -> HttpResponse:
-    """Realiza o processo de logout do usuário.
+    """Performs the user logout process.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
+        request (HttpRequest): Django request object.
 
     POST:
-        Envia uma requisição solicitando o logout
+        Sends a request asking for logout.
 
     Returns:
-        HttpResponseRedirect: Redirecionamento para a página de login.
+        HttpResponseRedirect: Redirects to the login page.
     """
 
     logout_django(request)
@@ -122,18 +122,18 @@ def logout(request: HttpRequest) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET"])
 def account_list(request: HttpRequest) -> HttpResponse:
-    """Renderiza uma lista contendo os usuários do sistema.
+    """Renders a list containing the system users.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
+        request (HttpRequest): Django request object.
 
     GET:
-        Renderiza a tela de usuários com o filtro vazio:
-            - Se tiver Filtro, retorna os elementos que correspondem ao Filtro.
-            - Se não tiver, retorna os elementos de acordo com a página.
+        Renders the users screen with an empty filter:
+            - If there is a filter, returns the elements that match the filter.
+            - If there is no filter, returns the elements according to the page.
 
     Returns:
-        HttpResponse: Página listando os usuários.
+        HttpResponse: Page listing the users.
     """
 
     accounts = CustomUser.objects.all()
@@ -170,17 +170,17 @@ def account_list(request: HttpRequest) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET"])
 def account_detail(request: HttpRequest, id: int) -> HttpResponse:
-    """Renderiza uma página com detalhes do usuário.
+    """Renders a page with user details.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
-        id (int): identificador único do usuário.
+        request (HttpRequest): Django request object.
+        id (int): unique user identifier.
 
     GET:
-        Renderiza a tela com os dados do usuário.
+        Renders the screen with user data.
 
     Returns:
-        HttpResponse: Página de detalhamento.
+        HttpResponse: Detail page.
     """
 
     account = get_object_or_404(CustomUser, id=id)
@@ -192,23 +192,23 @@ def account_detail(request: HttpRequest, id: int) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET", "POST"])
 def account_update(request: HttpRequest, id: int) -> HttpResponse:
-    """Renderiza a página de atualização com os dados do usuário.
+    """Renders the update page with the user's data.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
-        id (int): identificador único do usuário.
+        request (HttpRequest): Django request object.
+        id (int): unique user identifier.
 
     GET:
-        Renderiza a tela de registro com o formulário preenchido com os dados do usuário.
+        Renders the registration screen with the form filled in with the user's data.
 
     POST:
-        Valida os campos fornecidos:
-            - Se válidos, altera o usuário no banco de dados e redireciona para a lista de usuários com uma mensagem confirmando a ação .
-            - Se inválidos, redireciona de volta para a página de alteração preenchida com os dados com uma mensagem de erro.
+        Validates the fields provided:
+            - If valid, changes the user in the database and redirects to the user list with a message confirming the action.
+            - If invalid, redirects back to the change page filled with the data with an error message.
 
     Returns:
-        HttpResponse: Página de registro (GET ou POST com dados inválidos).
-        HttpResponseRedirect: Redirecionamento para a página a lista de usuários (POST válido).
+        HttpResponse: Registration page (GET or POST with invalid data).
+        HttpResponseRedirect: Redirect to the user list page (valid POST).
     """
 
     account = get_object_or_404(CustomUser, id=id)
@@ -234,23 +234,23 @@ def account_update(request: HttpRequest, id: int) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET", "POST"])
 def account_delete(request, id):
-    """Exibe e processa a exclusão do usuário.
+    """Displays and processes user deletion.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
-        id (int): identificador único do usuário.
+        request (HttpRequest): Django request object.
+        id (int): unique user identifier.
 
     GET:
-        Renderiza a tela de deletar usuário solicitando senha.
+        Renders the user deletion screen requesting a password.
 
     POST:
-        Valida a senha:
-            - Se válida, deleta usuário do do banco de dados com uma mensagem de sucesso.
-            - Se inválido, redireciona para a página de insersão de senha com uma mensagem de erro.
+        Validates the password:
+            - If valid, deletes the user from the database with a success message.
+            - If invalid, redirects to the password entry page with an error message.
 
     Returns:
-        HttpResponse: Página de deletar usuário (senha inválida).
-        HttpResponseRedirect: Redirecionamento para a página a lista de usuários (POST válido).
+        HttpResponse: User deletion page (invalid password).
+        HttpResponseRedirect: Redirect to the user list page (valid POST).
     """
 
     account = get_object_or_404(CustomUser, id=id)

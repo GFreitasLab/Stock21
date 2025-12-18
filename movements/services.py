@@ -11,6 +11,21 @@ from .models import Movement, MovementInflow, MovementOutflow
 
 
 def format_period(start: str, end: str) -> tuple[datetime, datetime]:
+    """Formats string dates into timezone-aware datetime objects.
+
+    Logic:
+        - Converts start and end strings to datetime objects (start at 00:00:00, end at 23:59:59).
+        - Validates that the start date is not after the end date.
+        - Ensures the date range does not exceed a maximum of 30 days.
+        - Converts naive datetime objects to timezone-aware objects.
+
+    Returns:
+        tuple: A tuple containing (start_dt, end_dt) as aware datetime objects.
+
+    Raises:
+        ValidationError: If dates are invalid, negative, or exceed the 30-day limit.
+    """
+
     try:
         start_dt = datetime.strptime(start + " 00:00:00", "%Y-%m-%d %H:%M:%S")
         end_dt = datetime.strptime(end + " 23:59:59", "%Y-%m-%d %H:%M:%S")
@@ -35,17 +50,16 @@ def format_period(start: str, end: str) -> tuple[datetime, datetime]:
 
 
 def convert_measures(qte: Decimal, origin: str, destiny: str) -> Decimal:
-    """Converte Gramas em Kg e vice versa.
+    """Converts quantities between different measurement units.
 
-    Args:
-        qte (Decimal): Quantidade a ser convertida.
-        origin (str): Unidade de medida inserida na transação.
-        destiny (str): Unidade de medida do item.
+    Logic:
+        - Uses a mapping of conversion factors (e.g., Grams to Kilograms).
+        - Divides by 1000 for g to kg and multiplies by 1000 for kg to g.
+        - Returns the original value if origin and destiny units are the same.
 
     Returns:
-        Decimal: Número convertido.
+        Decimal: The converted quantity.
     """
-
     factors = {
         ("g", "kg"): lambda x: x / 1000,
         ("kg", "g"): lambda x: x * 1000,
@@ -57,15 +71,15 @@ def convert_measures(qte: Decimal, origin: str, destiny: str) -> Decimal:
 
 
 def parse_value_br(value: str, name: str) -> tuple[Decimal | None, list[str]]:
-    """Converte valor no formato brasileiro (1.234,56) para Decimal no padrão internacional (1234.56).
+    """Converts a Brazilian formatted string value to a Decimal.
 
-    Args:
-        value(str): Valor a ser convertido.
-        name(str): Nome do item (para retornar caso de erro).
+    Logic:
+        - Replaces dots with empty strings and commas with dots to match international standards.
+        - Attempts to cast the cleaned string into a Decimal.
+        - Validates that the final value is greater than zero.
 
     Returns:
-        Decimal, []: Caso a formatação tenha sido concluida ou o número for maior que 9.
-        None, errors: Caso a formatação não tenha funcionado ou o número seja menor ou igual a 0.
+        tuple: (Decimal, []) if successful, or (None, [error_message]) if failed.
     """
 
     errors = []
@@ -84,15 +98,20 @@ def parse_value_br(value: str, name: str) -> tuple[Decimal | None, list[str]]:
 
 @transaction.atomic
 def create_inflow(data: dict, username: str) -> None:
-    """Valida e cria uma movimentação de entrada de ingredientes.
+    """Validates and creates an inflow movement for ingredients.
 
-    Args:
-        data(dict): Requisição contendo as informações a serem preocessadas.
-        username(str): Nome do usuário.
+    Logic:
+        - Retrieves a list of ingredients from the request data.
+        - Parses and validates quantity and price for each ingredient.
+        - Converts measurements to match the ingredient's base unit.
+        - Updates ingredient stock levels using bulk_update.
+        - Records a main Movement and individual MovementInflow logs.
 
     Returns:
-        raise: Lista de erros (se houver).
-        None: Se a movimentação for registrada.
+        None: If the transaction is successful.
+
+    Raises:
+        ValidationError: If no ingredients are selected or if parsing errors occur.
     """
 
     errors = []
@@ -144,15 +163,20 @@ def create_inflow(data: dict, username: str) -> None:
 
 @transaction.atomic
 def create_outflow(data: dict, username: str) -> None:
-    """Valida e cria uma movimentação de saida de produtos.
+    """Validates and creates an outflow movement for products.
 
-    Args:
-        data(dict): Requisição contendo as informações a serem preocessadas.
-        username(str): Nome do usuário.
+    Logic:
+        - Validates the quantity for each selected product.
+        - Checks if there is enough stock for every ingredient in the product's recipe.
+        - Deducts necessary ingredient quantities from the stock.
+        - Calculates the total transaction value based on product prices.
+        - Records a main Movement and individual MovementOutflow logs.
 
     Returns:
-        raise: Lista de erros (se houver).
-        None: Se a movimentação for registrada.
+        None: If the transaction is successful.
+
+    Raises:
+        ValidationError: If no products are selected, if parsing fails, or if stock is insufficient.
     """
 
     errors = []

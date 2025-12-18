@@ -17,23 +17,22 @@ from .services import create_inflow, create_outflow, format_period
 @login_required
 @require_http_methods(["GET", "POST"])
 def movement_create(request: HttpRequest) -> HttpResponse:
-    """Renderiza a página de criação de movimentação e processa o registro.
+    """Renders the transaction creation page and processes the record.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
+        request (HttpRequest): Django request object.
 
     GET:
-        Renderiza a tela de registro de movimentação com ingredientes e produtos a serem transacionados.
+        Renders the transaction record screen with ingredients and products to be transacted.
 
     POST:
-        Valida os campos fornecidos de acordo com o tipo de movimentação:
-            - Se válida redireciona para a lista de movimentações e exibe uma mensagem de sucesso.
-            - Se Inválida redireciona para a crição novamente e exibe uma mensagem de erro.
+        Validates the fields provided according to the transaction type:
+            - If valid, redirects to the transaction list and displays a success message.
+            - If invalid, redirects to the creation page again and displays an error message.
 
     Returns:
-        HttpResponse: Página de criar movimentação (GET ou POST com dados inválidos).
-        HttpResponseRedirect: Redirecionamento para a lista de movimentações (POST válido).
-
+        HttpResponse: Movement creation page (GET or POST with invalid data).
+        HttpResponseRedirect: Redirect to the list of movements (valid POST).
     """
 
     context = {
@@ -68,18 +67,18 @@ def movement_create(request: HttpRequest) -> HttpResponse:
 @login_required
 @require_http_methods(["GET"])
 def movement_list(request: HttpRequest) -> HttpResponse:
-    """Exibe uma lista com as movimentações do sistema.
+    """Displays a list of system transactions.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
+        request (HttpRequest): Django request object.
 
     GET:
-        renderiza a tela de movimentações com o filtro de data vazio.
-            - Se tiver filtro, retorna as movimentações correspondentes ao período.
-            - Se não tiver filtro, retorna as movimentações de acordo com a página.
+        Renders the transaction screen with an empty date filter.
+        - If there is a filter, returns the transactions corresponding to the period.
+        - If there is no filter, returns the transactions according to the page.
 
     Returns:
-        HttpResponse: Listando as movimentações
+        HttpResponse: Listing the transactions.
     """
 
     start_date = request.GET.get("start_date")
@@ -118,18 +117,17 @@ def movement_list(request: HttpRequest) -> HttpResponse:
 @login_required
 @require_http_methods(["GET"])
 def movement_detail(request: HttpRequest, id: int) -> HttpResponse:
-    """Renderiza uma página com detalhes da movimentação.
+    """Renders a page with transaction details.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
-        id (int): Identificador único da movimentação.
+        request (HttpRequest): Django request object.
+        id (int): Unique transaction identifier.
 
     GET:
-        Renderiza a tela com os dados da movimentação.
+        Renders the screen with transaction data.
 
     Returns:
-        HttpResponse: Página de detalhamento.
-
+        HttpResponse: Detail page.
     """
 
     movement = get_object_or_404(Movement, id=id)
@@ -142,23 +140,23 @@ def movement_detail(request: HttpRequest, id: int) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET", "POST"])
 def movement_delete(request: HttpRequest, id: int) -> HttpResponse:
-    """Exibe e processa a exclusão da movimentação.
+    """Displays and processes the deletion of the transaction.
 
     Args:
-        request (HttpRequest): Objeto de requisição do Django.
-        id (int): identificador único da movimentação.
+        request (HttpRequest): Django request object.
+        id (int): unique identifier of the transaction.
 
     GET:
-        Renderiza a tela de deletar movimentação solicitando senha.
+        Renders the delete transaction screen requesting a password.
 
     POST:
-        Valida a senha:
-            - Se válida, deleta movimentação do do banco de dados com uma mensagem de sucesso.
-            - Se inválido, redireciona para a página de insersão de senha com uma mensagem de erro.
+        Validates the password:
+            - If valid, deletes the transaction from the database with a success message.
+            - If invalid, redirects to the password entry page with an error message.
 
     Returns:
-        HttpResponse: Página de deletar movimentação (senha inválida).
-        HttpResponseRedirect: Redirecionamento para a página a lista de movimentações (POST válido).
+        HttpResponse: Transaction deletion page (invalid password).
+        HttpResponseRedirect: Redirect to the transaction list page (valid POST).
     """
 
     movement = get_object_or_404(Movement, id=id)
@@ -183,22 +181,22 @@ def movement_delete(request: HttpRequest, id: int) -> HttpResponse:
 @admin_required
 @require_http_methods(["GET", "POST"])
 def report(request: HttpRequest) -> HttpResponse:
-    """Cria um relatório de movimentações de acordo com um período específico.
+    """Creates a report of transactions for a specific period.
 
     Args:
-        request (HttpRequest): Objeto de requisição do django.
+        request (HttpRequest): Django request object.
 
     GET:
-        Renderiza a página de relatório.
+        Renders the report page.
 
     POST:
-        Valida o período inserido:
-            - Se válido, gera um relatório com base em um período específico.
-            - Se inválido, retorna para a página de relatório com uma mensagem de erro.
+        Validates the entered period:
+            - If valid, generates a report based on a specific period.
+            - If invalid, returns to the report page with an error message.
 
     Returns:
-        HttpRequest: Página de geração de relatório (data inválida).
-        HttpsResponseRedirect: PDF do relatório (POST válido).
+        HttpRequest: Report generation page (invalid date).
+        HttpsResponseRedirect: PDF of the report (valid POST).
     """
 
     if request.method == "GET":
@@ -213,7 +211,7 @@ def report(request: HttpRequest) -> HttpResponse:
         messages.error(request, e.message)
         return render(request, "report.html", {"start_date": start_date, "end_date": end_date})
 
-    # prefetch_related para realizar apenas uma busca por todos os dados que atendem ao filtro
+    # prefetch_related to perform only one search for all data that meets the filter criteria
     movements = (
         Movement.objects.filter(date__range=(start_dt, end_dt))
         .prefetch_related("ingredients", "products")
@@ -275,7 +273,7 @@ def report(request: HttpRequest) -> HttpResponse:
                 pdf.cell(40, 8, f"{prod.price:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."), border=1)
                 pdf.ln()
 
-        pdf.ln(5)  # espaço entre movimentos
+        pdf.ln(5)  # space between movements
 
     pdf.set_font("Arial", "B", 12)
     pdf.cell(0, 10, "Resumo Financeiro", ln=True)
@@ -288,7 +286,7 @@ def report(request: HttpRequest) -> HttpResponse:
         0, 8, f"Total de Saídas:   R$ {total_out:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."), ln=True
     )
 
-    # Retornando o pdf como resposta HTTP
+    # Returning the PDF as an HTTP response
     response = HttpResponse(bytes(pdf.output(dest="S")), content_type="application/pdf")
     response["Content-Disposition"] = "inline; filename='relatorio.pdf'"
     return response

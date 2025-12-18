@@ -6,15 +6,15 @@ from .models import Ingredient, Product, ProductIngredient
 
 
 def parse_value_br(value: str, msg: str) -> tuple[Decimal | None, list[str]]:
-    """Converte valor no formato brasileiro (1.234,56) para Decimal no padrão internacional (1234.56).
+    """Converts a value in Brazilian format (1,234.56) to Decimal in international standard (1234.56).
 
     Args:
-        value(str): Valor a ser convertido.
-        msg(str): Mensagem (para retornar caso de erro).
+        value(str): Value to be converted.
+        msg(str): Message (to return in case of error).
 
     Returns:
-        Decimal, []: Caso a formatação tenha sido concluida ou o número for maior que 9.
-        None, errors: Caso a formatação não tenha funcionado ou o número seja menor ou igual a 0.
+        Decimal, []: If formatting was successful or the number is greater than 9.
+        None, errors: If formatting failed or the number is less than or equal to 0.
     """
 
     errors = []

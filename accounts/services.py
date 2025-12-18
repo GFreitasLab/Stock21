@@ -4,7 +4,17 @@ from .models import CustomUser
 
 
 def validate_email(email: str, account_id=None) -> list:
-    """Valida email único"""
+    """Validates if an email is unique in the database.
+
+    Args:
+        email: The email string to be checked.
+        account_id: The ID of the current account (optional). Used to exclude 
+            the current user from the uniqueness check during updates.
+
+    Returns:
+        A list of error messages. If the list is empty, the email is valid.
+    """
+
     errors = []
     if account_id:
         exists = CustomUser.objects.filter(email=email).exclude(id=account_id).exists()
@@ -16,7 +26,16 @@ def validate_email(email: str, account_id=None) -> list:
 
 
 def validate_password(password: str, confirm_password: str) -> list:
-    """Valida senha e confirmação"""
+    """Validates the password strength and confirmation match.
+
+    Args:
+        password: The primary password string.
+        confirm_password: The password confirmation string to match against.
+
+    Returns:
+        A list of error messages regarding password mismatch or length.
+    """
+
     errors = []
     if password != confirm_password:
         errors.append("As senhas devem ser iguais!")
@@ -26,7 +45,19 @@ def validate_password(password: str, confirm_password: str) -> list:
 
 
 def create_account(data: dict) -> CustomUser:
-    """Cria a conta"""
+    """Handles the creation of a new user account after validation.
+
+    Args:
+        data: A dictionary containing user details (email, password, 
+            confirm_password, first_name, last_name, and role).
+
+    Returns:
+        The newly created CustomUser instance.
+
+    Raises:
+        ValidationError: If any email or password validation fails.
+    """
+
     errors = []
 
     errors.extend(validate_email(data["email"]))
@@ -48,7 +79,20 @@ def create_account(data: dict) -> CustomUser:
 
 
 def update_account(account: CustomUser, data: dict):
-    """Atualiza as informações de uma conta"""
+    """Updates the information of an existing user account.
+
+    Args:
+        account: The CustomUser instance to be updated.
+        data: A dictionary containing the updated fields (first_name, 
+            last_name, email, role, and optionally password fields).
+
+    Returns:
+        The updated CustomUser instance.
+
+    Raises:
+        ValidationError: If the new password data is provided but invalid.
+    """
+
     error = []
 
     password, confirm_password = data["password"], data["confirm_password"]
