@@ -2,116 +2,117 @@
 {% load i18n %}
 {% block title %}{% trans "Home" %}{% endblock %}
 {% block body %}
-    <div class="space-y-6 min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-2xl font-bold">
-          {% blocktranslate with name=user.first_name|default:"User" %}Hello, {{ name }}{% endblocktranslate %}</h1>
-        <p class="text-gray-600 dark:text-gray-300">{% trans "Welcome to the inventory system control panel." %}</p>
+  <div class="space-y-6 min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-2xl font-bold">
+      {% blocktranslate with name=user.first_name|default:"User" %}Hello, {{ name }}{% endblocktranslate %}</h1>
+    <p class="text-gray-600 dark:text-gray-300">{% trans "Welcome to the inventory system control panel." %}</p>
 
-        <!-- Resume Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-                <p class="text-gray-500">{% trans "Total Movements" %}</p>
-                <p class="text-2xl font-bold text-blue-500">{{ total_movements }}</p>
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-                <p class="text-gray-500">{% trans "Products in Stock" %}</p>
-                <p class="text-2xl font-bold text-yellow-500">{{ total_products }}</p>
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-                <p class="text-gray-500">{% trans "Low Stock" %}</p>
-                <p class="text-2xl font-bold text-red-500">{{ low_stock_count }}</p>
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-                <p class="text-gray-500">{% trans "Ingredients" %}</p>
-                <p class="text-2xl font-bold text-green-500">{{ total_ingredients }}</p>
-            </div>
-        </div>
+    <!-- Resume Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Total Movements" %}</p>
+        <p class="text-2xl font-bold text-blue-500">{{ total_movements }}</p>
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Products in Stock" %}</p>
+        <p class="text-2xl font-bold text-yellow-500">{{ total_products }}</p>
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Low Stock" %}</p>
+        <p class="text-2xl font-bold text-red-500">{{ low_stock_count }}</p>
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Ingredients" %}</p>
+        <p class="text-2xl font-bold text-green-500">{{ total_ingredients }}</p>
+      </div>
+    </div>
 
-        <!-- Billing Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-                <p class="text-gray-500">{% trans "Today's Revenue" %}</p>
-                {% if daily_net >= 0 %}
-                    <p class="text-2xl font-bold text-green-500">{{ daily_net|floatformat:2 }}</p>
+    <!-- Billing Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Today's Revenue" %}</p>
+        {% if daily_net >= 0 %}
+          <p class="text-2xl font-bold text-green-500">{{ daily_net|floatformat:2 }}</p>
+        {% else %}
+          <p class="text-2xl font-bold text-red-500">-R$ {{ daily_net|floatformat:2|slice:"1:" }}</p>
+        {% endif %}
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Weekly Revenue" %}</p>
+          {% if weekly_net >= 0 %}
+            <p class="text-2xl font-bold text-green-500">+R$ {{ weekly_net|floatformat:2 }}</p>
+          {% else %}
+            <p class="text-2xl font-bold text-red-500">-R$ {{ weekly_net|floatformat:2|slice:"1:" }}</p>
+          {% endif %}
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
+        <p class="text-gray-500">{% trans "Monthly Revenue" %}</p>
+        {% if monthly_net >= 0 %}
+          <p class="text-2xl font-bold text-green-500">+R$ {{ monthly_net|floatformat:2 }}</p>
+        {% else %}
+          <p class="text-2xl font-bold text-red-500">-R$ {{ monthly_net|floatformat:2|slice:"1:" }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Quick Buttons -->
+    <div class="flex flex-wrap gap-4">
+      <a href="{% url 'movement_create' %}"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">{% trans "New Stock Movement" %}</a>
+      <a href="{% url 'product_create' %}"
+        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">{% trans "Add Product" %}</a>
+    </div>
+
+    <!-- Latest Movements -->
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">Latest Movements</h2>
+      <table class="w-full text-left text-sm">
+        <thead class="text-gray-700 dark:text-gray-300">
+          <tr>
+            <th class="py-2">{% trans "Date" %}</th>
+            <th class="py-2">{% trans "Type" %}</th>
+            <th class="py-2">{% trans "value" %}</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-900 dark:text-gray-100">
+          {% for m in recent_movements %}
+            <tr class="table-row" onclick="window.location='{% url 'movement_detail' m.id %}'">
+              <td class="py-2">{{ m.date|date:"d/m/Y H:i:s" }}</td>
+              <td class="py-2">{{ m.get_type_display }}</td>
+                {% if m.type == "in" %}
+                  <td class="py-2 font-semibold text-red-500">-R$ {{ m.value }}</td>
                 {% else %}
-                    <p class="text-2xl font-bold text-red-500">-R$ {{ daily_net|floatformat:2|slice:"1:" }}</p>
+                  <td class="py-2 font-semibold text-green-500">+R$ {{ m.value }}</td>
                 {% endif %}
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-              <p class="text-gray-500">{% trans "Weekly Revenue" %}</p>
-                {% if weekly_net >= 0 %}
-                    <p class="text-2xl font-bold text-green-500">+R$ {{ weekly_net|floatformat:2 }}</p>
-                {% else %}
-                    <p class="text-2xl font-bold text-red-500">-R$ {{ weekly_net|floatformat:2|slice:"1:" }}</p>
-                {% endif %}
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-                <p class="text-gray-500">{% trans "Monthly Revenue" %}</p>
-                {% if monthly_net >= 0 %}
-                    <p class="text-2xl font-bold text-green-500">+R$ {{ monthly_net|floatformat:2 }}</p>
-                {% else %}
-                    <p class="text-2xl font-bold text-red-500">-R$ {{ monthly_net|floatformat:2|slice:"1:" }}</p>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- Quick Buttons -->
-        <div class="flex flex-wrap gap-4">
-            <a href="{% url 'movement_create' %}"
-               class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">{% trans "New Stock Movement" %}</a>
-            <a href="{% url 'product_create' %}"
-               class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">{% trans "Add Product" %}</a>
-        </div>
-
-        <!-- Latest Movements -->
-        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-            <h2 class="text-lg font-semibold mb-2">Latest Movements</h2>
-            <table class="w-full text-left text-sm">
-                <thead class="text-gray-700 dark:text-gray-300">
-                    <tr>
-                        <th class="py-2">{% trans "Date" %}</th>
-                        <th class="py-2">{% trans "Type" %}</th>
-                        <th class="py-2">{% trans "value" %}</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-900 dark:text-gray-100">
-                    {% for m in recent_movements %}
-                        <tr class="table-row"
-                            onclick="window.location='{% url 'movement_detail' m.id %}'">
-                            <td class="py-2">{{ m.date|date:"d/m/Y H:i:s" }}</td>
-                            <td class="py-2">{{ m.get_type_display }}</td>
-                            {% if m.type == "in" %}
-                                <td class="py-2 font-semibold text-red-500">-R$ {{ m.value }}</td>
-                            {% else %}
-                                <td class="py-2 font-semibold text-green-500">+R$ {{ m.value }}</td>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                      <td colspan="5" class="py-4 text-center text-gray-400">{% trans "No recent movement" %}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="py-4 text-center text-gray-400">{% trans "No recent movement" %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 
     <!-- Alerts -->
     {% if low_stock_alerts %}
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded" role="alert">
-            <strong class="font-bold">{% trans "Attention!" %}</strong>
-            <ul class="mt-2 list-disc list-inside text-sm">
-                {% for ingredient in low_stock_alerts %}
-                    {% if ingredient.measure == "kg" %}
-                        <li>{{ ingredient.name }} {% trans "below the minimum" %} ({{ ingredient.qte }} {{ ingredient.get_measure_display }})</li>
-                    {% else %}
-                        <li>
-                            {{ ingredient.name }} {% trans "below the minimum" %} ({{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }})
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
+      <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded" role="alert">
+        <strong class="font-bold">{% trans "Attention!" %}</strong>
+        <ul class="mt-2 list-disc list-inside text-sm">
+          {% for ingredient in low_stock_alerts %}
+            {% if ingredient.measure == "kg" %}
+              <li>
+                {{ ingredient.name }} {% trans "below the minimum" %} ({{ ingredient.qte }} {{ ingredient.get_measure_display }})
+              </li>
+            {% else %}
+              <li>
+                {{ ingredient.name }} {% trans "below the minimum" %} ({{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }})
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
-</div>
+  </div>
 {% endblock %}

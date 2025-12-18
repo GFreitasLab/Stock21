@@ -2,116 +2,115 @@
 {% load static %}
 {% load i18n %}
 <html lang="{{ LANGUAGE_CODE }}">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="{% static 'css/output.css' %}">
-        <title>
-            {% block title %}
-            {% endblock title %}
-        </title>
-    </head>
-    <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+  </head>
+  <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
 
-        <!-- Django Messages -->
-        {% if messages %}
-            <div id="toast-container" class="fixed top-4 right-4 z-100 space-y-3">
-                {% for message in messages %}
-                    <div class="relative flex items-start justify-between max-w-sm p-4 text-sm text-white bg-{{ message.tags }}-500 rounded shadow-md">
-                        <div>
-                            <p class="font-medium">{{ message }}</p>
-                        </div>
-                        <button type="button"
-                                onclick="this.parentElement.remove()"
-                                class="ml-4 text-white hover:text-gray-200 focus:outline-none">✕</button>
-                    </div>
+    <!-- Django Messages -->
+    {% if messages %}
+      <div id="toast-container" class="fixed top-4 right-4 z-100 space-y-3">
+        {% for message in messages %}
+          <div class="relative flex items-start justify-between max-w-sm p-4 text-sm text-white bg-{{ message.tags }}-500 rounded shadow-md">
+            <div>
+              <p class="font-medium">{{ message }}</p>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()"
+              class="ml-4 text-white hover:text-gray-200 focus:outline-none">✕</button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Navbar -->
+    {% if user.is_authenticated %}
+      <nav class="fixed top-0 right-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+
+          <!-- Logo -->
+          <div class="flex items-center space-x-2">
+            <a href="{% url 'home' %}" class="flex items-center space-x-2">
+              <div class="h-10 w-10 flex-shrink-0 overflow-hidden">
+                <img src="{% static 'assets/logo.png' %}"
+                  alt="Logo"
+                  class="h-full w-full object-contain max-h-10 max-w-10">
+              </div>
+              <span class="text-xl font-semibold text-gray-800 dark:text-white">Stock21</span>
+            </a>
+          </div>
+
+          <!-- Desktop Menu -->
+          <div class="hidden sm:flex flex-wrap gap-2 ml-4">
+            {% if request.user.role == "admin" %}
+              <a href="{% url 'account_list' %}" class="nav-link">{% trans "Accounts" %}</a>
+              <a href="{% url 'category_list' %}" class="nav-link">{% trans "Categories" %}</a>
+            {% endif %}
+            <a href="{% url 'ingredient_list' %}" class="nav-link">{% trans "Ingredients" %}</a>
+            {% if request.user.role == "admin" %}
+              <a href="{% url 'product_list' %}" class="nav-link">{% trans "Products" %}</a>
+            {% endif %}
+            <a href="{% url 'movement_list' %}" class="nav-link">{% trans "Stock Movements" %}</a>
+          </div>
+
+          <!-- Language Selector -->
+          <form action="{% url 'set_language' %}" method="post" class="flex items-center">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}">
+            <div class="relative">
+              <select name="language"  onchange="this.form.submit()" class="nav-link">
+                {% get_current_language as CURRENT_LANG %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+
+                {% for language in languages %}
+                  <option value="{{ language.code }}" {% if language.code == CURRENT_LANG %}selected{% endif %} class="text-gray-900">
+                    {{ language.code|upper }}
+                  </option>
                 {% endfor %}
+              </select>
             </div>
+          </form>
+
+          <!-- Hamburguer Button (Mobile) -->
+          <button id="menu-toggle" class="menu-toggle">☰</button>
+
+          <!-- logout Button (Desktop) -->
+          <div class="hidden sm:flex">
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="logout-button">{% trans "Logout" %}</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Floating Mobile Menu -->
+      <div id="mobile-menu" class="mobile-menu">
+        {% if request.user.role == "admin" %}
+          <a href="{% url 'account_list' %}" class="nav-link">{% trans "Accounts" %}</a>
+          <a href="{% url 'category_list' %}" class="nav-link">{% trans "Categories" %}</a>
+          <a href="{% url 'ingredient_list' %}" class="nav-link">{% trans "Ingredients" %}</a>
+          <a href="{% url 'product_list' %}" class="nav-link">{% trans "Products" %}</a>
         {% endif %}
+        <a href="{% url 'movement_list' %}" class="nav-link">{% trans "Stock Movements" %}</a>
+        <form action="{% url 'logout' %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="logout-button">{% trans "Logout" %}</button>
+        </form>
+      </div>
+      <script src="{% static 'base/js/toogle_menu.js' %}"></script>
+    {% endif %}
 
-        <!-- Navbar -->
-        {% if user.is_authenticated %}
-            <nav class="fixed top-0 right-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-md">
-                <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-
-                    <!-- Logo -->
-                    <div class="flex items-center space-x-2">
-                        <a href="{% url 'home' %}" class="flex items-center space-x-2">
-                            <div class="h-10 w-10 flex-shrink-0 overflow-hidden">
-                                <img src="{% static 'assets/logo.png' %}"
-                                     alt="Logo"
-                                     class="h-full w-full object-contain max-h-10 max-w-10">
-                            </div>
-                            <span class="text-xl font-semibold text-gray-800 dark:text-white">Stock21</span>
-                        </a>
-                    </div>
-
-                    <!-- Desktop Menu -->
-                    <div class="hidden sm:flex flex-wrap gap-2 ml-4">
-                        {% if request.user.role == "admin" %}
-                            <a href="{% url 'account_list' %}" class="nav-link">{% trans "Accounts" %}</a>
-                            <a href="{% url 'category_list' %}" class="nav-link">{% trans "Categories" %}</a>
-                        {% endif %}
-                        <a href="{% url 'ingredient_list' %}" class="nav-link">{% trans "Ingredients" %}</a>
-                        {% if request.user.role == "admin" %}
-                            <a href="{% url 'product_list' %}" class="nav-link">{% trans "Products" %}</a>
-                        {% endif %}
-                        <a href="{% url 'movement_list' %}" class="nav-link">{% trans "Stock Movements" %}</a>
-                    </div>
-
-                    <!-- Language Selector -->
-                    <form action="{% url 'set_language' %}" method="post" class="flex items-center">
-                      {% csrf_token %}
-                      <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                      <div class="relative">
-                          <select name="language"  onchange="this.form.submit()" class="nav-link">
-                              {% get_current_language as CURRENT_LANG %}
-                              {% get_available_languages as LANGUAGES %}
-                              {% get_language_info_list for LANGUAGES as languages %}
-                              
-                              {% for language in languages %}
-                                  <option value="{{ language.code }}" {% if language.code == CURRENT_LANG %}selected{% endif %} class="text-gray-900">
-                                      {{ language.code|upper }}
-                                  </option>
-                              {% endfor %}
-                          </select>
-                      </div>
-                    </form>
-
-                    <!-- Hamburguer Button (Mobile) -->
-                    <button id="menu-toggle" class="menu-toggle">☰</button>
-                    
-                    <!-- logout Button (Desktop) -->
-                    <div class="hidden sm:flex">
-                        <form action="{% url 'logout' %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="logout-button">{% trans "Logout" %}</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- Floating Mobile Menu -->
-            <div id="mobile-menu" class="mobile-menu">
-                {% if request.user.role == "admin" %}
-                    <a href="{% url 'account_list' %}" class="nav-link">{% trans "Accounts" %}</a>
-                    <a href="{% url 'category_list' %}" class="nav-link">{% trans "Categories" %}</a>
-                    <a href="{% url 'ingredient_list' %}" class="nav-link">{% trans "Ingredients" %}</a>
-                    <a href="{% url 'product_list' %}" class="nav-link">{% trans "Products" %}</a>
-                {% endif %}
-                <a href="{% url 'movement_list' %}" class="nav-link">{% trans "Stock Movements" %}</a>
-                <form action="{% url 'logout' %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">{% trans "Logout" %}</button>
-                </form>
-            </div>
-            <script src="{% static 'base/js/toogle_menu.js' %}"></script>
-        {% endif %}
-
-        <!-- Main Content -->
-        <main class="sm:px-4 py-8 max-w-7xl mx-auto scrollbar-hide">
-            {% block body %}
-            {% endblock body %}
-        </main>
-    </body>
+    <!-- Main Content -->
+    <main class="sm:px-4 py-8 max-w-7xl mx-auto scrollbar-hide">
+      {% block body %}
+      {% endblock body %}
+    </main>
+  </body>
 </html>
