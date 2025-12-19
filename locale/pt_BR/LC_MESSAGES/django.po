@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 14:04-0300\n"
+"POT-Creation-Date: 2025-12-19 14:44-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,7 @@ msgstr "Deletar Conta"
 #: stock/templates/category_delete.html:21
 #: stock/templates/ingredient_delete.html:7
 #: stock/templates/ingredient_delete.html:21
+#: stock/templates/product_delete.html:7 stock/templates/product_delete.html:21
 msgid "Confirm Exclusion"
 msgstr "Confirmar Exclusão"
 
@@ -56,6 +57,7 @@ msgstr "Tem certeza que deseja excluir a conta de"
 #: movements/templates/movement_delete.html:11
 #: stock/templates/category_delete.html:11
 #: stock/templates/ingredient_delete.html:11
+#: stock/templates/product_delete.html:11
 msgid "This action cannot be undone."
 msgstr "Essa ação não poderá ser desfeita."
 
@@ -63,6 +65,7 @@ msgstr "Essa ação não poderá ser desfeita."
 #: movements/templates/movement_delete.html:16
 #: stock/templates/category_delete.html:16
 #: stock/templates/ingredient_delete.html:16
+#: stock/templates/product_delete.html:16
 msgid "Confirm with password"
 msgstr "Confirmar com senha"
 
@@ -73,6 +76,8 @@ msgstr "Confirmar com senha"
 #: stock/templates/category_update.html:19
 #: stock/templates/ingredient_delete.html:20
 #: stock/templates/ingredient_update.html:46
+#: stock/templates/product_delete.html:20
+#: stock/templates/product_update.html:38
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -100,6 +105,10 @@ msgstr "Detalhes da Conta"
 #: stock/templates/ingredient_list.html:21
 #: stock/templates/ingredient_list.html:56
 #: stock/templates/ingredient_update.html:11
+#: stock/templates/product_create.html:11
+#: stock/templates/product_detail.html:10
+#: stock/templates/product_detail.html:24 stock/templates/product_list.html:21
+#: stock/templates/product_list.html:44 stock/templates/product_update.html:11
 msgid "Name"
 msgstr "Nome"
 
@@ -123,12 +132,14 @@ msgstr "Ultima alteração"
 #: movements/templates/movement_detail.html:99
 #: stock/templates/category_detail.html:19
 #: stock/templates/ingredient_detail.html:38
+#: stock/templates/product_detail.html:49
 msgid "Back to List"
 msgstr "Voltar para o início"
 
 #: accounts/templates/account_detail.html:32
 #: stock/templates/category_detail.html:20
 #: stock/templates/ingredient_detail.html:41
+#: stock/templates/product_detail.html:50
 msgid "Edit"
 msgstr "Editar"
 
@@ -136,6 +147,7 @@ msgstr "Editar"
 #: movements/templates/movement_detail.html:100
 #: stock/templates/category_detail.html:21
 #: stock/templates/ingredient_detail.html:42
+#: stock/templates/product_detail.html:51
 msgid "Delete"
 msgstr "Deletar"
 
@@ -148,12 +160,12 @@ msgid "List of Accounts"
 msgstr "Lista de Contas"
 
 #: accounts/templates/account_list.html:19
-#: stock/templates/ingredient_list.html:19
+#: stock/templates/ingredient_list.html:19 stock/templates/product_list.html:19
 msgid "Filter By"
 msgstr "Filtrar por"
 
 #: accounts/templates/account_list.html:27
-#: stock/templates/ingredient_list.html:28
+#: stock/templates/ingredient_list.html:28 stock/templates/product_list.html:26
 msgid "Value"
 msgstr "Valor"
 
@@ -163,7 +175,7 @@ msgstr "Digite o valor..."
 
 #: accounts/templates/account_list.html:37
 #: movements/templates/movement_list.html:29
-#: stock/templates/ingredient_list.html:40
+#: stock/templates/ingredient_list.html:40 stock/templates/product_list.html:30
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -174,14 +186,14 @@ msgstr "Criar Conta"
 #: accounts/templates/account_list.html:54
 #: movements/templates/movement_list.html:46
 #: stock/templates/category_list.html:23
-#: stock/templates/ingredient_list.html:59
+#: stock/templates/ingredient_list.html:59 stock/templates/product_list.html:46
 msgid "Actions"
 msgstr "Ações"
 
 #: accounts/templates/account_list.html:85
 #: movements/templates/movement_list.html:80
 #: stock/templates/category_list.html:49
-#: stock/templates/ingredient_list.html:97
+#: stock/templates/ingredient_list.html:97 stock/templates/product_list.html:76
 msgid "Previous"
 msgstr "Anterior"
 
@@ -189,6 +201,7 @@ msgstr "Anterior"
 #: movements/templates/movement_list.html:85
 #: stock/templates/category_list.html:54
 #: stock/templates/ingredient_list.html:102
+#: stock/templates/product_list.html:81
 msgid "Page"
 msgstr "Página"
 
@@ -196,6 +209,7 @@ msgstr "Página"
 #: movements/templates/movement_list.html:91
 #: stock/templates/category_list.html:58
 #: stock/templates/ingredient_list.html:108
+#: stock/templates/product_list.html:87
 msgid "Next"
 msgstr "Próximo"
 
@@ -226,6 +240,7 @@ msgstr "Senha"
 #: accounts/templates/account_update.html:40
 #: stock/templates/category_update.html:20
 #: stock/templates/ingredient_update.html:47
+#: stock/templates/product_update.html:39
 msgid "Update"
 msgstr "Atualizar"
 
@@ -247,6 +262,7 @@ msgstr "seu@email.com"
 
 #: accounts/templates/register.html:3 stock/templates/category_create.html:22
 #: stock/templates/ingredient_create.html:49
+#: stock/templates/product_create.html:61
 msgid "Register"
 msgstr "Registrar"
 
@@ -355,23 +371,31 @@ msgid "Movement Type"
 msgstr "Tipo de movimentação"
 
 #: movements/templates/movement_create.html:30
-#: movements/templates/movement_detail.html:29 templates/base.html:54
+#: movements/templates/movement_detail.html:29
+#: stock/templates/product_create.html:21
+#: stock/templates/product_detail.html:18
+#: stock/templates/product_update.html:19 templates/base.html:54
 #: templates/base.html:98 templates/home.html:25
 msgid "Ingredients"
 msgstr "Ingredientes"
 
 #: movements/templates/movement_create.html:35
 #: movements/templates/movement_create.html:86
+#: stock/templates/product_create.html:25
 msgid "Include"
 msgstr "Incluir"
 
 #: movements/templates/movement_create.html:36
+#: stock/templates/product_create.html:26
 msgid "Ingredient"
 msgstr "Ingredientes"
 
 #: movements/templates/movement_create.html:37
 #: movements/templates/movement_detail.html:35
 #: movements/templates/movement_detail.html:66
+#: stock/templates/product_create.html:16
+#: stock/templates/product_detail.html:14 stock/templates/product_list.html:22
+#: stock/templates/product_list.html:45 stock/templates/product_update.html:15
 msgid "Price"
 msgstr "Preço"
 
@@ -585,6 +609,8 @@ msgstr "Lista de Ingredientes"
 #: stock/templates/ingredient_list.html:23
 #: stock/templates/ingredient_list.html:57
 #: stock/templates/ingredient_update.html:34
+#: stock/templates/product_create.html:27
+#: stock/templates/product_detail.html:25
 msgid "Quantity"
 msgstr "Quantidate"
 
@@ -599,6 +625,54 @@ msgstr "Atualizar Ingrediente"
 #: stock/templates/ingredient_update.html:26
 msgid "Measure unit"
 msgstr "Unidade de Medida"
+
+#: stock/templates/product_create.html:3 stock/templates/product_create.html:7
+msgid "New Product"
+msgstr "Criar Produto"
+
+#: stock/templates/product_create.html:52
+msgid "No ingredients registered in the system."
+msgstr "Sem ingredientes registrados no sistema"
+
+#: stock/templates/product_delete.html:3
+msgid "Delete Product"
+msgstr "Deletar Produto"
+
+#: stock/templates/product_delete.html:9
+msgid "Are you sure you want to delete product"
+msgstr "Tem certeza que deseja excluir o produto"
+
+#: stock/templates/product_detail.html:3
+msgid "Detail Product"
+msgstr "Detalhar Produto"
+
+#: stock/templates/product_detail.html:7
+msgid "Product Details"
+msgstr "Detalhes do Produto"
+
+#: stock/templates/product_detail.html:45
+msgid "No associated ingredients."
+msgstr "Sem ingredientes associados"
+
+#: stock/templates/product_list.html:4
+msgid "Product List"
+msgstr "Listar Produtos"
+
+#: stock/templates/product_list.html:11
+msgid "List of Products"
+msgstr "Lista de Produtos"
+
+#: stock/templates/product_list.html:39
+msgid "Register Product"
+msgstr "Registrar Produto"
+
+#: stock/templates/product_update.html:3
+msgid "Edit Product"
+msgstr "Editar Produto"
+
+#: stock/templates/product_update.html:7
+msgid "Update Product"
+msgstr "Atualizar Produto"
 
 #: stock/views.py:41
 msgid "The category you want to register already exists!"

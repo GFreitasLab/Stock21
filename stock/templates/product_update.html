@@ -1,64 +1,44 @@
 {% extends "base.html" %}
-{% block title %}
-    Editar Produto
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Edit Product" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="update-container">
-            <h2 class="update-title">Atualizar Produto</h2>
-            <form action="{% url 'product_update' product.id %}"
-                  method="POST"
-                  class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="name" class="update-text">Nome:</label>
-                    <input type="text"
-                           name="name"
-                           value="{{ product.name }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="price" class="update-text">Preço:</label>
-                    <input type="text"
-                           name="price"
-                           pattern="^\d+(,\d{1,2})?$"
-                           value="{{ product.price }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Ingredientes</h3>
-                    <div class="space-y-4">
-                        {% for ingredient in ingredients %}
-                            <div class="update-table">
-                                <div class="flex items-center gap-2">
-                                    <input type="checkbox"
-                                           name="ingredients"
-                                           value="{{ ingredient.id }}"
-                                           id="i-{{ ingredient.id }}"
-                                           {% for pi in product_ingredients %}{% if pi.ingredient.id == ingredient.id %}checked{% endif %}
-                                           {% endfor %}>
-                                    <label for="i-{{ ingredient.id }}" class="update-text">{{ ingredient.name }}</label>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <input type="text"
-                                           name="q-{{ ingredient.id }}"
-                                           pattern="^\d+(,\d{1,3})?$"
-                                           placeholder="0,000"
-                                           value="{% for pi in product_ingredients %}{% if pi.ingredient.id == ingredient.id %}{% if ingredient.measure == "kg" %}{{ pi.quantity }}{% else %}{{ pi.quantity|floatformat:0 }}{% endif %}{% endif %}{% endfor %}"
-                                           class="update-measure" />
-                                    <span class="update-text">{{ ingredient.get_measure_display }}</span>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="update-buttons">
-                    <a href="{% url 'product_list' %}" class="gray-button">Cancelar</a>
-                    <button type="submit" class="blue-button">Alterar</button>
-                </div>
-            </form>
+<div class="main-container">
+  <div class="update-container">
+    <h2 class="update-title">{% trans "Update Product" %}</h2>
+    <form action="{% url 'product_update' product.id %}" method="POST" class="space-y-6">
+      {% csrf_token %}
+      <div>
+        <label for="name" class="update-text">{% trans "Name" %}:</label>
+        <input type="text" name="name" value="{{ product.name }}" required class="update-field" />
+      </div>
+      <div>
+        <label for="price" class="update-text">{% trans "Price" %}:</label>
+        <input type="text" name="price" value="{{ product.price }}" required class="update-field" />
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{% trans "Ingredients" %}</h3>
+        <div class="space-y-4">
+          {% for ingredient in ingredients %}
+            <div class="update-table">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" name="ingredients" value="{{ ingredient.id }}" id="i-{{ ingredient.id }}"
+                  {% for pi in product_ingredients %}{% if pi.ingredient.id == ingredient.id %}checked{% endif %}{% endfor %}>
+                <label for="i-{{ ingredient.id }}" class="update-text">{{ ingredient.name }}</label>
+              </div>
+              <div class="flex items-center gap-2">
+                <input type="text" name="q-{{ ingredient.id }}" class="update-measure"
+                  value="{% for pi in product_ingredients %}{% if pi.ingredient.id == ingredient.id %}{% if ingredient.measure == "kg" %}{{ pi.quantity }}{% else %}{{ pi.quantity|floatformat:0 }}{% endif %}{% endif %}{% endfor %}"/>
+                <span class="update-text">{{ ingredient.get_measure_display }}</span>
+              </div>
+            </div>
+          {% endfor %}
         </div>
-    </div>
+      </div>
+      <div class="update-buttons">
+        <a href="{% url 'product_list' %}" class="gray-button">{% trans "Cancel" %}</a>
+        <button type="submit" class="blue-button">{% trans "Update" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock body %}
