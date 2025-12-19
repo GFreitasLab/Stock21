@@ -1,32 +1,25 @@
 {% extends "base.html" %}
-{% block title %}
-    Editar Categoria
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Edit Category" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="update-container">
-            <h2 class="update-title">Atualizar Categoria</h2>
-            <form action="{% url 'category_update' category.id %}"
-                  method="POST"
-                  class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="name" class="update-text">Nome:</label>
-                    <input type="text"
-                           name="name"
-                           value="{{ category.name }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="description" class="update-text">Descrição:</label>
-                    <textarea name="description" rows="4" class="update-field">{{ category.description }}</textarea>
-                </div>
-                <div class="update-buttons">
-                    <a href="{% url 'category_list' %}" class="gray-button">Cancelar</a>
-                    <button type="submit" class="blue-button">Alterar</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="main-container">
+  <div class="update-container">
+    <h2 class="update-title">{% trans "Update Category" %}</h2>
+    <form action="{% url 'category_update' category.id %}" method="POST" class="space-y-6">
+      {% csrf_token %}
+      <div>
+        <label for="name" class="update-text">{% trans "Name" %}:</label>
+        <input type="text" name="name" value="{{ category.name }}" required class="update-field" />
+      </div>
+      <div>
+        <label for="description" class="update-text">{% trans "Description" %}:</label>
+        <textarea name="description" rows="4" class="update-field">{{ category.description }}</textarea>
+      </div>
+      <div class="update-buttons">
+        <a href="{% url 'category_list' %}" class="gray-button">{% trans "Cancel" %}</a>
+        <button type="submit" class="blue-button">{% trans "Update" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock body %}

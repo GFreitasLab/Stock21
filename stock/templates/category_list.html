@@ -1,63 +1,64 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Listar Categorias
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Category List" %}{% endblock title %}
 {% block body %}
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <!-- Header -->
-            <div class="text-center">
-                <h2 class="title">Lista de Categorias</h2>
-            </div>
-            <!-- Tabela -->
-            <div class="table-content">
-                <div class="flex justify-end mb-4">
-                    <a href="{% url 'category_create' %}" class="green-button">+ Criar Categoria</a>
-                </div>
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <th class="text-left table-head">Nome</th>
-                            <th class="text-right table-head">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for category in page_obj %}
-                            <tr class="table-row"
-                                onclick="window.location='{% url 'category_detail' category.id %}'">
-                                <td class="table-text">{{ category.name }}</td>
-                                <td class="px-4 py-2 text-right">
-                                    <div class="flex flex-row justify-end space-x-2 space-y-0">
-                                        <a href="{% url 'category_update' category.id %}">
-                                            <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Editar">
-                                        </a>
-                                        <a href="{% url 'category_delete' category.id %}">
-                                            <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Deletar">
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% if is_paginated %}
-                <div class="flex justify-center mt-6 space-x-2">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}" class="page-button">← Anterior</a>
-                    {% endif %}
-                    <div class="flex items-center space-x-2">
-                        <select id="page-select" class="page-info">
-                            {% for num in page_obj.paginator.page_range %}
-                                <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>Página {{ num }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" class="page-button">Próxima →</a>{% endif %}
-                </div>
-            {% endif %}
-        </div>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <div class="text-center">
+      <h2 class="title">{% trans "List of Categories" %}</h2>
     </div>
-    <script src="{% static "base/js/page_menu.js" %}"></script>
+
+    <!-- Table -->
+    <div class="table-content">
+      <div class="flex justify-end mb-4">
+        <a href="{% url 'category_create' %}" class="green-button">+ {% trans "Create Category" %}</a>
+      </div>
+      <table class="min-w-full">
+        <thead>
+          <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="text-left table-head">{% trans "Name" %}</th>
+            <th class="text-right table-head">{% trans "Actions" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for category in page_obj %}
+          <tr class="table-row"
+              onclick="window.location='{% url 'category_detail' category.id %}'">
+            <td class="table-text">{{ category.name }}</td>
+            <td class="px-4 py-2 text-right">
+              <div class="flex flex-row justify-end space-x-2 space-y-0">
+                <a href="{% url 'category_update' category.id %}">
+                  <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Edit">
+                </a>
+                <a href="{% url 'category_delete' category.id %}">
+                  <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Delete">
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if is_paginated %}
+    <div class="flex justify-center mt-6 space-x-2">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-button">← {% trans "Previous" %}</a>
+      {% endif %}
+      <div class="flex items-center space-x-2">
+        <select id="page-select" class="page-info">
+          {% for num in page_obj.paginator.page_range %}
+          <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>{% trans "Page" %} {{ num }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" class="page-button">{% trans "Next" %} →</a>{% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+<script src="{% static "base/js/page_menu.js" %}"></script>
 {% endblock body %}

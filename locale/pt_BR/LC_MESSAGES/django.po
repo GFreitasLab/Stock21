@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 09:05-0300\n"
+"POT-Creation-Date: 2025-12-19 09:59-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,8 @@ msgstr "Deletar Conta"
 #: accounts/templates/account_delete.html:21
 #: movements/templates/movement_delete.html:7
 #: movements/templates/movement_delete.html:21
+#: stock/templates/category_delete.html:7
+#: stock/templates/category_delete.html:21
 msgid "Confirm Exclusion"
 msgstr "Confirmar Exclusão"
 
@@ -50,17 +52,21 @@ msgstr "Tem certeza que deseja excluir a conta de"
 
 #: accounts/templates/account_delete.html:11
 #: movements/templates/movement_delete.html:11
+#: stock/templates/category_delete.html:11
 msgid "This action cannot be undone."
 msgstr "Essa ação não poderá ser desfeita."
 
 #: accounts/templates/account_delete.html:16
 #: movements/templates/movement_delete.html:16
+#: stock/templates/category_delete.html:16
 msgid "Confirm with password"
 msgstr "Confirmar com senha"
 
 #: accounts/templates/account_delete.html:20
 #: accounts/templates/account_update.html:39
 #: movements/templates/movement_delete.html:20
+#: stock/templates/category_delete.html:20
+#: stock/templates/category_update.html:19
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -79,6 +85,10 @@ msgstr "Detalhes da Conta"
 #: accounts/templates/register.html:15 accounts/templates/register.html:16
 #: movements/templates/movement_detail.html:34
 #: movements/templates/movement_detail.html:64
+#: stock/templates/category_create.html:11
+#: stock/templates/category_detail.html:10
+#: stock/templates/category_list.html:22
+#: stock/templates/category_update.html:11
 msgid "Name"
 msgstr "Nome"
 
@@ -100,15 +110,18 @@ msgstr "Ultima alteração"
 
 #: accounts/templates/account_detail.html:31
 #: movements/templates/movement_detail.html:99
+#: stock/templates/category_detail.html:19
 msgid "Back to List"
 msgstr "Voltar para o início"
 
 #: accounts/templates/account_detail.html:32
+#: stock/templates/category_detail.html:20
 msgid "Edit"
 msgstr "Editar"
 
 #: accounts/templates/account_detail.html:33
 #: movements/templates/movement_detail.html:100
+#: stock/templates/category_detail.html:21
 msgid "Delete"
 msgstr "Deletar"
 
@@ -143,21 +156,25 @@ msgstr "Criar Conta"
 
 #: accounts/templates/account_list.html:54
 #: movements/templates/movement_list.html:46
+#: stock/templates/category_list.html:23
 msgid "Actions"
 msgstr "Ações"
 
 #: accounts/templates/account_list.html:85
 #: movements/templates/movement_list.html:80
+#: stock/templates/category_list.html:49
 msgid "Previous"
 msgstr "Anterior"
 
 #: accounts/templates/account_list.html:90
 #: movements/templates/movement_list.html:85
+#: stock/templates/category_list.html:54
 msgid "Page"
 msgstr "Página"
 
 #: accounts/templates/account_list.html:96
 #: movements/templates/movement_list.html:91
+#: stock/templates/category_list.html:58
 msgid "Next"
 msgstr "Próximo"
 
@@ -185,6 +202,7 @@ msgid "Confirm Password"
 msgstr "Senha"
 
 #: accounts/templates/account_update.html:40
+#: stock/templates/category_update.html:20
 msgid "Update"
 msgstr "Atualizar"
 
@@ -204,7 +222,7 @@ msgstr "Insira suas credenciais para acessar"
 msgid "your@email.com"
 msgstr "seu@email.com"
 
-#: accounts/templates/register.html:3
+#: accounts/templates/register.html:3 stock/templates/category_create.html:22
 msgid "Register"
 msgstr "Registrar"
 
@@ -434,6 +452,53 @@ msgstr "Movimentação registrada com sucesso!"
 #: movements/views.py:177
 msgid "Movement successfully deleted!"
 msgstr "Movimentação deletada com sucesso!"
+
+#: stock/templates/category_create.html:3
+#: stock/templates/category_create.html:7
+msgid "New Category"
+msgstr "Nova Categoria"
+
+#: stock/templates/category_create.html:16
+#: stock/templates/category_detail.html:14
+#: stock/templates/category_update.html:15
+msgid "Description"
+msgstr "Descrição"
+
+#: stock/templates/category_delete.html:3
+msgid "Delete Category"
+msgstr "Deletar Categoria"
+
+#: stock/templates/category_delete.html:9
+msgid "Are you sure you want to delete category"
+msgstr "Tem certeza que deseja excluir a categoria"
+
+#: stock/templates/category_detail.html:3
+msgid "Detail Category"
+msgstr "Detalhar Categoria"
+
+#: stock/templates/category_detail.html:7
+msgid "Category Details"
+msgstr "Detalhes da Categoria"
+
+#: stock/templates/category_list.html:4
+msgid "Category List"
+msgstr "Listar Categorias"
+
+#: stock/templates/category_list.html:11
+msgid "List of Categories"
+msgstr "Lista de Categorias"
+
+#: stock/templates/category_list.html:17
+msgid "Create Category"
+msgstr "Criar Categoria"
+
+#: stock/templates/category_update.html:3
+msgid "Edit Category"
+msgstr "Editar Categoria"
+
+#: stock/templates/category_update.html:7
+msgid "Update Category"
+msgstr "Atualizar Categoria"
 
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."
