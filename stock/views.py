@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
+from django.utils.translation import gettext as _
 
 from core.decorators import admin_required
 
@@ -37,14 +38,14 @@ def category_create(request: HttpRequest) -> HttpResponse:
     description = request.POST.get("description")
 
     if Category.objects.filter(name__iexact=name):
-        messages.error(request, "A categoria que deseja cadastrar já existe!")
+        messages.error(request, _("The category you want to register already exists!"))
         return redirect("category_list")
 
     category = Category.objects.create(name=name, description=description)
 
     category.save()
 
-    messages.success(request, "Categoria criada com sucesso!")
+    messages.success(request, _("Category successfully created!"))
     return redirect("category_list")
 
 
@@ -126,14 +127,14 @@ def category_update(request: HttpRequest, id: int) -> HttpResponse:
     name = request.POST.get("name")
 
     if Category.objects.filter(name__iexact=name).exclude(id=category.id).exists():
-        messages.error(request, "O novo nome que deseja inserir já está associado a uma categoria!")
+        messages.error(request, _("The new name you want to enter is already associated with a category!"))
         return render(request, "category_update.html", context)
 
     category.name = name
     category.description = request.POST.get("description")
     category.save()
 
-    messages.success(request, "Categoria alterada com sucesso!")
+    messages.success(request, _("Category successfully changed!"))
     return redirect("category_list")
 
 
@@ -167,12 +168,12 @@ def category_delete(request: HttpRequest, id: int) -> HttpResponse:
     password = request.POST.get("password")
 
     if not request.user.check_password(password):
-        messages.error(request, "A senha que você inseriu está incorreta!")
+        messages.error(request, _("The password you entered is incorrect!"))
         return redirect("category_list")
 
     category.delete()
 
-    messages.success(request, "Categoria deletada com sucesso!")
+    messages.success(request, _("Category successfully deleted!"))
     return redirect("category_list")
 
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 09:59-0300\n"
+"POT-Creation-Date: 2025-12-19 11:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,7 +254,7 @@ msgstr "Deslogado com sucesso!"
 msgid "Account sucessfully changed!"
 msgstr "Conta atualizada com sucesso!"
 
-#: accounts/views.py:267 movements/views.py:172
+#: accounts/views.py:267 movements/views.py:172 stock/views.py:171
 msgid "The password you entered is incorrect!"
 msgstr "A senha que você inseriu está incorreta!"
 
@@ -271,14 +271,16 @@ msgid "Outflow"
 msgstr "Saída"
 
 #: movements/models.py:44 movements/templates/movement_create.html:68
+#: stock/models.py:35
 msgid "Grams"
 msgstr "Gramas"
 
 #: movements/models.py:44 movements/templates/movement_create.html:69
+#: stock/models.py:35
 msgid "Kilograms"
 msgstr "Quilos"
 
-#: movements/models.py:44
+#: movements/models.py:44 stock/models.py:35
 msgid "Units"
 msgstr "Unidades"
 
@@ -499,6 +501,26 @@ msgstr "Editar Categoria"
 #: stock/templates/category_update.html:7
 msgid "Update Category"
 msgstr "Atualizar Categoria"
+
+#: stock/views.py:41
+msgid "The category you want to register already exists!"
+msgstr "A categoria que deseja registar já existe!"
+
+#: stock/views.py:48
+msgid "Category successfully created!"
+msgstr "categoria criada com sucesso!"
+
+#: stock/views.py:130
+msgid "The new name you want to enter is already associated with a category!"
+msgstr "O novo nome que deseja inserir já está associado a uma categoria!"
+
+#: stock/views.py:137
+msgid "Category successfully changed!"
+msgstr "Categoria atualizada com sucesso!"
+
+#: stock/views.py:176
+msgid "Category successfully deleted!"
+msgstr "Categoria deletada com sucesso!"
 
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."
