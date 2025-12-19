@@ -212,13 +212,13 @@ def ingredient_create(request: HttpRequest) -> HttpResponse:
         category = get_object_or_404(Category, id=category_id)
 
         if Ingredient.objects.filter(name__iexact=name).exists():
-            raise ValidationError("O ingrediente que deseja cadastrar já existe!")
+            raise ValidationError(_("The ingredient you want to register already exists!"))
 
         qte = request.POST.get("qte")
-        qte, qte_error = parse_value_br(str(qte), "Insira uma quantidade válida!")
+        qte, qte_error = parse_value_br(str(qte), _("Please enter a valid quantity!"))
 
         min_qte = request.POST.get("min_qte")
-        min_qte, min_qte_error = parse_value_br(str(min_qte), "Insira uma quantidade mínima válida!")
+        min_qte, min_qte_error = parse_value_br(str(min_qte), _("Please enter a valid minimum quantity!"))
 
         if qte_error or min_qte_error:
             raise ValidationError([qte_error, min_qte_error])
@@ -233,7 +233,7 @@ def ingredient_create(request: HttpRequest) -> HttpResponse:
 
         ingredient.save()
 
-        messages.success(request, "Ingrediente cadastrado com sucesso!")
+        messages.success(request, _("Ingredient successfully registered!"))
         return redirect("ingredient_list")
 
     except ValidationError as e:
@@ -343,13 +343,13 @@ def ingredient_update(request: HttpRequest, id: int) -> HttpResponse:
         name = request.POST.get("name")
 
         if Ingredient.objects.filter(name__iexact=name).exclude(id=ingredient.id).exists():
-            raise ValidationError("O novo nome que deseja inserir já está associado a um ingrediente")
+            raise ValidationError(_("The new name you want to enter is already associated with an ingredient."))
 
         qte = request.POST.get("qte")
-        qte, qte_error = parse_value_br(str(qte), "Insira uma quantidade válida!")
+        qte, qte_error = parse_value_br(str(qte), _("Please enter a valid quantity!"))
 
         min_qte = request.POST.get("min_qte")
-        min_qte, min_qte_error = parse_value_br(str(min_qte), "Insira uma quantidade mínima válida!")
+        min_qte, min_qte_error = parse_value_br(str(min_qte), _("Please enter a valid minimum quantity!"))
 
         if qte_error or min_qte_error:
             raise ValidationError([qte_error, min_qte_error])
@@ -363,7 +363,7 @@ def ingredient_update(request: HttpRequest, id: int) -> HttpResponse:
 
         ingredient.save()
 
-        messages.success(request, "Ingrediente alterado com sucesso!")
+        messages.success(request, _("Ingredient successfully changed!"))
         return redirect("ingredient_list")
 
     except ValidationError as e:
@@ -402,12 +402,12 @@ def ingredient_delete(request: HttpRequest, id: int) -> HttpResponse:
     password = request.POST.get("password")
 
     if not request.user.check_password(password):
-        messages.error(request, "A senha que você inseriu está incorreta!")
+        messages.error(request,_("The password you entered is incorrect!"))
         return redirect("ingredient_list")
 
     ingredient.delete()
 
-    messages.success(request, "Ingrediente deletado com sucesso!")
+    messages.success(request, _("Ingredient successfully deleted!"))
     return redirect("ingredient_list")
 
 

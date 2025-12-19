@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 12:34-0300\n"
+"POT-Creation-Date: 2025-12-19 14:04-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -279,6 +279,7 @@ msgid "Account sucessfully changed!"
 msgstr "Conta atualizada com sucesso!"
 
 #: accounts/views.py:267 movements/views.py:172 stock/views.py:171
+#: stock/views.py:405
 msgid "The password you entered is incorrect!"
 msgstr "A senha que você inseriu está incorreta!"
 
@@ -618,6 +619,34 @@ msgstr "Categoria atualizada com sucesso!"
 #: stock/views.py:176
 msgid "Category successfully deleted!"
 msgstr "Categoria deletada com sucesso!"
+
+#: stock/views.py:215
+msgid "The ingredient you want to register already exists!"
+msgstr "O ingrediente que deseja registar já existe!"
+
+#: stock/views.py:218 stock/views.py:349
+msgid "Please enter a valid quantity!"
+msgstr "Insira uma quantidade válida!"
+
+#: stock/views.py:221 stock/views.py:352
+msgid "Please enter a valid minimum quantity!"
+msgstr "Insira uma quantidade mínima válida!"
+
+#: stock/views.py:236
+msgid "Ingredient successfully registered!"
+msgstr "Ingrediente registrado com sucesso!"
+
+#: stock/views.py:346
+msgid "The new name you want to enter is already associated with an ingredient."
+msgstr "O novo nome que deseja inserir já está associado a um ingrediente!"
+
+#: stock/views.py:366
+msgid "Ingredient successfully changed!"
+msgstr "Ingrediente atualizado com sucesso!"
+
+#: stock/views.py:410
+msgid "Ingredient successfully deleted!"
+msgstr "Ingrediente deletado com sucesso!"
 
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."
