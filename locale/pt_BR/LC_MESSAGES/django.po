@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 11:51-0300\n"
+"POT-Creation-Date: 2025-12-19 12:34-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,8 @@ msgstr "Deletar Conta"
 #: movements/templates/movement_delete.html:21
 #: stock/templates/category_delete.html:7
 #: stock/templates/category_delete.html:21
+#: stock/templates/ingredient_delete.html:7
+#: stock/templates/ingredient_delete.html:21
 msgid "Confirm Exclusion"
 msgstr "Confirmar Exclusão"
 
@@ -53,12 +55,14 @@ msgstr "Tem certeza que deseja excluir a conta de"
 #: accounts/templates/account_delete.html:11
 #: movements/templates/movement_delete.html:11
 #: stock/templates/category_delete.html:11
+#: stock/templates/ingredient_delete.html:11
 msgid "This action cannot be undone."
 msgstr "Essa ação não poderá ser desfeita."
 
 #: accounts/templates/account_delete.html:16
 #: movements/templates/movement_delete.html:16
 #: stock/templates/category_delete.html:16
+#: stock/templates/ingredient_delete.html:16
 msgid "Confirm with password"
 msgstr "Confirmar com senha"
 
@@ -67,6 +71,8 @@ msgstr "Confirmar com senha"
 #: movements/templates/movement_delete.html:20
 #: stock/templates/category_delete.html:20
 #: stock/templates/category_update.html:19
+#: stock/templates/ingredient_delete.html:20
+#: stock/templates/ingredient_update.html:46
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -89,6 +95,11 @@ msgstr "Detalhes da Conta"
 #: stock/templates/category_detail.html:10
 #: stock/templates/category_list.html:22
 #: stock/templates/category_update.html:11
+#: stock/templates/ingredient_create.html:11
+#: stock/templates/ingredient_detail.html:10
+#: stock/templates/ingredient_list.html:21
+#: stock/templates/ingredient_list.html:56
+#: stock/templates/ingredient_update.html:11
 msgid "Name"
 msgstr "Nome"
 
@@ -111,17 +122,20 @@ msgstr "Ultima alteração"
 #: accounts/templates/account_detail.html:31
 #: movements/templates/movement_detail.html:99
 #: stock/templates/category_detail.html:19
+#: stock/templates/ingredient_detail.html:38
 msgid "Back to List"
 msgstr "Voltar para o início"
 
 #: accounts/templates/account_detail.html:32
 #: stock/templates/category_detail.html:20
+#: stock/templates/ingredient_detail.html:41
 msgid "Edit"
 msgstr "Editar"
 
 #: accounts/templates/account_detail.html:33
 #: movements/templates/movement_detail.html:100
 #: stock/templates/category_detail.html:21
+#: stock/templates/ingredient_detail.html:42
 msgid "Delete"
 msgstr "Deletar"
 
@@ -134,10 +148,12 @@ msgid "List of Accounts"
 msgstr "Lista de Contas"
 
 #: accounts/templates/account_list.html:19
+#: stock/templates/ingredient_list.html:19
 msgid "Filter By"
 msgstr "Filtrar por"
 
 #: accounts/templates/account_list.html:27
+#: stock/templates/ingredient_list.html:28
 msgid "Value"
 msgstr "Valor"
 
@@ -147,6 +163,7 @@ msgstr "Digite o valor..."
 
 #: accounts/templates/account_list.html:37
 #: movements/templates/movement_list.html:29
+#: stock/templates/ingredient_list.html:40
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -157,28 +174,33 @@ msgstr "Criar Conta"
 #: accounts/templates/account_list.html:54
 #: movements/templates/movement_list.html:46
 #: stock/templates/category_list.html:23
+#: stock/templates/ingredient_list.html:59
 msgid "Actions"
 msgstr "Ações"
 
 #: accounts/templates/account_list.html:85
 #: movements/templates/movement_list.html:80
 #: stock/templates/category_list.html:49
+#: stock/templates/ingredient_list.html:97
 msgid "Previous"
 msgstr "Anterior"
 
 #: accounts/templates/account_list.html:90
 #: movements/templates/movement_list.html:85
 #: stock/templates/category_list.html:54
+#: stock/templates/ingredient_list.html:102
 msgid "Page"
 msgstr "Página"
 
 #: accounts/templates/account_list.html:96
 #: movements/templates/movement_list.html:91
 #: stock/templates/category_list.html:58
+#: stock/templates/ingredient_list.html:108
 msgid "Next"
 msgstr "Próximo"
 
 #: accounts/templates/account_update.html:3
+#: stock/templates/ingredient_update.html:3
 msgid "Edit Account"
 msgstr "Editar Conta"
 
@@ -203,6 +225,7 @@ msgstr "Senha"
 
 #: accounts/templates/account_update.html:40
 #: stock/templates/category_update.html:20
+#: stock/templates/ingredient_update.html:47
 msgid "Update"
 msgstr "Atualizar"
 
@@ -223,6 +246,7 @@ msgid "your@email.com"
 msgstr "seu@email.com"
 
 #: accounts/templates/register.html:3 stock/templates/category_create.html:22
+#: stock/templates/ingredient_create.html:49
 msgid "Register"
 msgstr "Registrar"
 
@@ -354,10 +378,12 @@ msgstr "Preço"
 #: movements/templates/movement_create.html:88
 #: movements/templates/movement_detail.html:36
 #: movements/templates/movement_detail.html:65
+#: stock/templates/ingredient_create.html:37
 msgid "Amount"
 msgstr "Quantidade"
 
 #: movements/templates/movement_create.html:39
+#: stock/templates/ingredient_create.html:28
 msgid "Measure Unit"
 msgstr "Unidade de Medida"
 
@@ -501,6 +527,77 @@ msgstr "Editar Categoria"
 #: stock/templates/category_update.html:7
 msgid "Update Category"
 msgstr "Atualizar Categoria"
+
+#: stock/templates/ingredient_create.html:3
+msgid "Ingredient Create"
+msgstr "Criar Ingrediente"
+
+#: stock/templates/ingredient_create.html:7
+msgid "Create Ingredient"
+msgstr "Criar Ingrediente"
+
+#: stock/templates/ingredient_create.html:16
+#: stock/templates/ingredient_detail.html:14
+#: stock/templates/ingredient_list.html:22
+#: stock/templates/ingredient_update.html:15
+msgid "Category"
+msgstr "Categoria"
+
+#: stock/templates/ingredient_create.html:42
+#: stock/templates/ingredient_detail.html:23
+#: stock/templates/ingredient_detail.html:32
+#: stock/templates/ingredient_list.html:24
+#: stock/templates/ingredient_list.html:58
+#: stock/templates/ingredient_update.html:40
+msgid "Minimum Quantity"
+msgstr "Quantidade Mínima"
+
+#: stock/templates/ingredient_delete.html:3
+msgid "Delete Ingredient"
+msgstr "Deletar Ingrediente"
+
+#: stock/templates/ingredient_delete.html:9
+msgid "Are you sure you want to delete ingredient"
+msgstr "Tem certeza que deseja excluir o ingrediente"
+
+#: stock/templates/ingredient_detail.html:3
+msgid "Detail Ingredient"
+msgstr "Detalhar Ingrediente"
+
+#: stock/templates/ingredient_detail.html:7
+msgid "Ingredient Details"
+msgstr "Detalhes do Ingrediente"
+
+#: stock/templates/ingredient_detail.html:19
+#: stock/templates/ingredient_detail.html:28
+msgid "Quantity in Stock"
+msgstr "Quantidate em Estoque"
+
+#: stock/templates/ingredient_list.html:4
+msgid "Ingredient List"
+msgstr "Listar Ingredientes"
+
+#: stock/templates/ingredient_list.html:11
+msgid "List of Ingredients"
+msgstr "Lista de Ingredientes"
+
+#: stock/templates/ingredient_list.html:23
+#: stock/templates/ingredient_list.html:57
+#: stock/templates/ingredient_update.html:34
+msgid "Quantity"
+msgstr "Quantidate"
+
+#: stock/templates/ingredient_list.html:50
+msgid "Register Ingredient"
+msgstr "Registrar Ingrediente"
+
+#: stock/templates/ingredient_update.html:7
+msgid "Update Ingredient"
+msgstr "Atualizar Ingrediente"
+
+#: stock/templates/ingredient_update.html:26
+msgid "Measure unit"
+msgstr "Unidade de Medida"
 
 #: stock/views.py:41
 msgid "The category you want to register already exists!"

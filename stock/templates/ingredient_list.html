@@ -1,120 +1,116 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Listar Ingredientes
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Ingredient List" %}{% endblock title %}
 {% block body %}
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <!-- Header -->
-            <div class="text-center">
-                <h2 class="title">Lista de Ingredientes</h2>
-            </div>
-            <!-- Filtro -->
-            <div class="table-content">
-                <form method="GET" class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label for="filter-field" class="filter">Filtrar por</label>
-                            <select name="field" id="filter-field" class="filter-field">
-                                <option value="name"{% if field == "name" %}selected{% endif %}>Nome</option>
-                                <option value="category"{% if field == "category" %}selected{% endif %}>Categoria</option>
-                                <option value="qte"{% if field == "qte" %}selected{% endif %}>Quantidade</option>
-                                <option value="min_qte"{% if field == "min_qte" %}selected{% endif %}>Quantidade Mínima</option>
-                            </select>
-                        </div>
-                        <div id="filter-inputs">
-                            <label for="value-text" class="filter">Valor</label>
-                            <input type="text"
-                                   name="value"
-                                   id="value-text"
-                                   value="{{ value|default:'' }}"
-                                   placeholder="Digite o valor..."
-                                   class="filter-field" />
-                            <select name=""
-                                    id="value-category"
-                                    style="display: none"
-                                    class="filter-field">
-                                {% for category in categories %}
-                                    <option value="{{ category.name }}"
-                                            {% if value == category.name %}selected{% endif %}>
-                                        {{ category.name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="flex items-end">
-                            <button type="submit" class="blue-button">Filtrar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- Tabela -->
-            <div class="table-content">
-                {% if request.user.role == "admin" %}
-                    <div class="flex justify-end mb-4">
-                        <a href="{% url 'ingredient_create' %}" class="green-button">+ Registrar Ingrediente</a>
-                    </div>
-                {% endif %}
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <th class="text-left table-head">Nome</th>
-                            <th class="text-left table-head">Quantidade</th>
-                            <th class="hidden sm:flex text-left table-head">Quantidade Mínima</th>
-                            <th class="text-right table-head">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ingredient in page_obj %}
-                            <tr class="table-row"
-                                onclick="window.location='{% url 'ingredient_detail' ingredient.id %}'">
-                                <td class="table-text">{{ ingredient.name }}</td>
-                                {% if ingredient.measure == "kg" %}
-                                    <td class="table-text">{{ ingredient.qte }} {{ ingredient.get_measure_display }}</td>
-                                    <td class="hidden sm:flex table-text">{{ ingredient.min_qte }} {{ ingredient.get_measure_display }}</td>
-                                {% else %}
-                                    <td class="table-text">{{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
-                                    <td class="hidden sm:flex table-text">{{ ingredient.min_qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
-                                {% endif %}
-                                <td class="px-4 py-2 text-right">
-                                    {% if request.user.role == "admin" %}
-                                        <div class="flex flex-row justify-end space-x-2 space-y-0">
-                                            <a href="{% url 'ingredient_update' ingredient.id %}">
-                                                <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Editar">
-                                            </a>
-                                            <a href="{% url 'ingredient_delete' ingredient.id %}">
-                                                <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Deletar">
-                                            </a>
-                                        </div>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% if is_paginated %}
-                <div class="flex justify-center mt-6 space-x-2">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
-                           class="page-button">← Anterior</a>
-                    {% endif %}
-                    <div class="flex items-center space-x-2">
-                        <select id="page-select" class="page-info">
-                            {% for num in page_obj.paginator.page_range %}
-                                <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>Página {{ num }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
-                           class="page-button">Próxima →</a>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <div class="text-center">
+      <h2 class="title">{% trans "List of Ingredients" %}</h2>
     </div>
-    <script src="{% static 'stock/js/toggle_category.js' %}"></script>
-    <script src="{% static "base/js/page_menu.js" %}"></script>
+
+    <!-- Filter -->
+    <div class="table-content">
+      <form method="GET" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="filter-field" class="filter">{% trans "Filter By" %}</label>
+            <select name="field" id="filter-field" class="filter-field">
+              <option value="name"{% if field == "name" %}selected{% endif %}>{% trans "Name" %}</option>
+              <option value="category"{% if field == "category" %}selected{% endif %}>{% trans "Category" %}</option>
+              <option value="qte"{% if field == "qte" %}selected{% endif %}>{% trans "Quantity" %}</option>
+              <option value="min_qte"{% if field == "min_qte" %}selected{% endif %}>{% trans "Minimum Quantity" %}</option>
+            </select>
+          </div>
+          <div id="filter-inputs">
+            <label for="value-text" class="filter">{% trans "Value" %}</label>
+            <input type="text" name="value" id="value-text" value="{{ value|default:'' }}" class="filter-field" />
+            <select name="" id="value-category" style="display: none" class="filter-field">
+              {% for category in categories %}
+                <option value="{{ category.name }}"
+                  {% if value == category.name %}selected{% endif %}>
+                  {{ category.name }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="flex items-end">
+            <button type="submit" class="blue-button">{% trans "Filter" %}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Table -->
+    <div class="table-content">
+      {% if request.user.role == "admin" %}
+      <div class="flex justify-end mb-4">
+        <a href="{% url 'ingredient_create' %}" class="green-button">+ {% trans "Register Ingredient" %}</a>
+      </div>
+      {% endif %}
+      <table class="min-w-full">
+        <thead>
+          <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="text-left table-head">{% trans "Name" %}</th>
+            <th class="text-left table-head">{% trans "Quantity" %}</th>
+            <th class="hidden sm:flex text-left table-head">{% trans "Minimum Quantity" %}</th>
+            <th class="text-right table-head">{% trans "Actions" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ingredient in page_obj %}
+          <tr class="table-row"
+              onclick="window.location='{% url 'ingredient_detail' ingredient.id %}'">
+            <td class="table-text">{{ ingredient.name }}</td>
+            {% if ingredient.measure == "kg" %}
+            <td class="table-text">{{ ingredient.qte }} {{ ingredient.get_measure_display }}</td>
+            <td class="hidden sm:flex table-text">{{ ingredient.min_qte }} {{ ingredient.get_measure_display }}</td>
+            {% else %}
+            <td class="table-text">{{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
+            <td class="hidden sm:flex table-text">{{ ingredient.min_qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
+            {% endif %}
+            <td class="px-4 py-2 text-right">
+              {% if request.user.role == "admin" %}
+              <div class="flex flex-row justify-end space-x-2 space-y-0">
+                <a href="{% url 'ingredient_update' ingredient.id %}">
+                  <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Edit">
+                </a>
+                <a href="{% url 'ingredient_delete' ingredient.id %}">
+                  <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Delete">
+                </a>
+              </div>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="flex justify-center mt-6 space-x-2">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
+          class="page-button">← {% trans "Previous" %}</a>
+      {% endif %}
+      <div class="flex items-center space-x-2">
+        <select id="page-select" class="page-info">
+          {% for num in page_obj.paginator.page_range %}
+            <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>{% trans "Page" %} {{ num }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&{% if request.GET.field and request.GET.value %}field={{ request.GET.field }}&value={{ request.GET.value }}{% endif %}"
+          class="page-button">{% trans "Next" %} →</a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+<script src="{% static 'stock/js/toggle_category.js' %}"></script>
+<script src="{% static "base/js/page_menu.js" %}"></script>
 {% endblock body %}
