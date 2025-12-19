@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
+from django.utils.translation import gettext as _
 
 from core.decorators import admin_required
 
@@ -44,7 +45,7 @@ def login(request: HttpRequest) -> HttpResponse:
     password = request.POST.get("password")
 
     if not email or not password:
-        messages.error(request, "Preencha todos os campos")
+        messages.error(request,_( "Fill in all fields"))
         return render(request, "login.html", {"email": email})
 
     user = authenticate(email=email, password=password)
@@ -52,7 +53,7 @@ def login(request: HttpRequest) -> HttpResponse:
     if user:
         login_django(request, user)
         return redirect("home")
-    messages.error(request, "Email ou senha inválidos")
+    messages.error(request, _("Email or Password inválid!"))
     return render(request, "login.html", {"email": email})
 
 
@@ -88,7 +89,7 @@ def register(request: HttpRequest) -> HttpResponse:
 
         user.save()
 
-        messages.success(request, "Usuário criado com sucesso!")
+        messages.success(request, _("User sucessfully created!"))
         return redirect("account_list")
 
     except ValidationError as e:
@@ -114,7 +115,7 @@ def logout(request: HttpRequest) -> HttpResponse:
     """
 
     logout_django(request)
-    messages.success(request, "Deslogado com sucesso!")
+    messages.success(request, _("sucessfully Logged out!"))
     return redirect("login")
 
 
@@ -222,7 +223,7 @@ def account_update(request: HttpRequest, id: int) -> HttpResponse:
 
         account.save()
 
-        messages.success(request, "Conta alterada com sucesso!")
+        messages.success(request, _("Account sucessfully changed!"))
         return redirect("account_list")
     except ValidationError as e:
         for msg in e.messages:
@@ -263,10 +264,10 @@ def account_delete(request, id):
         password = request.POST.get("password")
 
         if not request.user.check_password(password):
-            messages.error(request, "A senha que você inseriu está incorreta!")
+            messages.error(request, _("The password you entered is incorrect!"))
             return render(request, "account_delete.html", context)
 
         account.delete()
 
-        messages.success(request, "Conta deletada com sucesso!")
+        messages.success(request, _("Account successfully deleted!"))
         return redirect("account_list")

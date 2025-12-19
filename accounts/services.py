@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 
 from .models import CustomUser
 
@@ -21,7 +22,7 @@ def validate_email(email: str, account_id=None) -> list:
     else:
         exists = CustomUser.objects.filter(email=email).exists()
     if exists:
-        errors.append("Já existe uma conta com esse email.")
+        errors.append("There is already an account with this email address.")
     return errors
 
 
@@ -38,9 +39,9 @@ def validate_password(password: str, confirm_password: str) -> list:
 
     errors = []
     if password != confirm_password:
-        errors.append("As senhas devem ser iguais!")
+        errors.append(_("The passwords must be the same!"))
     if len(password) < 8:
-        errors.append("A senha deve ter no mínimo 8 caracteres!")
+        errors.append(_("The password must be at least 8 characters long!"))
     return errors
 
 

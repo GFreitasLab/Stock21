@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 04:33-0300\n"
+"POT-Creation-Date: 2025-12-19 05:08-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/models.py:23
+msgid "Employee"
+msgstr "Funcionário"
+
+#: accounts/models.py:23
+msgid "Administrator"
+msgstr "Adiministrador"
+
+#: accounts/services.py:42
+msgid "The passwords must be the same!"
+msgstr "As senhas devem ser iguais!"
+
+#: accounts/services.py:44
+msgid "The password must be at least 8 characters long!"
+msgstr "A senha deve ter no mínimo 8 caracteres!"
 
 #: accounts/templates/account_delete.html:3
 msgid "Delete Account"
@@ -181,6 +197,38 @@ msgstr "Registrar"
 #: accounts/templates/register.html:8
 msgid "Register Account"
 msgstr "Registrar Conta"
+
+#: accounts/templates/register.html:29
+msgid "example@email.com"
+msgstr "seu@email.com"
+
+#: accounts/views.py:48
+msgid "Fill in all fields"
+msgstr "Preencha todos os campos"
+
+#: accounts/views.py:56
+msgid "Email or Password inválid!"
+msgstr "Email ou senha inválidos"
+
+#: accounts/views.py:92
+msgid "User sucessfully created!"
+msgstr "Usuário criado com sucesso!"
+
+#: accounts/views.py:118
+msgid "sucessfully Logged out!"
+msgstr "Deslogado com sucesso!"
+
+#: accounts/views.py:226
+msgid "Account sucessfully changed!"
+msgstr "Conta atualizada com sucesso!"
+
+#: accounts/views.py:267
+msgid "The password you entered is incorrect!"
+msgstr "A senha que você inseriu está incorreta!"
+
+#: accounts/views.py:272
+msgid "Account successfully deleted!"
+msgstr "Conta deletada com sucesso!"
 
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."
