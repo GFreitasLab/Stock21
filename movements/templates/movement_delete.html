@@ -1,27 +1,26 @@
 {% extends "base.html" %}
-{% block title %}
-    Deletar Movimentação
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Delete Stock Movement" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="delete-container">
-            <h2 class="delete-title">Confirmar Exclusão</h2>
-            <p class="text-gray-700 dark:text-gray-300 mb-6">
-                Tem certeza que deseja excluir a movimentação <strong>{{ movement.date|date:"d/m/Y H:i:s" }}</strong>?
-                <br>
-                <span class="text-red-600 font-semibold">Essa ação não poderá ser desfeita.</span>
-            </p>
-            <form method="POST" class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="password" class="delete-text">Confirmar com senha:</label>
-                    <input type="password" name="password" required class="delete-field" />
-                </div>
-                <div class="delete-buttons">
-                    <a href="{% url 'movement_list' %}" class="gray-button">Cancelar</a>
-                    <button type="submit" class="red-button">Confirmar Exclusão</button>
-                </div>
-            </form>
+  <div class="main-container">
+    <div class="delete-container">
+      <h2 class="delete-title">{% trans "Confirm Exclusion" %}</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-6">
+        {% trans "Are you sure you want to delete stock movement" %} <strong>{{ movement.date|date:"d/m/Y H:i:s" }}</strong>?
+        <br>
+        <span class="text-red-600 font-semibold">{% trans "This action cannot be undone." %}</span>
+      </p>
+      <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        <div>
+          <label for="password" class="delete-text">{% trans "Confirm with password" %}</label>
+          <input type="password" name="password" required class="delete-field" />
         </div>
+        <div class="delete-buttons">
+          <a href="{% url 'movement_list' %}" class="gray-button">{% trans "Cancel" %}</a>
+          <button type="submit" class="red-button">{% trans "Confirm Exclusion" %}</button>
+        </div>
+      </form>
     </div>
+  </div>
 {% endblock body %}

@@ -1,103 +1,98 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Listar Movimentações
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Movement List" %}{% endblock title %}
 {% block body %}
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <!-- Header -->
-            <div class="text-center">
-                <h2 class="title">Lista de Movimentações</h2>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+
+      <!-- Header -->
+      <div class="text-center">
+        <h2 class="title">{% trans "List of Movements" %}</h2>
+      </div>
+
+      <!-- Filter -->
+      <div class="table-content">
+        <form method="GET" class="space-y-6">
+          {% csrf_token %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="start_date" class="filter">{% trans "Start Date" %}</label>
+                <input type="date" name="start_date" id="start_date" value="{{ start_date }}" class="filter-field" />
             </div>
-            <!-- Filtros -->
-            <div class="table-content">
-                <form method="GET" class="space-y-6">
-                    {% csrf_token %}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label for="start_date" class="filter">Data Inicial</label>
-                            <input type="date"
-                                   name="start_date"
-                                   id="start_date"
-                                   value="{{ start_date }}"
-                                   class="filter-field" />
-                        </div>
-                        <div>
-                            <label for="end_date" class="filter">Data Final</label>
-                            <input type="date"
-                                   name="end_date"
-                                   id="end_date"
-                                   value="{{ end_date }}"
-                                   class="filter-field" />
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit" class="blue-button">Filtrar</button>
-                    </div>
-                </form>
+            <div>
+              <label for="end_date" class="filter">{% trans "End Date" %}</label>
+                <input type="date" name="end_date" id="end_date" value="{{ end_date }}" class="filter-field" />
             </div>
-            <!-- Tabela -->
-            <div class="table-content">
-                <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
-                    <a href="{% url 'report' %}" class="purple-button">Gerar Relatório</a>
-                    <a href="{% url 'movement_create' %}" class="green-button">+ Registrar Movimentação</a>
-                </div>
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <th class="text-left table-text">Tipo</th>
-                            <th class="text-left table-text">Data</th>
-                            <th class="text-left table-text">Responsável</th>
-                            <th class="text-right table-text">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for movement in page_obj %}
-                            <tr class="table-row"
-                                onclick="window.location='{% url 'movement_detail' movement.id %}'">
-                                <td class="table-text">{{ movement.get_type_display }}</td>
-                                <td class="table-text">{{ movement.date|date:"d/m/Y H:i:s" }}</td>
-                                <td class="table-text">{{ movement.user }}</td>
-                                <td class="px-4 py-2 text-right">
-                                    <div class="flex flex-row justify-end space-x-2 space-y-0">
-                                        <a href="{% url 'movement_delete' movement.id %}">
-                                            <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Deletar">
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="4"
-                                    class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
-                                    Nenhuma movimentação encontrada
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% if is_paginated %}
-                <div class="flex justify-center mt-6 space-x-2">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}"
-                           class="page-button">← Anterior</a>
-                    {% endif %}
-                    <div class="flex items-center space-x-2">
-                        <select id="page-select" class="page-info">
-                            {% for num in page_obj.paginator.page_range %}
-                                <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>Página {{ num }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}"
-                           class="page-button">Próxima →</a>
-                    {% endif %}
-                </div>
-            {% endif %}
+          </div>
+          <div>
+            <button type="submit" class="blue-button">{% trans "Filter" %}</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Table -->
+      <div class="table-content">
+        <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+          <a href="{% url 'report' %}" class="purple-button">{% trans "Generate Report" %}</a>
+          <a href="{% url 'movement_create' %}" class="green-button">+ {% trans "Record Stock Movement" %}</a>
         </div>
+        <table class="min-w-full">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+              <th class="text-left table-text">{% trans "Type" %}</th>
+                <th class="text-left table-text">{% trans "Date" %}</th>
+                <th class="text-left table-text">{% trans "Responsible" %}</th>
+                <th class="text-right table-text">{% trans "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for movement in page_obj %}
+              <tr class="table-row" 
+                onclick="window.location='{% url 'movement_detail' movement.id %}'">
+                <td class="table-text">{{ movement.get_type_display }}</td>
+                <td class="table-text">{{ movement.date|date:"d/m/Y H:i:s" }}</td>
+                <td class="table-text">{{ movement.user }}</td>
+                <td class="px-4 py-2 text-right">
+                  <div class="flex flex-row justify-end space-x-2 space-y-0">
+                    <a href="{% url 'movement_delete' movement.id %}">
+                      <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Delete">
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="4" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                  {% trans "No Stock Movement Found" %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- pagination -->
+      {% if is_paginated %}
+        <div class="flex justify-center mt-6 space-x-2">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}"
+              class="page-button">← {% trans "Previous" %}</a>
+          {% endif %}
+          <div class="flex items-center space-x-2">
+            <select id="page-select" class="page-info">
+              {% for num in page_obj.paginator.page_range %}
+                <option value="{{ num }}" {% if num == page_obj.number %}selected{% endif %}>{% trans "Page" %} {{ num }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}"
+              class="page-button">{% trans "Next" %} →</a>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
-    <script src="{% static "base/js/page_menu.js" %}"></script>
+  </div>
+  <script src="{% static "base/js/page_menu.js" %}"></script>
 {% endblock body %}

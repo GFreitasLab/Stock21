@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 05:08-0300\n"
+"POT-Creation-Date: 2025-12-19 06:46-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,8 @@ msgstr "Deletar Conta"
 
 #: accounts/templates/account_delete.html:7
 #: accounts/templates/account_delete.html:21
+#: movements/templates/movement_delete.html:7
+#: movements/templates/movement_delete.html:21
 msgid "Confirm Exclusion"
 msgstr "Confirmar Exclusão"
 
@@ -47,15 +49,18 @@ msgid "Are you sure you want to delete account"
 msgstr "Tem certeza que deseja excluir a conta de"
 
 #: accounts/templates/account_delete.html:11
+#: movements/templates/movement_delete.html:11
 msgid "This action cannot be undone."
 msgstr "Essa ação não poderá ser desfeita."
 
 #: accounts/templates/account_delete.html:16
+#: movements/templates/movement_delete.html:16
 msgid "Confirm with password"
 msgstr "Confirmar com senha"
 
 #: accounts/templates/account_delete.html:20
 #: accounts/templates/account_update.html:39
+#: movements/templates/movement_delete.html:20
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -72,6 +77,8 @@ msgstr "Detalhes da Conta"
 #: accounts/templates/account_list.html:51
 #: accounts/templates/account_update.html:11
 #: accounts/templates/register.html:15 accounts/templates/register.html:16
+#: movements/templates/movement_detail.html:34
+#: movements/templates/movement_detail.html:64
 msgid "Name"
 msgstr "Nome"
 
@@ -92,6 +99,7 @@ msgid "Last Change"
 msgstr "Ultima alteração"
 
 #: accounts/templates/account_detail.html:31
+#: movements/templates/movement_detail.html:99
 msgid "Back to List"
 msgstr "Voltar para o início"
 
@@ -100,6 +108,7 @@ msgid "Edit"
 msgstr "Editar"
 
 #: accounts/templates/account_detail.html:33
+#: movements/templates/movement_detail.html:100
 msgid "Delete"
 msgstr "Deletar"
 
@@ -124,6 +133,7 @@ msgid "Type the Value..."
 msgstr "Digite o valor..."
 
 #: accounts/templates/account_list.html:37
+#: movements/templates/movement_list.html:29
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -132,18 +142,22 @@ msgid "Create Account"
 msgstr "Criar Conta"
 
 #: accounts/templates/account_list.html:54
+#: movements/templates/movement_list.html:46
 msgid "Actions"
 msgstr "Ações"
 
 #: accounts/templates/account_list.html:85
+#: movements/templates/movement_list.html:80
 msgid "Previous"
 msgstr "Anterior"
 
 #: accounts/templates/account_list.html:90
+#: movements/templates/movement_list.html:85
 msgid "Page"
 msgstr "Página"
 
 #: accounts/templates/account_list.html:96
+#: movements/templates/movement_list.html:91
 msgid "Next"
 msgstr "Próximo"
 
@@ -230,6 +244,142 @@ msgstr "A senha que você inseriu está incorreta!"
 msgid "Account successfully deleted!"
 msgstr "Conta deletada com sucesso!"
 
+#: movements/templates/movement_create.html:5
+#: movements/templates/movement_create.html:10
+#: movements/templates/movement_list.html:38
+msgid "Record Stock Movement"
+msgstr "Nova movimentação"
+
+#: movements/templates/movement_create.html:17
+msgid "Movement Type"
+msgstr "Tipo de movimentação"
+
+#: movements/templates/movement_create.html:30
+#: movements/templates/movement_detail.html:29 templates/base.html:54
+#: templates/base.html:98 templates/home.html:25
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+#: movements/templates/movement_create.html:35
+#: movements/templates/movement_create.html:86
+msgid "Include"
+msgstr "Incluir"
+
+#: movements/templates/movement_create.html:36
+msgid "Ingredient"
+msgstr "Ingredientes"
+
+#: movements/templates/movement_create.html:37
+#: movements/templates/movement_detail.html:35
+#: movements/templates/movement_detail.html:66
+msgid "Price"
+msgstr "Preço"
+
+#: movements/templates/movement_create.html:38
+#: movements/templates/movement_create.html:88
+#: movements/templates/movement_detail.html:36
+#: movements/templates/movement_detail.html:65
+msgid "Amount"
+msgstr "Quantidade"
+
+#: movements/templates/movement_create.html:39
+msgid "Measure Unit"
+msgstr "Unidade de Medida"
+
+#: movements/templates/movement_create.html:63
+msgid "Unit"
+msgstr "Unidade"
+
+#: movements/templates/movement_create.html:68
+msgid "Grams"
+msgstr "Gramas"
+
+#: movements/templates/movement_create.html:69
+msgid "Kilograms"
+msgstr "Quilo"
+
+#: movements/templates/movement_create.html:81
+#: movements/templates/movement_detail.html:59 templates/base.html:56
+#: templates/base.html:99
+msgid "Products"
+msgstr "Produtos"
+
+#: movements/templates/movement_create.html:87
+msgid "Product"
+msgstr "Produtos"
+
+#: movements/templates/movement_create.html:116
+#: movements/templates/movement_detail.html:93
+msgid "Commentary"
+msgstr "Comentário"
+
+#: movements/templates/movement_create.html:125
+msgid "Record"
+msgstr "Registrar"
+
+#: movements/templates/movement_delete.html:3
+msgid "Delete Stock Movement"
+msgstr "Deletar movimentação"
+
+#: movements/templates/movement_delete.html:9
+msgid "Are you sure you want to delete stock movement"
+msgstr "Tem certeza que deseja excluir a movimentação"
+
+#: movements/templates/movement_detail.html:4
+msgid "Movement Detail"
+msgstr "Detalhes da Movimentação"
+
+#: movements/templates/movement_detail.html:9
+msgid "Details of Stock movement"
+msgstr "Detalhes da Movimentação"
+
+#: movements/templates/movement_detail.html:13
+#: movements/templates/movement_list.html:45
+msgid "Responsible"
+msgstr "Responsável"
+
+#: movements/templates/movement_detail.html:18
+#: movements/templates/movement_list.html:43 templates/home.html:73
+msgid "Type"
+msgstr "Tipo"
+
+#: movements/templates/movement_detail.html:23
+#: movements/templates/movement_list.html:44 templates/home.html:72
+msgid "Date"
+msgstr "Data"
+
+#: movements/templates/movement_list.html:4
+msgid "Movement List"
+msgstr "Lista de Movimentações"
+
+#: movements/templates/movement_list.html:11
+msgid "List of Movements"
+msgstr "Lista de Movimentações"
+
+#: movements/templates/movement_list.html:20 movements/templates/report.html:19
+msgid "Start Date"
+msgstr "Data Inícial"
+
+#: movements/templates/movement_list.html:24 movements/templates/report.html:23
+msgid "End Date"
+msgstr "Data Final"
+
+#: movements/templates/movement_list.html:37 movements/templates/report.html:10
+msgid "Generate Report"
+msgstr "Gerar Relatório"
+
+#: movements/templates/movement_list.html:67
+msgid "No Stock Movement Found"
+msgstr "Nenhuma movimentação"
+
+#: movements/templates/report.html:3
+msgid "Report"
+msgstr "Relatório"
+
+#: movements/templates/report.html:28
+msgid "Generate"
+msgstr "Gerar Relatório"
+
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."
 msgstr "Ops! A página que você procura não foi encontrada."
@@ -249,14 +399,6 @@ msgstr "Contas"
 #: templates/base.html:52 templates/base.html:97
 msgid "Categories"
 msgstr "Categorias"
-
-#: templates/base.html:54 templates/base.html:98 templates/home.html:25
-msgid "Ingredients"
-msgstr "Ingredientes"
-
-#: templates/base.html:56 templates/base.html:99
-msgid "Products"
-msgstr "Produtos"
 
 #: templates/base.html:58 templates/base.html:101
 msgid "Stock Movements"
@@ -310,14 +452,6 @@ msgstr "Nova movimentação"
 #: templates/home.html:63
 msgid "Add Product"
 msgstr "Adicionar Produto"
-
-#: templates/home.html:72
-msgid "Date"
-msgstr "Data"
-
-#: templates/home.html:73
-msgid "Type"
-msgstr "Tipo"
 
 #: templates/home.html:74
 msgid "value"
