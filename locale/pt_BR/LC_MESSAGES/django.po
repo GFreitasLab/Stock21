@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 14:44-0300\n"
+"POT-Creation-Date: 2025-12-19 15:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -295,7 +295,7 @@ msgid "Account sucessfully changed!"
 msgstr "Conta atualizada com sucesso!"
 
 #: accounts/views.py:267 movements/views.py:172 stock/views.py:171
-#: stock/views.py:405
+#: stock/views.py:405 stock/views.py:688
 msgid "The password you entered is incorrect!"
 msgstr "A senha que você inseriu está incorreta!"
 
@@ -711,7 +711,8 @@ msgid "Ingredient successfully registered!"
 msgstr "Ingrediente registrado com sucesso!"
 
 #: stock/views.py:346
-msgid "The new name you want to enter is already associated with an ingredient."
+msgid ""
+"The new name you want to enter is already associated with an ingredient."
 msgstr "O novo nome que deseja inserir já está associado a um ingrediente!"
 
 #: stock/views.py:366
@@ -721,6 +722,46 @@ msgstr "Ingrediente atualizado com sucesso!"
 #: stock/views.py:410
 msgid "Ingredient successfully deleted!"
 msgstr "Ingrediente deletado com sucesso!"
+
+#: stock/views.py:442
+msgid "The product you want to create already exists!"
+msgstr "O produto que deseja registar já existe!"
+
+#: stock/views.py:448 stock/views.py:523 stock/views.py:608
+msgid "Please enter a valid price!"
+msgstr "Insira um preço válido!"
+
+#: stock/views.py:455
+msgid "Select at least 1 ingredient!"
+msgstr "Selecione ao menos 1 ingrediente!"
+
+#: stock/views.py:460
+msgid "Insert a valid quantity to %(ingredient)s!"
+msgstr "Insira uma quantidada válida para %(ingredient)s"
+
+#: stock/views.py:481
+msgid "Product sucessfully created!"
+msgstr "Produto criado com sucesso!"
+
+#: stock/views.py:605
+msgid "The new name you want to enter is already associated with a product!"
+msgstr "O novo nome que deseja inserir já está associado a um produto!"
+
+#: stock/views.py:614
+msgid "Please enter at least 1 ingredient!"
+msgstr "Selecione ao menos 1 ingrediente!"
+
+#: stock/views.py:632
+msgid "Enter a valid quantity for the ingredient %(ingredient)s!"
+msgstr "Insira uma quantidate válida para o ingrediente %(ingredient)s!"
+
+#: stock/views.py:649
+msgid "Product successfully changed!"
+msgstr "Produto atualizado com sucesso!"
+
+#: stock/views.py:693
+msgid "Product successfully deleted!"
+msgstr "Produto deletado com sucesso!"
 
 #: templates/404.html:7
 msgid "Oops! The page you are looking for was not found."

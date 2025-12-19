@@ -439,25 +439,25 @@ def product_create(request: HttpRequest) -> HttpResponse:
         name = request.POST.get("name")
 
         if Product.objects.filter(name__iexact=name).exists():
-            raise ValidationError("O produto que deseja criar já existe!")
+            raise ValidationError(_("The product you want to create already exists!"))
 
         price = request.POST.get("price")
 
         errors = []
 
-        price, price_error = parse_value_br(price, "Insira um preço válido!")
+        price, price_error = parse_value_br(price, _("Please enter a valid price!"))
 
         if price_error:
             errors.append(price_error)
 
         ingredients_ids = request.POST.getlist("ingredients")
         if not ingredients_ids:
-            raise ValidationError(["Selecione ao menos 1 ingrediente!"])
+            raise ValidationError([_("Select at least 1 ingredient!")])
         ingredients_to_create = []
         for ingredient_id in ingredients_ids:
             quantity = request.POST.get(f"q-{ingredient_id}")
             quantity, quantity_error = parse_value_br(
-                str(quantity), f"Insira uma quantidade válida para {Ingredient.objects.get(pk=ingredient_id).name}"
+                    str(quantity), _("Insert a valid quantity to %(ingredient)s!") % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name}
             )
 
             if quantity_error:
@@ -478,7 +478,7 @@ def product_create(request: HttpRequest) -> HttpResponse:
                 quantity=quantity,
             )
 
-        messages.success(request, "Produto criado com sucesso!")
+        messages.success(request, _("Product sucessfully created!"))
         return redirect("product_list")
 
     except ValidationError as e:
@@ -520,7 +520,7 @@ def product_list(request: HttpRequest) -> HttpResponse:
             case "name":
                 products = products.filter(name__icontains=value)
             case "price":
-                value, value_error = parse_value_br(str(value), "Insira um preço válido!")
+                value, value_error = parse_value_br(str(value), _("Please enter a valid price!"))
                 if value_error:
                     messages.error(request, value_error)
                     return redirect("product_list")
@@ -602,16 +602,16 @@ def product_update(request: HttpRequest, id: int) -> HttpResponse:
         name = request.POST.get("name")
 
         if Product.objects.filter(name__iexact=name).exclude(id=product.id).exists():
-            raise ValidationError("O novo nome que deseja inserir já está associado a um produto!")
+            raise ValidationError(_("The new name you want to enter is already associated with a product!"))
 
         price = request.POST.get("price")
-        price, error = parse_value_br(str(price), "Insira um preço válido!")
+        price, error = parse_value_br(str(price), _("Please enter a valid price!"))
         if error:
             raise ValidationError([error])
 
         selected_ids = request.POST.getlist("ingredients")
         if not selected_ids:
-            raise ValidationError(["Insira pelo menos 1 ingrediente!"])
+            raise ValidationError([_("Please enter at least 1 ingredient!")])
 
         product.name = name
         product.price = price
@@ -629,7 +629,7 @@ def product_update(request: HttpRequest, id: int) -> HttpResponse:
         ingredients_list = []
         for ingredient_id in new_ingredients_ids:
             quantity = request.POST.get(f"q-{ingredient_id}")
-            quantity, error = parse_value_br(str(quantity), f"Insira uma quantidade válida para {Ingredient.objects.get(pk=ingredient_id).name}!")
+            quantity, error = parse_value_br(str(quantity), _("Enter a valid quantity for the ingredient %(ingredient)s!" % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name}))
             if error:
                 errors.append(error)
                 continue
@@ -646,7 +646,7 @@ def product_update(request: HttpRequest, id: int) -> HttpResponse:
                 defaults={"quantity": quantity},
             )
 
-        messages.success(request, "Produto alterado com sucesso!")
+        messages.success(request, _("Product successfully changed!"))
         return redirect("product_list")
 
     except ValidationError as e:
@@ -685,10 +685,10 @@ def product_delete(request: HttpRequest, id: int) -> HttpResponse:
     password = request.POST.get("password")
 
     if not request.user.check_password(password):
-        messages.error(request, "A senha que você inseriu está incorreta!")
+        messages.error(request, _("The password you entered is incorrect!"))
         return redirect("product_list")
 
     product.delete()
 
-    messages.success(request, "Produto deletado com sucesso!")
+    messages.success(request, _("Product successfully deleted!"))
     return redirect("product_list")
