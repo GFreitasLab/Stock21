@@ -6,6 +6,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 from django.utils.translation import gettext as _
+from django.utils.formats import number_format
 from fpdf import FPDF
 
 from core.decorators import admin_required
@@ -223,9 +224,9 @@ def report(request: HttpRequest) -> HttpResponse:
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", "B", 14)
-    pdf.cell(200, 10, txt="Relatório de Movimentações", ln=True, align="C")
+    pdf.cell(200, 10, txt=_("Movement Report"), ln=True, align="C")
     pdf.set_font("Arial", size=10)
-    pdf.cell(200, 10, f"Período: {start_date} até {end_date}", ln=True, align="C")
+    pdf.cell(200, 10, _("Period: %(s_dt)s to %(e_dt)s") % {"s_dt": start_date, "e_dt": end_date}, ln=True, align="C")
     pdf.ln(5)
 
     total_in = 0
@@ -235,60 +236,50 @@ def report(request: HttpRequest) -> HttpResponse:
         pdf.set_font("Arial", "B", 12)
         pdf.cell(0, 10, f"{movement.get_type_display()} - {movement.date.strftime('%d/%m/%Y %H:%M')}", ln=True)
         pdf.set_font("Arial", size=10)
-        pdf.cell(0, 8, f"Responsável: {movement.user}", ln=True)
-        pdf.cell(
-            0,
-            8,
-            f"Valor total: R$ {movement.value:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-            ln=True,
-        )
+        pdf.cell(0, 8, _("Responsible: %(user)s") % {"user": movement.user}, ln=True)
+        pdf.cell(0, 8, _("Total value: $ %(value)s") % {"value": number_format(movement.value, 2)}, ln=True,)
 
         pdf.ln(2)
         if movement.type == "in":
             total_in += movement.value
             pdf.set_font("Arial", "B", 10)
-            pdf.cell(60, 8, "Nome", border=1)
-            pdf.cell(40, 8, "Quantidade", border=1)
-            pdf.cell(30, 8, "Medida", border=1)
-            pdf.cell(40, 8, "Preço (R$)", border=1)
+            pdf.cell(80, 8, _("Name"), border=1)
+            pdf.cell(40, 8, _("Quantity"), border=1)
+            pdf.cell(40, 8, _("Price"), border=1)
             pdf.ln()
 
             for ing in movement.ingredients.all():
                 pdf.set_font("Arial", size=10)
-                pdf.cell(60, 8, ing.name, border=1)
-                pdf.cell(40, 8, f"{ing.quantity}", border=1)
-                pdf.cell(30, 8, ing.get_measure_display(), border=1)
-                pdf.cell(40, 8, f"{ing.price:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."), border=1)
+                pdf.cell(80, 8, ing.name, border=1)
+                pdf.cell(40, 8, f"{ing.quantity_display} {ing.get_measure_display()}", border=1)
+                pdf.cell(40, 8, _("$ %(price)s") % {"price": number_format(ing.price, 2)}, border=1)
                 pdf.ln()
         else:
             total_out += movement.value
             pdf.set_font("Arial", "B", 10)
-            pdf.cell(60, 8, "Nome", border=1)
-            pdf.cell(40, 8, "Quantidade", border=1)
-            pdf.cell(40, 8, "Preço (R$)", border=1)
+            pdf.cell(80, 8, _("Name"), border=1)
+            pdf.cell(40, 8, _("Quantity"), border=1)
+            pdf.cell(40, 8, _("Price"), border=1)
             pdf.ln()
 
             for prod in movement.products.all():
                 pdf.set_font("Arial", size=10)
-                pdf.cell(60, 8, prod.name, border=1)
+                pdf.cell(80, 8, prod.name, border=1)
                 pdf.cell(40, 8, f"{prod.quantity}", border=1)
-                pdf.cell(40, 8, f"{prod.price:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."), border=1)
+                pdf.cell(40, 8, _("$ %(price)s") % {"price": number_format(prod.price, 2)}, border=1)
                 pdf.ln()
 
         pdf.ln(5)  # space between movements
 
     pdf.set_font("Arial", "B", 12)
-    pdf.cell(0, 10, "Resumo Financeiro", ln=True)
+    pdf.cell(0, 10, _("Finantial Resume"), ln=True)
 
     pdf.set_font("Arial", size=10)
-    pdf.cell(
-        0, 8, f"Total de Entradas: R$ {total_in:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."), ln=True
-    )
-    pdf.cell(
-        0, 8, f"Total de Saídas:   R$ {total_out:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."), ln=True
-    )
+    pdf.cell(0, 8, _("Total Inflow: $ %(t_in)s") % {"t_in": number_format(total_in, 2)}, ln=True)
+    pdf.cell(0, 8, _("Total Outflow: $ %(t_out)s") % {"t_out": number_format(total_out, 2)}, ln=True)
+    pdf.cell(0, 8, _("Total Balance: $ %(tt)s") % {"tt": number_format(total_out - total_in, 2)}, ln=True)
 
     # Returning the PDF as an HTTP response
     response = HttpResponse(bytes(pdf.output(dest="S")), content_type="application/pdf")
-    response["Content-Disposition"] = "inline; filename='relatorio.pdf'"
+    response["Content-Disposition"] = "inline; filename=relatorio.pdf"
     return response

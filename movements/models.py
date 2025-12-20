@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.formats import number_format
 
 
 class Movement(models.Model):
@@ -42,6 +43,13 @@ class MovementInflow(models.Model):
     quantity = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     measure = models.CharField(max_length=10, choices=([("g", _("Grams")), ("kg", _("Kilograms")), ("unit", _("Units"))]))
+
+    @property
+    def quantity_display(self):
+        """Returns the quantity based on measure"""
+        if self.measure == "kg":
+            return number_format(self.quantity, 3)
+        return number_format(self.quantity, 0)
 
     def __str__(self):
         return f"{self.name}: {self.quantity} - {self.price}"

@@ -30,7 +30,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-        <p class="text-gray-500">{% trans "Today's Revenue" %}</p>
+        <p class="text-gray-500">{% trans "Today's Balance" %}</p>
         {% if daily_net >= 0 %}
           <p class="text-2xl font-bold text-green-500">{% trans "$" %} {{ daily_net|floatformat:2 }}</p>
         {% else %}
@@ -38,7 +38,7 @@
         {% endif %}
       </div>
       <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-        <p class="text-gray-500">{% trans "Weekly Revenue" %}</p>
+        <p class="text-gray-500">{% trans "Weekly Balance" %}</p>
           {% if weekly_net >= 0 %}
             <p class="text-2xl font-bold text-green-500">+{% trans "$" %} {{ weekly_net|floatformat:2 }}</p>
           {% else %}
@@ -46,7 +46,7 @@
           {% endif %}
       </div>
       <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-        <p class="text-gray-500">{% trans "Monthly Revenue" %}</p>
+        <p class="text-gray-500">{% trans "Monthly Balance" %}</p>
         {% if monthly_net >= 0 %}
           <p class="text-2xl font-bold text-green-500">+{% trans "$" %} {{ monthly_net|floatformat:2 }}</p>
         {% else %}

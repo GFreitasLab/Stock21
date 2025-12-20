@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.formats import number_format
 
 
 class Category(models.Model):
@@ -33,6 +34,20 @@ class Ingredient(models.Model):
     qte = models.DecimalField(default=0, max_digits=10, decimal_places=3)
     min_qte = models.DecimalField(default=0, max_digits=10, decimal_places=3)
     measure = models.CharField(max_length=10, choices=([("g", _("Grams")), ("kg", _("Kilograms")), ("unit", _("Units"))]))
+
+    @property
+    def qte_display(self):
+        """Retuns formatted quantity based on measure"""
+        if self.measure == "kg":
+            return number_format(self.qte, 3)
+        return number_format(self.qte, 0)
+
+    @property
+    def min_qte_display(self):
+        """Retuns formatted minimum quantity based on measure"""
+        if self.measure == "kg":
+            return number_format(self.min_qte, 3)
+        return number_format(self.min_qte, 0)
 
     def __str__(self):
         return self.name

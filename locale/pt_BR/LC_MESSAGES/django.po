@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-20 05:57-0300\n"
+"POT-Creation-Date: 2025-12-20 18:38-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,8 +95,8 @@ msgstr "Detalhes da Conta"
 #: accounts/templates/account_update.html:11
 #: accounts/templates/register.html:15 accounts/templates/register.html:16
 #: movements/templates/movement_detail.html:34
-#: movements/templates/movement_detail.html:64
-#: stock/templates/category_create.html:11
+#: movements/templates/movement_detail.html:64 movements/views.py:246
+#: movements/views.py:260 stock/templates/category_create.html:11
 #: stock/templates/category_detail.html:10
 #: stock/templates/category_list.html:22
 #: stock/templates/category_update.html:11
@@ -295,7 +295,7 @@ msgstr "Deslogado com sucesso!"
 msgid "Account sucessfully changed!"
 msgstr "Conta atualizada com sucesso!"
 
-#: accounts/views.py:267 movements/views.py:172 stock/views.py:172
+#: accounts/views.py:267 movements/views.py:173 stock/views.py:172
 #: stock/views.py:430 stock/views.py:726
 msgid "The password you entered is incorrect!"
 msgstr "A senha que você inseriu está incorreta!"
@@ -304,25 +304,25 @@ msgstr "A senha que você inseriu está incorreta!"
 msgid "Account successfully deleted!"
 msgstr "Conta deletada com sucesso!"
 
-#: movements/models.py:19
+#: movements/models.py:20
 msgid "Inflow"
 msgstr "Entrada"
 
-#: movements/models.py:19
+#: movements/models.py:20
 msgid "Outflow"
 msgstr "Saída"
 
-#: movements/models.py:44 movements/templates/movement_create.html:68
-#: stock/models.py:35
+#: movements/models.py:45 movements/templates/movement_create.html:68
+#: stock/models.py:36
 msgid "Grams"
 msgstr "Gramas"
 
-#: movements/models.py:44 movements/templates/movement_create.html:69
-#: stock/models.py:35
+#: movements/models.py:45 movements/templates/movement_create.html:69
+#: stock/models.py:36
 msgid "Kilograms"
 msgstr "Quilos"
 
-#: movements/models.py:44 stock/models.py:35
+#: movements/models.py:45 stock/models.py:36
 msgid "Units"
 msgstr "Unidades"
 
@@ -393,8 +393,8 @@ msgstr "Ingredientes"
 
 #: movements/templates/movement_create.html:37
 #: movements/templates/movement_detail.html:35
-#: movements/templates/movement_detail.html:66
-#: stock/templates/product_create.html:16
+#: movements/templates/movement_detail.html:66 movements/views.py:248
+#: movements/views.py:262 stock/templates/product_create.html:16
 #: stock/templates/product_detail.html:14 stock/templates/product_list.html:22
 #: stock/templates/product_list.html:45 stock/templates/product_update.html:15
 msgid "Price"
@@ -499,13 +499,65 @@ msgstr "Relatório"
 msgid "Generate"
 msgstr "Gerar Relatório"
 
-#: movements/views.py:59
+#: movements/views.py:60
 msgid "Movement successfully recorded!"
 msgstr "Movimentação registrada com sucesso!"
 
-#: movements/views.py:177
+#: movements/views.py:178
 msgid "Movement successfully deleted!"
 msgstr "Movimentação deletada com sucesso!"
+
+#: movements/views.py:227
+msgid "Movement Report"
+msgstr "Relatório da Movimentação"
+
+#: movements/views.py:229
+#, python-format
+msgid "Period: %(s_dt)s to %(e_dt)s"
+msgstr "Período: %(s_dt)s até %(e_dt)s"
+
+#: movements/views.py:239
+#, python-format
+msgid "Responsible: %(user)s"
+msgstr "Responsável: %(user)s"
+
+#: movements/views.py:240
+#, python-format
+msgid "Total value: $ %(value)s"
+msgstr "Valor Total: R$ %(value)s"
+
+#: movements/views.py:247 movements/views.py:261
+#: stock/templates/ingredient_list.html:23
+#: stock/templates/ingredient_list.html:57
+#: stock/templates/ingredient_update.html:34
+#: stock/templates/product_create.html:27
+#: stock/templates/product_detail.html:25
+msgid "Quantity"
+msgstr "Quantidate"
+
+#: movements/views.py:255 movements/views.py:269
+#, python-format
+msgid "$ %(price)s"
+msgstr "R$ %(price)s"
+
+#: movements/views.py:275
+msgid "Finantial Resume"
+msgstr "Resumo Financeiro"
+
+#: movements/views.py:278
+#, python-format
+msgid "Total Inflow: $ %(t_in)s"
+msgstr "Total de Entrada: R$ %(t_in)s"
+
+#: movements/views.py:279
+#, python-format
+msgid "Total Outflow: $ %(t_out)s"
+msgstr "Total de Saída: R$ %(t_out)s"
+
+#: movements/views.py:280
+#, python-format
+msgid "Total Balance: $ %(tt)s"
+msgstr "Saldo Total: R$ %(tt)s"
 
 #: stock/templates/category_create.html:3
 #: stock/templates/category_create.html:7
@@ -614,14 +666,6 @@ msgstr "Listar Ingredientes"
 #: stock/templates/ingredient_list.html:11
 msgid "List of Ingredients"
 msgstr "Lista de Ingredientes"
-
-#: stock/templates/ingredient_list.html:23
-#: stock/templates/ingredient_list.html:57
-#: stock/templates/ingredient_update.html:34
-#: stock/templates/product_create.html:27
-#: stock/templates/product_detail.html:25
-msgid "Quantity"
-msgstr "Quantidate"
 
 #: stock/templates/ingredient_list.html:50
 msgid "Register Ingredient"
@@ -849,8 +893,8 @@ msgid "Low Stock"
 msgstr "Estoque Baixo"
 
 #: templates/home.html:33
-msgid "Today's Revenue"
-msgstr "Vendas do Dia"
+msgid "Today's Balance"
+msgstr "Saldo do Dia"
 
 #: templates/home.html:35 templates/home.html:37 templates/home.html:43
 #: templates/home.html:45 templates/home.html:51 templates/home.html:53
@@ -859,12 +903,12 @@ msgid "$"
 msgstr "R$"
 
 #: templates/home.html:41
-msgid "Weekly Revenue"
-msgstr "Vendas da Semana"
+msgid "Weekly Balance"
+msgstr "Saldo da Semana"
 
 #: templates/home.html:49
-msgid "Monthly Revenue"
-msgstr "Vendas do Mês"
+msgid "Monthly Balance"
+msgstr "Saldo do Mês"
 
 #: templates/home.html:60
 msgid "New Stock Movement"
