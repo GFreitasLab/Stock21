@@ -1,57 +1,56 @@
 {% extends "base.html" %}
-{% block title %}
-    Detalhar Produto
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Detail Product" %}{% endblock title %}
 {% block body %}
-    <div class="main-content">
-        <div class="detail-content">
-            <h2 class="detail-title">Detalhes do Produto</h2>
-            <div class="space-y-4 text-gray-800 dark:text-gray-300">
-                <div>
-                    <span class="detail-text">Nome:</span>
-                    <span class="text-lg">{{ product.name }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Preço:</span>
-                    <span class="text-lg">{{ product.price }}</span>
-                </div>
-                <div>
-                    <span class="detail-text mb-2">Ingredientes:</span>
-                    {% if products_ingredients %}
-                        <div class="rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                            <table class="detail-table">
-                                <thead class="detail-thead">
-                                    <tr>
-                                        <th class="detail-th">Nome</th>
-                                        <th class="detail-th">Quantidade</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="detail-tbody">
-                                    {% for pi in products_ingredients %}
-                                        <tr class="table-row"
-                                            onclick="window.location='{% url 'ingredient_detail' pi.ingredient.id %}'">
-                                            <td class="table-text">{{ pi.ingredient.name }}</td>
-                                            <td class="table-text">
-                                                {% if pi.measure == "kg" %}
-                                                    {{ pi.quantity }} {{ pi.ingredient.get_measure_display }}
-                                                {% else %}
-                                                    {{ pi.quantity|floatformat:0 }} {{ pi.ingredient.get_measure_display }}
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    {% else %}
-                        <p class="text-gray-600 dark:text-gray-400 mt-2">Nenhum ingrediente associado.</p>
-                    {% endif %}
-                </div>
-                <div class="detail-buttons">
-                    <a href="{% url 'product_list' %}" class="gray-button">Voltar para Lista</a>
-                    <a href="{% url 'product_update' product.id %}" class="yellow-button">Editar</a>
-                    <a href="{% url 'product_delete' product.id %}" class="red-button">Deletar</a>
-                </div>
-            </div>
-        </div>
-    {% endblock body %}
+<div class="main-content">
+  <div class="detail-content">
+    <h2 class="detail-title">{% trans "Product Details" %}</h2>
+    <div class="space-y-4 text-gray-800 dark:text-gray-300">
+      <div>
+        <span class="detail-text">{% trans "Name" %}:</span>
+        <span class="text-lg">{{ product.name }}</span>
+      </div>
+      <div>
+        <span class="detail-text">{% trans "Price" %}:</span>
+        <span class="text-lg">{{ product.price }}</span>
+      </div>
+      <div>
+        <span class="detail-text mb-2">{% trans "Ingredients" %}:</span>
+        {% if products_ingredients %}
+          <div class="rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+            <table class="detail-table">
+              <thead class="detail-thead">
+                <tr>
+                  <th class="detail-th">{% trans "Name" %}</th>
+                  <th class="detail-th">{% trans "Quantity" %}</th>
+                </tr>
+              </thead>
+              <tbody class="detail-tbody">
+                {% for pi in products_ingredients %}
+                  <tr class="table-row" onclick="window.location='{% url 'ingredient_detail' pi.ingredient.id %}'">
+                    <td class="table-text">{{ pi.ingredient.name }}</td>
+                    <td class="table-text">
+                      {% if pi.measure == "kg" %}
+                        {{ pi.quantity }} {{ pi.ingredient.get_measure_display }}
+                      {% else %}
+                        {{ pi.quantity|floatformat:0 }} {{ pi.ingredient.get_measure_display }}
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p class="text-gray-600 dark:text-gray-400 mt-2">{% trans "No associated ingredients." %}</p>
+        {% endif %}
+      </div>
+      <div class="detail-buttons">
+        <a href="{% url 'product_list' %}" class="gray-button">{% trans "Back to List" %}</a>
+        <a href="{% url 'product_update' product.id %}" class="yellow-button">{% trans "Edit" %}</a>
+        <a href="{% url 'product_delete' product.id %}" class="red-button">{% trans "Delete" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

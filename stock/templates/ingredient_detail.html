@@ -1,48 +1,47 @@
 {% extends "base.html" %}
-{% block title %}
-    Detalhar Ingrediente
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Detail Ingredient" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="detail-container">
-            <h2 class="detail-title">Detalhes do Ingrediente</h2>
-            <div class="space-y-4 text-gray-800 dark:text-gray-300">
-                <div>
-                    <span class="detail-text">Nome:</span>
-                    <span class="text-lg">{{ ingredient.name }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Categoria:</span>
-                    <span class="text-lg">{{ ingredient.category }}</span>
-                </div>
-                {% if ingredient.measure == "kg" %}
-                    <div>
-                        <span class="detail-text">Quantidade em Estoque:</span>
-                        <span class="text-lg">{{ ingredient.qte }} {{ ingredient.get_measure_display }}</span>
-                    </div>
-                    <div>
-                        <span class="detail-text">Quantidade Mínima:</span>
-                        <span class="text-lg">{{ ingredient.min_qte }} {{ ingredient.get_measure_display }}</span>
-                    </div>
-                {% else %}
-                    <div>
-                        <span class="detail-text">Quantidade em Estoque:</span>
-                        <span class="text-lg">{{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }}</span>
-                    </div>
-                    <div>
-                        <span class="detail-text">Quantidade Mínima:</span>
-                        <span class="text-lg">{{ ingredient.min_qte|floatformat:0 }} {{ ingredient.get_measure_display }}</span>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="detail-buttons">
-                <a href="{% url 'ingredient_list' %}" class="gray-button">Voltar para Lista</a>
-                {% if request.user.role == "admin" %}
-                    <a href="{% url 'ingredient_update' ingredient.id %}"
-                       class="yellow-button">Editar</a>
-                    <a href="{% url 'ingredient_delete' ingredient.id %}" class="red-button">Deletar</a>
-                {% endif %}
-            </div>
-        </div>
+<div class="main-container">
+  <div class="detail-container">
+    <h2 class="detail-title">{% trans "Ingredient Details" %}</h2>
+    <div class="space-y-4 text-gray-800 dark:text-gray-300">
+      <div>
+        <span class="detail-text">{% trans "Name" %}:</span>
+        <span class="text-lg">{{ ingredient.name }}</span>
+      </div>
+      <div>
+        <span class="detail-text">{% trans "Category" %}:</span>
+        <span class="text-lg">{{ ingredient.category }}</span>
+      </div>
+      {% if ingredient.measure == "kg" %}
+      <div>
+        <span class="detail-text">{% trans "Quantity in Stock" %}:</span>
+        <span class="text-lg">{{ ingredient.qte }} {{ ingredient.get_measure_display }}</span>
+      </div>
+      <div>
+        <span class="detail-text">{% trans "Minimum Quantity" %}:</span>
+        <span class="text-lg">{{ ingredient.min_qte }} {{ ingredient.get_measure_display }}</span>
+      </div>
+      {% else %}
+      <div>
+        <span class="detail-text">{% trans "Quantity in Stock" %}:</span>
+        <span class="text-lg">{{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }}</span>
+      </div>
+      <div>
+        <span class="detail-text">{% trans "Minimum Quantity" %}:</span>
+        <span class="text-lg">{{ ingredient.min_qte|floatformat:0 }} {{ ingredient.get_measure_display }}</span>
+      </div>
+      {% endif %}
     </div>
+    <div class="detail-buttons">
+      <a href="{% url 'ingredient_list' %}" class="gray-button">{% trans "Back to List" %}</a>
+      {% if request.user.role == "admin" %}
+      <a href="{% url 'ingredient_update' ingredient.id %}"
+         class="yellow-button">{% trans "Edit" %}</a>
+      <a href="{% url 'ingredient_delete' ingredient.id %}" class="red-button">{% trans "Delete" %}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock body %}

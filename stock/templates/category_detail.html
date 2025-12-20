@@ -1,26 +1,25 @@
 {% extends "base.html" %}
-{% block title %}
-    Detalhar Categoria
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Detail Category" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="detail-container">
-            <h2 class="detail-title">Detalhes da Categoria</h2>
-            <div class="space-y-4 text-gray-800 dark:text-gray-300">
-                <div>
-                    <span class="detail-text">Nome:</span>
-                    <span class="text-lg">{{ category.name }}</span>
-                </div>
-                <div>
-                    <span class="detail-text">Descrição:</span>
-                    <span class="text-lg">{{ category.description }}</span>
-                </div>
-            </div>
-            <div class="detail-buttons">
-                <a href="{% url 'category_list' %}" class="gray-button">Voltar para Lista</a>
-                <a href="{% url 'category_update' category.id %}" class="yellow-button">Editar</a>
-                <a href="{% url 'category_delete' category.id %}" class="red-button">Deletar</a>
-            </div>
-        </div>
+<div class="main-container">
+  <div class="detail-container">
+    <h2 class="detail-title">{% trans "Category Details" %}</h2>
+    <div class="space-y-4 text-gray-800 dark:text-gray-300">
+      <div>
+        <span class="detail-text">{% trans "Name" %}:</span>
+        <span class="text-lg">{{ category.name }}</span>
+      </div>
+      <div>
+        <span class="detail-text">{% trans "Description" %}:</span>
+        <span class="text-lg">{{ category.description }}</span>
+      </div>
     </div>
+    <div class="detail-buttons">
+      <a href="{% url 'category_list' %}" class="gray-button">{% trans "Back to List" %}</a>
+      <a href="{% url 'category_update' category.id %}" class="yellow-button">{% trans "Edit" %}</a>
+      <a href="{% url 'category_delete' category.id %}" class="red-button">{% trans "Delete" %}</a>
+    </div>
+  </div>
+</div>
 {% endblock body %}

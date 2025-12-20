@@ -1,0 +1,891 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-20 05:57-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/models.py:23
+msgid "Employee"
+msgstr "Funcionário"
+
+#: accounts/models.py:23
+msgid "Administrator"
+msgstr "Adiministrador"
+
+#: accounts/services.py:42
+msgid "The passwords must be the same!"
+msgstr "As senhas devem ser iguais!"
+
+#: accounts/services.py:44
+msgid "The password must be at least 8 characters long!"
+msgstr "A senha deve ter no mínimo 8 caracteres!"
+
+#: accounts/templates/account_delete.html:3
+msgid "Delete Account"
+msgstr "Deletar Conta"
+
+#: accounts/templates/account_delete.html:7
+#: accounts/templates/account_delete.html:21
+#: movements/templates/movement_delete.html:7
+#: movements/templates/movement_delete.html:21
+#: stock/templates/category_delete.html:7
+#: stock/templates/category_delete.html:21
+#: stock/templates/ingredient_delete.html:7
+#: stock/templates/ingredient_delete.html:21
+#: stock/templates/product_delete.html:7 stock/templates/product_delete.html:21
+msgid "Confirm Exclusion"
+msgstr "Confirmar Exclusão"
+
+#: accounts/templates/account_delete.html:9
+msgid "Are you sure you want to delete account"
+msgstr "Tem certeza que deseja excluir a conta de"
+
+#: accounts/templates/account_delete.html:11
+#: movements/templates/movement_delete.html:11
+#: stock/templates/category_delete.html:11
+#: stock/templates/ingredient_delete.html:11
+#: stock/templates/product_delete.html:11
+msgid "This action cannot be undone."
+msgstr "Essa ação não poderá ser desfeita."
+
+#: accounts/templates/account_delete.html:16
+#: movements/templates/movement_delete.html:16
+#: stock/templates/category_delete.html:16
+#: stock/templates/ingredient_delete.html:16
+#: stock/templates/product_delete.html:16
+msgid "Confirm with password"
+msgstr "Confirmar com senha"
+
+#: accounts/templates/account_delete.html:20
+#: accounts/templates/account_update.html:39
+#: movements/templates/movement_delete.html:20
+#: stock/templates/category_delete.html:20
+#: stock/templates/category_update.html:19
+#: stock/templates/ingredient_delete.html:20
+#: stock/templates/ingredient_update.html:46
+#: stock/templates/product_delete.html:20
+#: stock/templates/product_update.html:38
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: accounts/templates/account_detail.html:3
+msgid "Detail Account"
+msgstr "Detalhar Conta"
+
+#: accounts/templates/account_detail.html:7
+msgid "Account Details"
+msgstr "Detalhes da Conta"
+
+#: accounts/templates/account_detail.html:10
+#: accounts/templates/account_list.html:21
+#: accounts/templates/account_list.html:51
+#: accounts/templates/account_update.html:11
+#: accounts/templates/register.html:15 accounts/templates/register.html:16
+#: movements/templates/movement_detail.html:34
+#: movements/templates/movement_detail.html:64
+#: stock/templates/category_create.html:11
+#: stock/templates/category_detail.html:10
+#: stock/templates/category_list.html:22
+#: stock/templates/category_update.html:11
+#: stock/templates/ingredient_create.html:11
+#: stock/templates/ingredient_detail.html:10
+#: stock/templates/ingredient_list.html:21
+#: stock/templates/ingredient_list.html:56
+#: stock/templates/ingredient_update.html:11
+#: stock/templates/product_create.html:11
+#: stock/templates/product_detail.html:10
+#: stock/templates/product_detail.html:24 stock/templates/product_list.html:21
+#: stock/templates/product_list.html:44 stock/templates/product_update.html:11
+msgid "Name"
+msgstr "Nome"
+
+#: accounts/templates/account_detail.html:18
+#: accounts/templates/account_list.html:23
+#: accounts/templates/account_list.html:53
+#: accounts/templates/account_update.html:23
+#: accounts/templates/register.html:48
+msgid "Role"
+msgstr "Cargo"
+
+#: accounts/templates/account_detail.html:22
+msgid "Creation Date"
+msgstr "Data de Criação"
+
+#: accounts/templates/account_detail.html:26
+msgid "Last Change"
+msgstr "Ultima alteração"
+
+#: accounts/templates/account_detail.html:31
+#: movements/templates/movement_detail.html:99
+#: stock/templates/category_detail.html:19
+#: stock/templates/ingredient_detail.html:38
+#: stock/templates/product_detail.html:49
+msgid "Back to List"
+msgstr "Voltar para o início"
+
+#: accounts/templates/account_detail.html:32
+#: stock/templates/category_detail.html:20
+#: stock/templates/ingredient_detail.html:41
+#: stock/templates/product_detail.html:50
+msgid "Edit"
+msgstr "Editar"
+
+#: accounts/templates/account_detail.html:33
+#: movements/templates/movement_detail.html:100
+#: stock/templates/category_detail.html:21
+#: stock/templates/ingredient_detail.html:42
+#: stock/templates/product_detail.html:51
+msgid "Delete"
+msgstr "Deletar"
+
+#: accounts/templates/account_list.html:4
+msgid "Account List"
+msgstr "Listar Contas"
+
+#: accounts/templates/account_list.html:11
+msgid "List of Accounts"
+msgstr "Lista de Contas"
+
+#: accounts/templates/account_list.html:19
+#: stock/templates/ingredient_list.html:19 stock/templates/product_list.html:19
+msgid "Filter By"
+msgstr "Filtrar por"
+
+#: accounts/templates/account_list.html:27
+#: stock/templates/ingredient_list.html:28 stock/templates/product_list.html:26
+#: templates/home.html:72
+msgid "Value"
+msgstr "Valor"
+
+#: accounts/templates/account_list.html:29
+msgid "Type the Value..."
+msgstr "Digite o valor..."
+
+#: accounts/templates/account_list.html:37
+#: movements/templates/movement_list.html:29
+#: stock/templates/ingredient_list.html:40 stock/templates/product_list.html:30
+msgid "Filter"
+msgstr "Filtrar"
+
+#: accounts/templates/account_list.html:46 accounts/templates/register.html:75
+msgid "Create Account"
+msgstr "Criar Conta"
+
+#: accounts/templates/account_list.html:54
+#: movements/templates/movement_list.html:46
+#: stock/templates/category_list.html:23
+#: stock/templates/ingredient_list.html:59 stock/templates/product_list.html:46
+msgid "Actions"
+msgstr "Ações"
+
+#: accounts/templates/account_list.html:85
+#: movements/templates/movement_list.html:80
+#: stock/templates/category_list.html:49
+#: stock/templates/ingredient_list.html:97 stock/templates/product_list.html:76
+msgid "Previous"
+msgstr "Anterior"
+
+#: accounts/templates/account_list.html:90
+#: movements/templates/movement_list.html:85
+#: stock/templates/category_list.html:54
+#: stock/templates/ingredient_list.html:102
+#: stock/templates/product_list.html:81
+msgid "Page"
+msgstr "Página"
+
+#: accounts/templates/account_list.html:96
+#: movements/templates/movement_list.html:91
+#: stock/templates/category_list.html:58
+#: stock/templates/ingredient_list.html:108
+#: stock/templates/product_list.html:87
+msgid "Next"
+msgstr "Próximo"
+
+#: accounts/templates/account_update.html:3
+#: stock/templates/ingredient_update.html:3
+msgid "Edit Account"
+msgstr "Editar Conta"
+
+#: accounts/templates/account_update.html:7
+msgid "Update Account"
+msgstr "Atualizar Conta"
+
+#: accounts/templates/account_update.html:15
+#: accounts/templates/register.html:21 accounts/templates/register.html:22
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: accounts/templates/account_update.html:31 accounts/templates/login.html:23
+#: accounts/templates/register.html:35
+msgid "Password"
+msgstr "Senha"
+
+#: accounts/templates/account_update.html:35
+#: accounts/templates/register.html:41
+msgid "Confirm Password"
+msgstr "Senha"
+
+#: accounts/templates/account_update.html:40
+#: stock/templates/category_update.html:20
+#: stock/templates/ingredient_update.html:47
+#: stock/templates/product_update.html:39
+msgid "Update"
+msgstr "Atualizar"
+
+#: accounts/templates/login.html:3 accounts/templates/login.html:31
+msgid "Login"
+msgstr "Entrar"
+
+#: accounts/templates/login.html:8
+msgid "Log in to your account"
+msgstr "Entrar na sua conta"
+
+#: accounts/templates/login.html:9
+msgid "Enter your details to access"
+msgstr "Insira suas credenciais para acessar"
+
+#: accounts/templates/login.html:19
+msgid "your@email.com"
+msgstr "seu@email.com"
+
+#: accounts/templates/register.html:3 stock/templates/category_create.html:22
+#: stock/templates/ingredient_create.html:49
+#: stock/templates/product_create.html:61
+msgid "Register"
+msgstr "Registrar"
+
+#: accounts/templates/register.html:8
+msgid "Register Account"
+msgstr "Registrar Conta"
+
+#: accounts/templates/register.html:29
+msgid "example@email.com"
+msgstr "seu@email.com"
+
+#: accounts/views.py:48
+msgid "Fill in all fields"
+msgstr "Preencha todos os campos"
+
+#: accounts/views.py:56
+msgid "Email or Password inválid!"
+msgstr "Email ou senha inválidos"
+
+#: accounts/views.py:92
+msgid "User sucessfully created!"
+msgstr "Usuário criado com sucesso!"
+
+#: accounts/views.py:118
+msgid "sucessfully Logged out!"
+msgstr "Deslogado com sucesso!"
+
+#: accounts/views.py:226
+msgid "Account sucessfully changed!"
+msgstr "Conta atualizada com sucesso!"
+
+#: accounts/views.py:267 movements/views.py:172 stock/views.py:172
+#: stock/views.py:430 stock/views.py:726
+msgid "The password you entered is incorrect!"
+msgstr "A senha que você inseriu está incorreta!"
+
+#: accounts/views.py:272
+msgid "Account successfully deleted!"
+msgstr "Conta deletada com sucesso!"
+
+#: movements/models.py:19
+msgid "Inflow"
+msgstr "Entrada"
+
+#: movements/models.py:19
+msgid "Outflow"
+msgstr "Saída"
+
+#: movements/models.py:44 movements/templates/movement_create.html:68
+#: stock/models.py:35
+msgid "Grams"
+msgstr "Gramas"
+
+#: movements/models.py:44 movements/templates/movement_create.html:69
+#: stock/models.py:35
+msgid "Kilograms"
+msgstr "Quilos"
+
+#: movements/models.py:44 stock/models.py:35
+msgid "Units"
+msgstr "Unidades"
+
+#: movements/services.py:36
+msgid "The period cannot be negative."
+msgstr "O período não pode ser negativo."
+
+#: movements/services.py:39
+msgid "The maximum consultation period is 30 days."
+msgstr "O período máximo de consulta é de 30 dias."
+
+#: movements/services.py:49
+msgid "Insert a valid date"
+msgstr "Insira uma data válida"
+
+#: movements/services.py:99
+msgid "Select at least 1 ingredient"
+msgstr "Selecione ao menos 1 ingrediente"
+
+#: movements/services.py:110 movements/services.py:180
+#, python-format
+msgid "Enter a value greater than 0 to %(name)s"
+msgstr "Inisira um valor maior que 0 para %(name)s"
+
+#: movements/services.py:112 movements/services.py:182
+#, python-format
+msgid "Insert a valid value to %(name)s"
+msgstr "Insira um valor válido para %(name)s"
+
+#: movements/services.py:170
+msgid "Select at least 1 product"
+msgstr "Selecione ao menos 1 produto"
+
+#: movements/services.py:194
+#, python-format
+msgid "Insufficient stock for ingredient %(ingredient)s!"
+msgstr "Estoque insuficiente para o ingrediente %(ingredient)s!"
+
+#: movements/templates/movement_create.html:5
+#: movements/templates/movement_create.html:10
+#: movements/templates/movement_list.html:38
+msgid "Record Stock Movement"
+msgstr "Nova movimentação"
+
+#: movements/templates/movement_create.html:17
+msgid "Movement Type"
+msgstr "Tipo de movimentação"
+
+#: movements/templates/movement_create.html:30
+#: movements/templates/movement_detail.html:29
+#: stock/templates/product_create.html:21
+#: stock/templates/product_detail.html:18
+#: stock/templates/product_update.html:19 templates/base.html:54
+#: templates/base.html:98 templates/home.html:26
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+#: movements/templates/movement_create.html:35
+#: movements/templates/movement_create.html:86
+#: stock/templates/product_create.html:25
+msgid "Include"
+msgstr "Incluir"
+
+#: movements/templates/movement_create.html:36
+#: stock/templates/product_create.html:26
+msgid "Ingredient"
+msgstr "Ingredientes"
+
+#: movements/templates/movement_create.html:37
+#: movements/templates/movement_detail.html:35
+#: movements/templates/movement_detail.html:66
+#: stock/templates/product_create.html:16
+#: stock/templates/product_detail.html:14 stock/templates/product_list.html:22
+#: stock/templates/product_list.html:45 stock/templates/product_update.html:15
+msgid "Price"
+msgstr "Preço"
+
+#: movements/templates/movement_create.html:38
+#: movements/templates/movement_create.html:88
+#: movements/templates/movement_detail.html:36
+#: movements/templates/movement_detail.html:65
+#: stock/templates/ingredient_create.html:37
+msgid "Amount"
+msgstr "Quantidade"
+
+#: movements/templates/movement_create.html:39
+#: stock/templates/ingredient_create.html:28
+msgid "Measure Unit"
+msgstr "Unidade de Medida"
+
+#: movements/templates/movement_create.html:63
+msgid "Unit"
+msgstr "Unidade"
+
+#: movements/templates/movement_create.html:81
+#: movements/templates/movement_detail.html:59 templates/base.html:56
+#: templates/base.html:99
+msgid "Products"
+msgstr "Produtos"
+
+#: movements/templates/movement_create.html:87
+msgid "Product"
+msgstr "Produtos"
+
+#: movements/templates/movement_create.html:116
+#: movements/templates/movement_detail.html:93
+msgid "Commentary"
+msgstr "Comentário"
+
+#: movements/templates/movement_create.html:125
+msgid "Record"
+msgstr "Registrar"
+
+#: movements/templates/movement_delete.html:3
+msgid "Delete Stock Movement"
+msgstr "Deletar movimentação"
+
+#: movements/templates/movement_delete.html:9
+msgid "Are you sure you want to delete stock movement"
+msgstr "Tem certeza que deseja excluir a movimentação"
+
+#: movements/templates/movement_detail.html:4
+msgid "Movement Detail"
+msgstr "Detalhes da Movimentação"
+
+#: movements/templates/movement_detail.html:9
+msgid "Details of Stock movement"
+msgstr "Detalhes da Movimentação"
+
+#: movements/templates/movement_detail.html:13
+#: movements/templates/movement_list.html:45
+msgid "Responsible"
+msgstr "Responsável"
+
+#: movements/templates/movement_detail.html:18
+#: movements/templates/movement_list.html:43 templates/home.html:71
+msgid "Type"
+msgstr "Tipo"
+
+#: movements/templates/movement_detail.html:23
+#: movements/templates/movement_list.html:44 templates/home.html:70
+msgid "Date"
+msgstr "Data"
+
+#: movements/templates/movement_list.html:4
+msgid "Movement List"
+msgstr "Lista de Movimentações"
+
+#: movements/templates/movement_list.html:11
+msgid "List of Movements"
+msgstr "Lista de Movimentações"
+
+#: movements/templates/movement_list.html:20 movements/templates/report.html:19
+msgid "Start Date"
+msgstr "Data Inícial"
+
+#: movements/templates/movement_list.html:24 movements/templates/report.html:23
+msgid "End Date"
+msgstr "Data Final"
+
+#: movements/templates/movement_list.html:37 movements/templates/report.html:10
+msgid "Generate Report"
+msgstr "Gerar Relatório"
+
+#: movements/templates/movement_list.html:67
+msgid "No Stock Movement Found"
+msgstr "Nenhuma movimentação"
+
+#: movements/templates/report.html:3
+msgid "Report"
+msgstr "Relatório"
+
+#: movements/templates/report.html:28
+msgid "Generate"
+msgstr "Gerar Relatório"
+
+#: movements/views.py:59
+msgid "Movement successfully recorded!"
+msgstr "Movimentação registrada com sucesso!"
+
+#: movements/views.py:177
+msgid "Movement successfully deleted!"
+msgstr "Movimentação deletada com sucesso!"
+
+#: stock/templates/category_create.html:3
+#: stock/templates/category_create.html:7
+msgid "New Category"
+msgstr "Nova Categoria"
+
+#: stock/templates/category_create.html:16
+#: stock/templates/category_detail.html:14
+#: stock/templates/category_update.html:15
+msgid "Description"
+msgstr "Descrição"
+
+#: stock/templates/category_delete.html:3
+msgid "Delete Category"
+msgstr "Deletar Categoria"
+
+#: stock/templates/category_delete.html:9
+msgid "Are you sure you want to delete category"
+msgstr "Tem certeza que deseja excluir a categoria"
+
+#: stock/templates/category_detail.html:3
+msgid "Detail Category"
+msgstr "Detalhar Categoria"
+
+#: stock/templates/category_detail.html:7
+msgid "Category Details"
+msgstr "Detalhes da Categoria"
+
+#: stock/templates/category_list.html:4
+msgid "Category List"
+msgstr "Listar Categorias"
+
+#: stock/templates/category_list.html:11
+msgid "List of Categories"
+msgstr "Lista de Categorias"
+
+#: stock/templates/category_list.html:17
+msgid "Create Category"
+msgstr "Criar Categoria"
+
+#: stock/templates/category_update.html:3
+msgid "Edit Category"
+msgstr "Editar Categoria"
+
+#: stock/templates/category_update.html:7
+msgid "Update Category"
+msgstr "Atualizar Categoria"
+
+#: stock/templates/ingredient_create.html:3
+msgid "Ingredient Create"
+msgstr "Criar Ingrediente"
+
+#: stock/templates/ingredient_create.html:7
+msgid "Create Ingredient"
+msgstr "Criar Ingrediente"
+
+#: stock/templates/ingredient_create.html:16
+#: stock/templates/ingredient_detail.html:14
+#: stock/templates/ingredient_list.html:22
+#: stock/templates/ingredient_update.html:15
+msgid "Category"
+msgstr "Categoria"
+
+#: stock/templates/ingredient_create.html:38
+#: stock/templates/ingredient_create.html:43
+#: stock/templates/ingredient_update.html:35
+#: stock/templates/ingredient_update.html:41
+#: stock/templates/product_create.html:17
+msgid "0,000.00"
+msgstr "0.000,00"
+
+#: stock/templates/ingredient_create.html:42
+#: stock/templates/ingredient_detail.html:23
+#: stock/templates/ingredient_detail.html:32
+#: stock/templates/ingredient_list.html:24
+#: stock/templates/ingredient_list.html:58
+#: stock/templates/ingredient_update.html:40
+msgid "Minimum Quantity"
+msgstr "Quantidade Mínima"
+
+#: stock/templates/ingredient_delete.html:3
+msgid "Delete Ingredient"
+msgstr "Deletar Ingrediente"
+
+#: stock/templates/ingredient_delete.html:9
+msgid "Are you sure you want to delete ingredient"
+msgstr "Tem certeza que deseja excluir o ingrediente"
+
+#: stock/templates/ingredient_detail.html:3
+msgid "Detail Ingredient"
+msgstr "Detalhar Ingrediente"
+
+#: stock/templates/ingredient_detail.html:7
+msgid "Ingredient Details"
+msgstr "Detalhes do Ingrediente"
+
+#: stock/templates/ingredient_detail.html:19
+#: stock/templates/ingredient_detail.html:28
+msgid "Quantity in Stock"
+msgstr "Quantidate em Estoque"
+
+#: stock/templates/ingredient_list.html:4
+msgid "Ingredient List"
+msgstr "Listar Ingredientes"
+
+#: stock/templates/ingredient_list.html:11
+msgid "List of Ingredients"
+msgstr "Lista de Ingredientes"
+
+#: stock/templates/ingredient_list.html:23
+#: stock/templates/ingredient_list.html:57
+#: stock/templates/ingredient_update.html:34
+#: stock/templates/product_create.html:27
+#: stock/templates/product_detail.html:25
+msgid "Quantity"
+msgstr "Quantidate"
+
+#: stock/templates/ingredient_list.html:50
+msgid "Register Ingredient"
+msgstr "Registrar Ingrediente"
+
+#: stock/templates/ingredient_update.html:7
+msgid "Update Ingredient"
+msgstr "Atualizar Ingrediente"
+
+#: stock/templates/ingredient_update.html:26
+msgid "Measure unit"
+msgstr "Unidade de Medida"
+
+#: stock/templates/product_create.html:3 stock/templates/product_create.html:7
+msgid "New Product"
+msgstr "Criar Produto"
+
+#: stock/templates/product_create.html:52
+msgid "No ingredients registered in the system."
+msgstr "Sem ingredientes registrados no sistema"
+
+#: stock/templates/product_delete.html:3
+msgid "Delete Product"
+msgstr "Deletar Produto"
+
+#: stock/templates/product_delete.html:9
+msgid "Are you sure you want to delete product"
+msgstr "Tem certeza que deseja excluir o produto"
+
+#: stock/templates/product_detail.html:3
+msgid "Detail Product"
+msgstr "Detalhar Produto"
+
+#: stock/templates/product_detail.html:7
+msgid "Product Details"
+msgstr "Detalhes do Produto"
+
+#: stock/templates/product_detail.html:45
+msgid "No associated ingredients."
+msgstr "Sem ingredientes associados"
+
+#: stock/templates/product_list.html:4
+msgid "Product List"
+msgstr "Listar Produtos"
+
+#: stock/templates/product_list.html:11
+msgid "List of Products"
+msgstr "Lista de Produtos"
+
+#: stock/templates/product_list.html:39
+msgid "Register Product"
+msgstr "Registrar Produto"
+
+#: stock/templates/product_update.html:3
+msgid "Edit Product"
+msgstr "Editar Produto"
+
+#: stock/templates/product_update.html:7
+msgid "Update Product"
+msgstr "Atualizar Produto"
+
+#: stock/views.py:42
+msgid "The category you want to register already exists!"
+msgstr "A categoria que deseja registar já existe!"
+
+#: stock/views.py:49
+msgid "Category successfully created!"
+msgstr "categoria criada com sucesso!"
+
+#: stock/views.py:131
+msgid "The new name you want to enter is already associated with a category!"
+msgstr "O novo nome que deseja inserir já está associado a uma categoria!"
+
+#: stock/views.py:138
+msgid "Category successfully changed!"
+msgstr "Categoria atualizada com sucesso!"
+
+#: stock/views.py:177
+msgid "Category successfully deleted!"
+msgstr "Categoria deletada com sucesso!"
+
+#: stock/views.py:216
+msgid "The ingredient you want to register already exists!"
+msgstr "O ingrediente que deseja registar já existe!"
+
+#: stock/views.py:224 stock/views.py:232 stock/views.py:367 stock/views.py:490
+msgid "Enter a quantity greater than 0"
+msgstr "Inisira uma quantidade maior que 0 para %(name)s"
+
+#: stock/views.py:226 stock/views.py:369
+msgid "Please enter a valid quantity!"
+msgstr "Insira uma quantidade válida!"
+
+#: stock/views.py:234 stock/views.py:377
+msgid "Please enter a valid minimum quantity!"
+msgstr "Insira uma quantidade mínima válida!"
+
+#: stock/views.py:249
+msgid "Ingredient successfully registered!"
+msgstr "Ingrediente registrado com sucesso!"
+
+#: stock/views.py:359
+msgid ""
+"The new name you want to enter is already associated with an ingredient."
+msgstr "O novo nome que deseja inserir já está associado a um ingrediente!"
+
+#: stock/views.py:375
+msgid "Enter a minimum quantity greater than 0"
+msgstr "Inisira um valor maior que 0 para %(name)s"
+
+#: stock/views.py:391
+msgid "Ingredient successfully changed!"
+msgstr "Ingrediente atualizado com sucesso!"
+
+#: stock/views.py:435
+msgid "Ingredient successfully deleted!"
+msgstr "Ingrediente deletado com sucesso!"
+
+#: stock/views.py:467
+msgid "The product you want to create already exists!"
+msgstr "O produto que deseja registar já existe!"
+
+#: stock/views.py:476 stock/views.py:642
+msgid "Enter a price greater than 0"
+msgstr "Inisira um valor maior que 0 para %(name)s"
+
+#: stock/views.py:478
+msgid "Enter a valid price!"
+msgstr "Insira um preço válido!"
+
+#: stock/views.py:482
+msgid "Select at least 1 ingredient!"
+msgstr "Selecione ao menos 1 ingrediente!"
+
+#: stock/views.py:492
+#, python-format
+msgid "Insert a valid quantity to %(ingredient)s!"
+msgstr "Insira uma quantidada válida para %(ingredient)s"
+
+#: stock/views.py:509
+msgid "Product sucessfully created!"
+msgstr "Produto criado com sucesso!"
+
+#: stock/views.py:554 stock/views.py:644
+msgid "Please enter a valid price!"
+msgstr "Insira um preço válido!"
+
+#: stock/views.py:635
+msgid "The new name you want to enter is already associated with a product!"
+msgstr "O novo nome que deseja inserir já está associado a um produto!"
+
+#: stock/views.py:648
+msgid "Please enter at least 1 ingredient!"
+msgstr "Selecione ao menos 1 ingrediente!"
+
+#: stock/views.py:670
+#, fuzzy, python-format
+msgid "Enter a quantity greater then 0 for the ingredient %(ingredient)s!"
+msgstr "Insira uma quantidate maior que 0 para o ingrediente %(ingredient)s!"
+
+#: stock/views.py:672
+#, python-format
+msgid "Enter a valid quantity for the ingredient %(ingredient)s!"
+msgstr "Insira uma quantidate válida para o ingrediente %(ingredient)s!"
+
+#: stock/views.py:687
+msgid "Product successfully changed!"
+msgstr "Produto atualizado com sucesso!"
+
+#: stock/views.py:731
+msgid "Product successfully deleted!"
+msgstr "Produto deletado com sucesso!"
+
+#: templates/404.html:7
+msgid "Oops! The page you are looking for was not found."
+msgstr "Ops! A página que você procura não foi encontrada."
+
+#: templates/404.html:8
+msgid "Perhaps it has been moved, renamed, or never existed."
+msgstr "Talvez ela tenha sido movida, renomeada ou nunca existiu."
+
+#: templates/404.html:10
+msgid "Back to home"
+msgstr "Voltar para o início"
+
+#: templates/base.html:51 templates/base.html:96
+msgid "Accounts"
+msgstr "Contas"
+
+#: templates/base.html:52 templates/base.html:97
+msgid "Categories"
+msgstr "Categorias"
+
+#: templates/base.html:58 templates/base.html:101
+msgid "Stock Movements"
+msgstr "Movimentações"
+
+#: templates/base.html:87 templates/base.html:104
+msgid "Logout"
+msgstr "Sair"
+
+#: templates/home.html:4
+msgid "Home"
+msgstr "Início"
+
+#: templates/home.html:9
+#, python-format
+msgid "Hello, %(name)s"
+msgstr "Olá, %(name)s"
+
+#: templates/home.html:10
+msgid "Welcome to the inventory system control panel."
+msgstr "Bem vindo ao sistema de controle de estoque"
+
+#: templates/home.html:14
+msgid "Total Movements"
+msgstr "Movimentações"
+
+#: templates/home.html:18
+msgid "Products in Stock"
+msgstr "Produtos"
+
+#: templates/home.html:22
+msgid "Low Stock"
+msgstr "Estoque Baixo"
+
+#: templates/home.html:33
+msgid "Today's Revenue"
+msgstr "Vendas do Dia"
+
+#: templates/home.html:35 templates/home.html:37 templates/home.html:43
+#: templates/home.html:45 templates/home.html:51 templates/home.html:53
+#: templates/home.html:81 templates/home.html:83
+msgid "$"
+msgstr "R$"
+
+#: templates/home.html:41
+msgid "Weekly Revenue"
+msgstr "Vendas da Semana"
+
+#: templates/home.html:49
+msgid "Monthly Revenue"
+msgstr "Vendas do Mês"
+
+#: templates/home.html:60
+msgid "New Stock Movement"
+msgstr "Nova movimentação"
+
+#: templates/home.html:62
+msgid "Add Product"
+msgstr "Adicionar Produto"
+
+#: templates/home.html:66
+msgid "Latest Movements"
+msgstr "Últimas Movimentações"
+
+#: templates/home.html:88
+msgid "No recent movement"
+msgstr "Sem movimentações recentes"
+
+#: templates/home.html:97
+msgid "Attention!"
+msgstr "Atenção!"
+
+#: templates/home.html:102 templates/home.html:106
+msgid "below the minimum"
+msgstr "Abaixo do mínimo"

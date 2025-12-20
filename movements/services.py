@@ -4,6 +4,8 @@ from decimal import Decimal, InvalidOperation
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.timezone import is_naive, make_aware
+from django.utils.translation import gettext as _
+from django.utils.formats import sanitize_separators
 
 from stock.models import Ingredient, Product
 
@@ -31,10 +33,10 @@ def format_period(start: str, end: str) -> tuple[datetime, datetime]:
         end_dt = datetime.strptime(end + " 23:59:59", "%Y-%m-%d %H:%M:%S")
 
         if start_dt > end_dt:
-            raise ValidationError("O período não pode ser negativo")
+            raise ValidationError(_("The period cannot be negative."))
 
         if (end_dt - start_dt).days >= 31:
-            raise ValidationError("O período máximo de consulta é de 30 dias")
+            raise ValidationError(_("The maximum consultation period is 30 days."))
 
         if is_naive(start_dt):
             start_dt = make_aware(start_dt)
@@ -44,7 +46,7 @@ def format_period(start: str, end: str) -> tuple[datetime, datetime]:
         return start_dt, end_dt
 
     except ValueError as e:
-        raise ValidationError("Insira uma data válida") from e
+        raise ValidationError(_("Insert a valid date")) from e
     except ValidationError:
         raise
 
@@ -68,32 +70,6 @@ def convert_measures(qte: Decimal, origin: str, destiny: str) -> Decimal:
         ("unit", "unit"): lambda x: x,
     }
     return factors[(origin, destiny)](qte)
-
-
-def parse_value_br(value: str, name: str) -> tuple[Decimal | None, list[str]]:
-    """Converts a Brazilian formatted string value to a Decimal.
-
-    Logic:
-        - Replaces dots with empty strings and commas with dots to match international standards.
-        - Attempts to cast the cleaned string into a Decimal.
-        - Validates that the final value is greater than zero.
-
-    Returns:
-        tuple: (Decimal, []) if successful, or (None, [error_message]) if failed.
-    """
-
-    errors = []
-    try:
-        value = value.replace(".", "").replace(",", ".")
-        value = Decimal(value)
-    except (InvalidOperation, AttributeError):
-        errors.append(f"Insira um valor válido para {name}")
-        return None, errors
-
-    if value <= 0:
-        errors.append(f"Insira um valor maior que 0 para {name}")
-        return None, errors
-    return value, []
 
 
 @transaction.atomic
@@ -120,17 +96,23 @@ def create_inflow(data: dict, username: str) -> None:
 
     ingredients_ids = data.getlist("ingredients")
     if not ingredients_ids:
-        raise ValidationError(["Selecione ao menos 1 ingrediente"])
+        raise ValidationError([_("Select at least 1 ingredient")])
 
     for ingredient_id in ingredients_ids:
         ingredient = Ingredient.objects.get(pk=ingredient_id)
 
-        qte_to_add, qte_errors = parse_value_br(data[f"qi-{ingredient_id}"], ingredient.name)
+        ingredients_errors = []
 
-        price, price_errors = parse_value_br(data[f"pi-{ingredient_id}"], ingredient.name)
+        try:
+            qte_to_add = Decimal(sanitize_separators(data[f"qi-{ingredient_id}"]))
+            price = Decimal(sanitize_separators(data[f"pi-{ingredient_id}"]))
+            if qte_to_add or price < 1:
+                ingredients_errors.append(_("Enter a value greater than 0 to %(name)s") % {"name": ingredient.name})
+        except:
+            ingredients_errors.append(_("Insert a valid value to %(name)s") % {"name": ingredient.name})
 
-        if qte_errors or price_errors:
-            errors.extend(qte_errors + price_errors)
+        if ingredients_errors:
+            errors.extend(ingredients_errors)
             continue
 
         measure = data[f"m-{ingredient_id}"]
@@ -185,17 +167,21 @@ def create_outflow(data: dict, username: str) -> None:
 
     products_ids = data.getlist("products")
     if not products_ids:
-        raise ValidationError(["Selecione ao menos 1 produto"])
+        raise ValidationError([_("Select at least 1 product")])
 
     for product_id in products_ids:
         product = Product.objects.get(pk=product_id)
         ingredients_to_reduce = []
         product_errors = []
 
-        quantity, qte_error = parse_value_br(data[f"qp-{product_id}"], product.name)
+        try:
+            quantity = Decimal(sanitize_separators(data[f"qp-{product_id}"]))
+            if quantity < 1:
+                product_errors.append(ingredients_errors.append(_("Enter a value greater than 0 to %(name)s") % {"name": product.name}))
+        except:
+            product_errors.append(_("Insert a valid value to %(name)s") % {"name": product.name})
 
-        if qte_error:
-            product_errors.extend(qte_error)
+        if product_errors:
             continue
 
         if quantity:
@@ -205,7 +191,7 @@ def create_outflow(data: dict, username: str) -> None:
                 remaining = ingredient.qte - decrease_qte
 
                 if remaining < 0:
-                    product_errors.append(f"Estoque insuficiente para o ingrediente {ingredient.name}!")
+                    product_errors.append(_("Insufficient stock for ingredient %(ingredient)s!") % {"ingredient": ingredient.name})
                 else:
                     ingredient.qte = remaining
                     ingredients_to_reduce.append(ingredient)

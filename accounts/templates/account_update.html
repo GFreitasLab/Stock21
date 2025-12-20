@@ -1,60 +1,45 @@
 {% extends "base.html" %}
-{% block title %}
-    Editar Conta
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Edit Account" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="update-container">
-            <h2 class="update-title">Atualizar Conta</h2>
-            <form action="{% url 'account_update' account.id %}"
-                  method="POST"
-                  class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="first_name" class="update-text">Nome:</label>
-                    <input type="text"
-                           name="first_name"
-                           value="{{ account.first_name }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="last_name" class="update-text">Sobrenome:</label>
-                    <input type="text"
-                           name="last_name"
-                           value="{{ account.last_name }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="email" class="update-text">Email:</label>
-                    <input type="email"
-                           name="email"
-                           value="{{ account.email }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="role" class="update-text">Cargo:</label>
-                    <select name="role" id="roles" required class="update-field">
-                        {% for val, label in role_choices %}
-                            <option value="{{ val }}" {% if val == account.role %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="password" class="update-text">Senha:</label>
-                    <input type="password" name="password" class="update-field" />
-                </div>
-                <div>
-                    <label for="confirm_password" class="update-text">Confirmar Senha:</label>
-                    <input type="password" name="confirm_password" class="update-field" />
-                </div>
-                <div class="update-buttons">
-                    <a href="{% url 'account_list' %}" class="gray-button">Cancelar</a>
-                    <button type="submit" class="blue-button">Alterar</button>
-                </div>
-            </form>
+  <div class="main-container">
+    <div class="update-container">
+      <h2 class="update-title">{% trans "Update Account" %}</h2>
+      <form action="{% url 'account_update' account.id %}" method="POST" class="space-y-6">
+        {% csrf_token %}
+        <div>
+          <label for="first_name" class="update-text">{% trans "Name" %}:</label>
+            <input type="text" name="first_name" value="{{ account.first_name }}" required class="update-field" />
         </div>
+        <div>
+          <label for="last_name" class="update-text">{% trans "Last Name" %}:</label>
+            <input type="text" name="last_name" value="{{ account.last_name }}" required class="update-field" />
+        </div>
+        <div>
+          <label for="email" class="update-text">Email:</label>
+          <input type="email" name="email" value="{{ account.email }}" required class="update-field" />
+        </div>
+        <div>
+          <label for="role" class="update-text">{% trans "Role" %}:</label>
+            <select name="role" id="roles" required class="update-field">
+              {% for val, label in role_choices %}
+                <option value="{{ val }}" {% if val == account.role %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div>
+          <label for="password" class="update-text">{% trans "Password" %}:</label>
+          <input type="password" name="password" class="update-field" />
+        </div>
+        <div>
+          <label for="confirm_password" class="update-text">{% trans "Confirm Password" %}:</label>
+          <input type="password" name="confirm_password" class="update-field" />
+        </div>
+        <div class="update-buttons">
+          <a href="{% url 'account_list' %}" class="gray-button">{% trans "Cancel" %}</a>
+          <button type="submit" class="blue-button">{% trans "Update" %}</button>
+        </div>
+      </form>
     </div>
+  </div>
 {% endblock body %}

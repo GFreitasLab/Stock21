@@ -1,142 +1,132 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Registrar Movimentação
-{% endblock title %}
+{% load i18n %}
+
+{% block title %}{% trans "Record Stock Movement" %}{% endblock title %}
+
 {% block body %}
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-5xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 border border-gray-200 dark:border-gray-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Registrar Movimentação</h2>
-            <form method="POST" class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="type"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Tipo de Movimentação:
-                    </label>
-                    <select name="type"
-                            id="type"
-                            class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        {% for value, label in type_choices %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
-                    </select>
-                </div>
-                <div id="filter-transaction" class="space-y-8">
-                    <!-- Tabela de Ingredientes -->
-                    <div id="ingredient-select">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Ingredientes</h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                        <th class="px-3 py-2">Incluir</th>
-                                        <th class="px-3 py-2">Ingrediente</th>
-                                        <th class="px-3 py-2">Preço</th>
-                                        <th class="px-3 py-2">Quantidade</th>
-                                        <th class="px-3 py-2">Unidade de Medida</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
-                                    {% for ingredient in ingredients %}
-                                        <tr>
-                                            <td class="px-3 py-2">
-                                                <input type="checkbox"
-                                                       name="ingredients"
-                                                       value="{{ ingredient.id }}"
-                                                       id="i-{{ ingredient.id }}"
-                                                       class="rounded text-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600" />
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <label for="i-{{ ingredient.id }}" class="text-gray-900 dark:text-gray-100">{{ ingredient.name }}</label>
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <label for="number">R$</label>
-                                                <input type="text"
-                                                       name="pi-{{ ingredient.id }}"
-                                                       placeholder="12,34"
-                                                       pattern="^\d+(,\d{1,2})?$"
-                                                       class="w-24 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <input type="text"
-                                                       name="qi-{{ ingredient.id }}"
-                                                       placeholder="99"
-                                                       pattern="^\d+(,\d{1,3})?$"
-                                                       class="w-24 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                {% if ingredient.measure == "unit" %}
-                                                    <span class="text-gray-700 dark:text-gray-300">Unidade</span>
-                                                    <input type="hidden" name="m-{{ ingredient.id }}" value="unit">
-                                                {% else %}
-                                                    <select name="m-{{ ingredient.id }}"
-                                                            class="rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                        <option value="g" {% if ingredient.measure == "g" %}selected{% endif %}>Gramas</option>
-                                                        <option value="kg" {% if ingredient.measure == "kg" %}selected{% endif %}>Quilo</option>
-                                                    </select>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Tabela de Produtos -->
-                    <div id="product-select" style="display:none;">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Produtos</h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                        <th class="px-3 py-2">Incluir</th>
-                                        <th class="px-3 py-2">Produto</th>
-                                        <th class="px-3 py-2">Quantidade</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
-                                    {% for product in products %}
-                                        <tr>
-                                            <td class="px-3 py-2">
-                                                <input type="checkbox"
-                                                       name="products"
-                                                       value="{{ product.id }}"
-                                                       id="p-{{ product.id }}"
-                                                       class="rounded text-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600" />
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <label for="p-{{ product.id }}" class="text-gray-900 dark:text-gray-100">{{ product.name }}</label>
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <input type="number"
-                                                       name="qp-{{ product.id }}"
-                                                       step="1"
-                                                       min="1"
-                                                       placeholder="9,99"
-                                                       class="w-24 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <label for="commentary"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Comentário:</label>
-                    <input type="text"
-                           name="commentary"
-                           placeholder="Comentário"
-                           class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                </div>
-                <div class="flex justify-end pt-4">
-                    <button type="submit"
-                            class="px-5 py-2.5 text-sm font-medium rounded-md bg-blue-600 hover:bg-blue-700 text-white transition">
-                        Registrar
-                    </button>
-                </div>
-            </form>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 border border-gray-200 dark:border-gray-700">
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">{% trans "Record Stock Movement" %}</h2>
+      
+      <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        
+        <div>
+          <label for="type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            {% trans "Movement Type" %}:
+          </label>
+          <select name="type" id="type"
+            class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {% for value, label in type_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
         </div>
+
+        <div id="filter-transaction" class="space-y-8">
+          
+          <div id="ingredient-select">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">{% trans "Ingredients" %}</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                    <th class="px-3 py-2">{% trans "Include" %}</th>
+                    <th class="px-3 py-2">{% trans "Ingredient" %}</th>
+                    <th class="px-3 py-2">{% trans "Price" %}</th>
+                    <th class="px-3 py-2">{% trans "Amount" %}</th>
+                    <th class="px-3 py-2">{% trans "Measure Unit" %}</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                  {% for ingredient in ingredients %}
+                    <tr>
+                      <td class="px-3 py-2">
+                        <input type="checkbox" name="ingredients" value="{{ ingredient.id }}" id="i-{{ ingredient.id }}"
+                          class="rounded text-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600" />
+                      </td>
+                      <td class="px-3 py-2">
+                        <label for="i-{{ ingredient.id }}" class="text-gray-900 dark:text-gray-100">{{ ingredient.name }}</label>
+                      </td>
+                      <td class="px-3 py-2">
+                        <label for="number">R$</label>
+                        <input type="text" name="pi-{{ ingredient.id }}" placeholder="12,34" pattern="^\d+(,\d{1,2})?$"
+                          class="w-24 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      </td>
+                      <td class="px-3 py-2">
+                        <input type="text" name="qi-{{ ingredient.id }}" placeholder="99" pattern="^\d+(,\d{1,3})?$"
+                          class="w-24 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      </td>
+                      <td class="px-3 py-2">
+                        {% if ingredient.measure == "unit" %}
+                          <span class="text-gray-700 dark:text-gray-300">{% trans "Unit" %}</span>
+                          <input type="hidden" name="m-{{ ingredient.id }}" value="unit">
+                        {% else %}
+                          <select name="m-{{ ingredient.id }}"
+                            class="rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="g" {% if ingredient.measure == "g" %}selected{% endif %}>{% trans "Grams" %}</option>
+                            <option value="kg" {% if ingredient.measure == "kg" %}selected{% endif %}>{% trans "Kilograms" %}</option>
+                          </select>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="product-select" style="display:none;">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">{% trans "Products" %}</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                    <th class="px-3 py-2">{% trans "Include" %}</th>
+                    <th class="px-3 py-2">{% trans "Product" %}</th>
+                    <th class="px-3 py-2">{% trans "Amount" %}</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                  {% for product in products %}
+                    <tr>
+                      <td class="px-3 py-2">
+                        <input type="checkbox" name="products" value="{{ product.id }}" id="p-{{ product.id }}"
+                          class="rounded text-blue-600 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600" />
+                      </td>
+                      <td class="px-3 py-2">
+                        <label for="p-{{ product.id }}" class="text-gray-900 dark:text-gray-100">{{ product.name }}</label>
+                      </td>
+                      <td class="px-3 py-2">
+                        <input type="number" name="qp-{{ product.id }}" step="1" min="1" placeholder="9"
+                          class="w-24 rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <label for="commentary" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            {% trans "Commentary" %}:
+          </label>
+          <input type="text" name="commentary"
+            class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="flex justify-end pt-4">
+          <button type="submit"
+            class="px-5 py-2.5 text-sm font-medium rounded-md bg-blue-600 hover:bg-blue-700 text-white transition">
+            {% trans "Record" %}
+          </button>
+        </div>
+      </form>
     </div>
-    <script src="{% static 'movements/js/toogle_transaction.js' %}"></script>
+  </div>
+  <script src="{% static 'movements/js/toogle_transaction.js' %}"></script>
 {% endblock body %}

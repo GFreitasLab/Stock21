@@ -1,66 +1,52 @@
 {% extends "base.html" %}
-{% block title %}
-    Editar Ingrediente
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Edit Account" %}{% endblock title %}
 {% block body %}
-    <div class="main-container">
-        <div class="update-container">
-            <h2 class="update-title">Atualizar Ingrediente</h2>
-            <form action="{% url 'ingredient_update' ingredient.id %}"
-                  method="POST"
-                  class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="name" class="update-text">Nome:</label>
-                    <input type="text"
-                           name="name"
-                           value="{{ ingredient.name }}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="category" class="update-text">Categoria:</label>
-                    <select name="category" required class="update-field">
-                        {% for category in categories %}
-                            <option value="{{ category.id }}"
-                                    {% if ingredient.category.id == category.id %}selected{% endif %}>
-                                {{ category.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="measure" class="update-text">Unidade de Medida:</label>
-                    <select name="measure" id="roles" required class="update-field">
-                        {% for val, label in measure_choices %}
-                            <option value="{{ val }}"
-                                    {% if val == ingredient.measure %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="qte" class="update-text">Quantidade:</label>
-                    <input type="text"
-                           name="qte"
-                           pattern="^\d+(,\d{1,3})?$"
-                           value="{% if ingredient.measure == "kg" %}{{ ingredient.qte }}{% else %}{{ ingredient.qte|floatformat:0 }}{% endif %}"
-                           required
-                           class="update-field" />
-                </div>
-                <div>
-                    <label for="min_qte" class="update-text">Quantidade Mínima:</label>
-                    <input type="text"
-                           name="min_qte"
-                           pattern="^\d+(,\d{1,3})?$"
-                           value="{% if ingredient.measure == "kg" %}{{ ingredient.min_qte }}{% else %}{{ ingredient.min_qte|floatformat:0 }}{% endif %}"
-                           required
-                           class="update-field" />
-                </div>
-                <div class="update-buttons">
-                    <a href="{% url 'ingredient_list' %}" class="gray-button">Cancelar</a>
-                    <button type="submit" class="blue-button">Alterar</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="main-container">
+  <div class="update-container">
+    <h2 class="update-title">{% trans "Update Ingredient" %}</h2>
+    <form action="{% url 'ingredient_update' ingredient.id %}" method="POST" class="space-y-6">
+      {% csrf_token %}
+      <div>
+        <label for="name" class="update-text">{% trans "Name" %}:</label>
+        <input type="text" name="name" value="{{ ingredient.name }}" required class="update-field" />
+      </div>
+      <div>
+        <label for="category" class="update-text">{% trans "Category" %}:</label>
+        <select name="category" required class="update-field">
+          {% for category in categories %}
+            <option value="{{ category.id }}"
+              {% if ingredient.category.id == category.id %}selected{% endif %}>
+              {{ category.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="measure" class="update-text">{% trans "Measure unit" %}:</label>
+        <select name="measure" id="roles" required class="update-field">
+          {% for val, label in measure_choices %}
+            <option value="{{ val }}"{% if val == ingredient.measure %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="qte" class="update-text">{% trans "Quantity" %}:</label>
+        <input type="text" name="qte" placeholder="{% trans "0,000.00" %}"
+          value="{% if ingredient.measure == "kg" %}{{ ingredient.qte }}{% else %}{{ ingredient.qte|floatformat:0 }}{% endif %}"
+          required class="update-field" />
+      </div>
+      <div>
+        <label for="min_qte" class="update-text">{% trans "Minimum Quantity" %}:</label>
+        <input type="text" name="min_qte" placeholder="{% trans "0,000.00" %}"
+               value="{% if ingredient.measure == "kg" %}{{ ingredient.min_qte }}{% else %}{{ ingredient.min_qte|floatformat:0 }}{% endif %}"
+               required class="update-field" />
+      </div>
+      <div class="update-buttons">
+        <a href="{% url 'ingredient_list' %}" class="gray-button">{% trans "Cancel" %}</a>
+        <button type="submit" class="blue-button">{% trans "Update" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock body %}

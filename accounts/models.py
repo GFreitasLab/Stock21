@@ -1,25 +1,26 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
-# Customizando o Model do user
+# Customizing User Model
 class CustomUser(AbstractUser):
-    """Representa um usuário.
+    """Represents a User.
 
     Atributes:
-        first_name (str): Nome.
-        last_name (str): Sobrenome.
+        first_name (str): Name.
+        last_name (str): Last Name.
         email (str): Email.
-        role (str): Cargo (employee/admin).
-        created_at (timestamp): Data de criação.
-        updated_at (timestamp): Data de atualização.
+        role (str): Role (employee/admin).
+        created_at (timestamp): Creation Date.
+        updated_at (timestamp): Update Date.
 
     """
 
     email = models.EmailField(max_length=100, unique=True)
     role = models.CharField(
         max_length=20,
-        choices=[("employee", "Funcionário"), ("admin", "Administrador")],
+        choices=[("employee", _("Employee")), ("admin", _("Administrator"))],
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -27,6 +28,6 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-    # Autenticação via email e não via username
+    # Auth via Email
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "role"]

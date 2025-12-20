@@ -1,21 +1,22 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Movement(models.Model):
-    """Representa uma movimentação.
+    """Represents a Movement.
 
     Atributes:
-        user (str): Nome do responsável pela movimentação.
-        value (Decimal): Valor total da movimentação.
-        type (str): Tipo de movimentação (in/out).
-        date (timestamp): Data da movimentação.
-        commentary (str): Comentário sobre a transação movimentação.
+        user (str): Name of the person responsible for the movement.
+        value (Decimal): Total movement Value.
+        type (str): Type of Movement (in/out).
+        date (timestamp): Date of Movement.
+        commentary (str): Commentary about Movement.
 
     """
 
     user = models.CharField(max_length=100)
     value = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    type = models.CharField(max_length=10, choices=([("in", "Entrada"), ("out", "Saida")]))
+    type = models.CharField(max_length=10, choices=([("in", _("Inflow")), ("out", _("Outflow"))]))
     date = models.DateTimeField(auto_now_add=True)
     commentary = models.TextField(null=True, blank=True)
 
@@ -24,40 +25,40 @@ class Movement(models.Model):
 
 
 class MovementInflow(models.Model):
-    """Representa uma movimentação de entrada (ingredientes).
+    """Represents an incoming Movement (ingredients).
 
     Atributes:
-        movement (Fk): Chave estrangeira para a movimentação base com o nome de ingredients.
-        name (str): Nome do ingrediente.
-        quantity (Decimal): Quantidade adicionada.
-        price (Decimal): Preço pago.
-        measure (str) Unidade de Medida (g/kg/unit).
+        movement (Fk): Foreign key for the base movement with the name ingredients.
+        name (str): Ingredient name.
+        quantity (Decimal): Amount added.
+        price (Decimal): Price paid.
+        measure (str) Measure unit (g/kg/unit).
 
     """
 
-    # related_name para fazer acesso reverso e pegar essas informações
+    # related_name to perform reverse access and retrieve this information
     movement = models.ForeignKey(Movement, on_delete=models.CASCADE, related_name="ingredients")
     name = models.CharField(max_length=100)
     quantity = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    measure = models.CharField(max_length=10, choices=([("g", "Gramas"), ("kg", "Quilos"), ("unit", "Unidades")]))
+    measure = models.CharField(max_length=10, choices=([("g", _("Grams")), ("kg", _("Kilograms")), ("unit", _("Units"))]))
 
     def __str__(self):
         return f"{self.name}: {self.quantity} - {self.price}"
 
 
 class MovementOutflow(models.Model):
-    """Representa uma movimentação de saida (produtos).
+    """Represents an outgoing movement (products).
 
     Atributes:
-        movement (Fk): Chave estrangeira para a movimentação base com o nome de products.
-        name (str): Nome do produto.
-        quantity (int): Quantidade vendida.
-        price (Decimal): Preço.
+        movement (Fk): Foreign key for the base movement with the name products.
+        name (str): Product name.
+        quantity (int): Quantity sold.
+        price (Decimal): Price.
 
     """
 
-    # Acesso reverso aqui tambem
+    # Reverse access here too
     movement = models.ForeignKey(Movement, on_delete=models.CASCADE, related_name="products")
     name = models.CharField(max_length=100)
     quantity = models.PositiveIntegerField(default=0)

@@ -1,80 +1,55 @@
 {% extends "base.html" %}
-{% block title %}
-    Cadastrar Ingrediente
-{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Ingredient Create" %}{% endblock title %}
 {% block body %}
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 border border-gray-200 dark:border-gray-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Cadastrar Ingrediente</h2>
-            <form method="POST" class="space-y-6">
-                {% csrf_token %}
-                <div>
-                    <label for="name"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome:</label>
-                    <input type="text"
-                           name="name"
-                           value="{{ old_data.name|default:'' }}"
-                           required
-                           class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                </div>
-                <div>
-                    <label for="category"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categoria:</label>
-                    <select name="category"
-                            required
-                            class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        {% for cat in categories %}
-                            <option value="{{ cat.id }}"
-                                    {% if old_data.category == cat.id|stringformat:"s" %}selected{% endif %}>
-                                {{ cat.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="measure"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Unidade de Medida:
-                    </label>
-                    <select name="measure"
-                            required
-                            class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        {% for val, label in measure_choices %}
-                            <option value="{{ val }}" {% if old_data.measure == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="qte"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantidade:</label>
-                    <input type="text"
-                           name="qte"
-                           pattern="^\d+(,\d{1,3})?$"
-                           placeholder="123,456"
-                           value="{{ old_data.qte|default:'' }}"
-                           required
-                           class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                </div>
-                <div>
-                    <label for="min_qte"
-                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Quantidade Mínima:
-                    </label>
-                    <input type="text"
-                           name="min_qte"
-                           pattern="^\d+(,\d{1,3})?$"
-                           placeholder="123,456"
-                           value="{{ old_data.min_qte|default:'' }}"
-                           required
-                           class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                </div>
-                <div class="flex justify-end pt-4">
-                    <button type="submit"
-                            class="px-5 py-2.5 text-sm font-medium rounded-md bg-blue-600 hover:bg-blue-700 text-white transition">
-                        Cadastrar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 border border-gray-200 dark:border-gray-700">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">{% trans "Create Ingredient" %}</h2>
+    <form method="POST" class="space-y-6">
+      {% csrf_token %}
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{% trans "Name" %}:</label>
+        <input type="text" name="name" value="{{ old_data.name|default:'' }}" required
+          class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{% trans "Category" %}:</label>
+        <select name="category" required
+          class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          {% for cat in categories %}
+            <option value="{{ cat.id }}"
+              {% if old_data.category == cat.id|stringformat:"s" %}selected{% endif %}>
+              {{ cat.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="measure" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{% trans "Measure Unit" %}:</label>
+        <select name="measure" required
+          class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          {% for val, label in measure_choices %}
+            <option value="{{ val }}" {% if old_data.measure == val %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="qte" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{% trans "Amount" %}:</label>
+        <input type="text" name="qte" placeholder="{% trans "0,000.00" %}" value="{{ old_data.qte|default:'' }}" required
+          class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label for="min_qte" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{% trans "Minimum Quantity" %}:</label>
+        <input type="text" name="min_qte" placeholder="{% trans "0,000.00" %}" value="{{ old_data.min_qte|default:'' }}" required
+          class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div class="flex justify-end pt-4">
+        <button type="submit"
+          class="px-5 py-2.5 text-sm font-medium rounded-md bg-blue-600 hover:bg-blue-700 text-white transition">
+          {% trans "Register" %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock body %}

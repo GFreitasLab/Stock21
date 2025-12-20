@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
+from django.utils.translation import gettext as _
 from fpdf import FPDF
 
 from core.decorators import admin_required
@@ -55,7 +56,7 @@ def movement_create(request: HttpRequest) -> HttpResponse:
             case "out":
                 create_outflow(request.POST, username)
 
-        messages.success(request, "Movimentação registrada com sucesso!")
+        messages.success(request, _("Movement successfully recorded!"))
         return redirect("movement_list")
 
     except ValidationError as e:
@@ -168,15 +169,16 @@ def movement_delete(request: HttpRequest, id: int) -> HttpResponse:
     password = request.POST.get("password")
 
     if not request.user.check_password(password):
-        messages.error(request, "A senha que você inseriu está incorreta!")
+        messages.error(request, _("The password you entered is incorrect!"))
         return render(request, "movement_delete.html", context)
 
     movement.delete()
 
-    messages.success(request, "Movimentação deletada com sucesso!")
+    messages.success(request, _("Movement successfully deleted!"))
     return redirect("movement_list")
 
 
+# Review this
 @login_required
 @admin_required
 @require_http_methods(["GET", "POST"])
