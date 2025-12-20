@@ -32,13 +32,13 @@
       </div>
       <div>
         <label for="qte" class="update-text">{% trans "Quantity" %}:</label>
-        <input type="text" name="qte" pattern="^\d+(,\d{1,3})?$"
+        <input type="text" name="qte" placeholder="{% trans "0,000.00" %}"
           value="{% if ingredient.measure == "kg" %}{{ ingredient.qte }}{% else %}{{ ingredient.qte|floatformat:0 }}{% endif %}"
           required class="update-field" />
       </div>
       <div>
         <label for="min_qte" class="update-text">{% trans "Minimum Quantity" %}:</label>
-        <input type="text" name="min_qte" pattern="^\d+(,\d{1,3})?$"
+        <input type="text" name="min_qte" placeholder="{% trans "0,000.00" %}"
                value="{% if ingredient.measure == "kg" %}{{ ingredient.min_qte }}{% else %}{{ ingredient.min_qte|floatformat:0 }}{% endif %}"
                required class="update-field" />
       </div>

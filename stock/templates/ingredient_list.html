@@ -65,22 +65,22 @@
               onclick="window.location='{% url 'ingredient_detail' ingredient.id %}'">
             <td class="table-text">{{ ingredient.name }}</td>
             {% if ingredient.measure == "kg" %}
-            <td class="table-text">{{ ingredient.qte }} {{ ingredient.get_measure_display }}</td>
-            <td class="hidden sm:flex table-text">{{ ingredient.min_qte }} {{ ingredient.get_measure_display }}</td>
+              <td class="table-text">{{ ingredient.qte }} {{ ingredient.get_measure_display }}</td>
+              <td class="hidden sm:flex table-text">{{ ingredient.min_qte }} {{ ingredient.get_measure_display }}</td>
             {% else %}
-            <td class="table-text">{{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
-            <td class="hidden sm:flex table-text">{{ ingredient.min_qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
+              <td class="table-text">{{ ingredient.qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
+              <td class="hidden sm:flex table-text">{{ ingredient.min_qte|floatformat:0 }} {{ ingredient.get_measure_display }}</td>
             {% endif %}
             <td class="px-4 py-2 text-right">
               {% if request.user.role == "admin" %}
-              <div class="flex flex-row justify-end space-x-2 space-y-0">
-                <a href="{% url 'ingredient_update' ingredient.id %}">
-                  <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Edit">
-                </a>
-                <a href="{% url 'ingredient_delete' ingredient.id %}">
-                  <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Delete">
-                </a>
-              </div>
+                <div class="flex flex-row justify-end space-x-2 space-y-0">
+                  <a href="{% url 'ingredient_update' ingredient.id %}">
+                    <img src="{% static 'assets/edit.svg' %}" class="w-5 h-5" alt="Edit">
+                  </a>
+                  <a href="{% url 'ingredient_delete' ingredient.id %}">
+                    <img src="{% static 'assets/trash.svg' %}" class="w-5 h-5" alt="Delete">
+                  </a>
+                </div>
               {% endif %}
             </td>
           </tr>

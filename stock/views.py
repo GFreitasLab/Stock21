@@ -6,11 +6,12 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 from django.utils.translation import gettext as _
+from django.utils.formats import sanitize_separators
+from decimal import Decimal
 
 from core.decorators import admin_required
 
 from .models import Category, Ingredient, Product, ProductIngredient
-from .services import parse_value_br
 
 
 @login_required
@@ -214,14 +215,26 @@ def ingredient_create(request: HttpRequest) -> HttpResponse:
         if Ingredient.objects.filter(name__iexact=name).exists():
             raise ValidationError(_("The ingredient you want to register already exists!"))
 
+        errors = []
+
         qte = request.POST.get("qte")
-        qte, qte_error = parse_value_br(str(qte), _("Please enter a valid quantity!"))
+        try:
+            qte = Decimal(sanitize_separators(qte))
+            if qte < 1:
+                errors.append(_("Enter a quantity greater than 0"))
+        except:
+            errors.append(_("Please enter a valid quantity!"))
 
         min_qte = request.POST.get("min_qte")
-        min_qte, min_qte_error = parse_value_br(str(min_qte), _("Please enter a valid minimum quantity!"))
+        try:
+            min_qte = Decimal(sanitize_separators(min_qte))
+            if min_qte < 1:
+                errors.append(_("Enter a quantity greater than 0"))
+        except:
+            errors.append(_("Please enter a valid minimum quantity!"))
 
-        if qte_error or min_qte_error:
-            raise ValidationError([qte_error, min_qte_error])
+        if errors:
+            raise ValidationError(errors)
 
         ingredient = Ingredient.objects.create(
             name=name,
@@ -345,14 +358,26 @@ def ingredient_update(request: HttpRequest, id: int) -> HttpResponse:
         if Ingredient.objects.filter(name__iexact=name).exclude(id=ingredient.id).exists():
             raise ValidationError(_("The new name you want to enter is already associated with an ingredient."))
 
+        errors = []
+
         qte = request.POST.get("qte")
-        qte, qte_error = parse_value_br(str(qte), _("Please enter a valid quantity!"))
+        try:
+            qte = Decimal(sanitize_separators(qte))
+            if qte < 1:
+                errors.append(_("Enter a quantity greater than 0"))
+        except:
+            errors.append(_("Please enter a valid quantity!"))
 
         min_qte = request.POST.get("min_qte")
-        min_qte, min_qte_error = parse_value_br(str(min_qte), _("Please enter a valid minimum quantity!"))
+        try:
+            min_qte = Decimal(sanitize_separators(min_qte))
+            if min_qte < 1:
+                errors.append(_("Enter a minimum quantity greater than 0"))
+        except:
+            errors.append(_("Please enter a valid minimum quantity!"))
 
-        if qte_error or min_qte_error:
-            raise ValidationError([qte_error, min_qte_error])
+        if errors:
+            raise ValidationError(errors)
 
         ingredient.name = name
         category_id = request.POST.get("category")
@@ -441,14 +466,16 @@ def product_create(request: HttpRequest) -> HttpResponse:
         if Product.objects.filter(name__iexact=name).exists():
             raise ValidationError(_("The product you want to create already exists!"))
 
-        price = request.POST.get("price")
+        raw_price = request.POST.get("price")
 
         errors = []
 
-        price, price_error = parse_value_br(price, _("Please enter a valid price!"))
-
-        if price_error:
-            errors.append(price_error)
+        try:
+            price = Decimal(sanitize_separators(raw_price))
+            if price < 1:
+                errors.append(_("Enter a price greater than 0"))
+        except:
+            errors.append(_("Enter a valid price!"))
 
         ingredients_ids = request.POST.getlist("ingredients")
         if not ingredients_ids:
@@ -456,12 +483,13 @@ def product_create(request: HttpRequest) -> HttpResponse:
         ingredients_to_create = []
         for ingredient_id in ingredients_ids:
             quantity = request.POST.get(f"q-{ingredient_id}")
-            quantity, quantity_error = parse_value_br(
-                    str(quantity), _("Insert a valid quantity to %(ingredient)s!") % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name}
-            )
 
-            if quantity_error:
-                errors.append(quantity_error)
+            try:
+                quantity = Decimal(sanitize_separators(quantity))
+                if quantity < 1:
+                    errors.append(_("Enter a quantity greater than 0"))
+            except:
+                errors.append(_("Insert a valid quantity to %(ingredient)s!") % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name})
                 continue
 
             ingredients_to_create.append((int(ingredient_id), quantity))
@@ -520,10 +548,12 @@ def product_list(request: HttpRequest) -> HttpResponse:
             case "name":
                 products = products.filter(name__icontains=value)
             case "price":
-                value, value_error = parse_value_br(str(value), _("Please enter a valid price!"))
-                if value_error:
-                    messages.error(request, value_error)
+                try:
+                    value = Decimal(sanitize_separators(value))
+                except:
+                    messages.error(request, _("Please enter a valid price!"))
                     return redirect("product_list")
+
                 products = products.filter(price=value)
 
     page_number = request.GET.get("page") or 1
@@ -604,10 +634,14 @@ def product_update(request: HttpRequest, id: int) -> HttpResponse:
         if Product.objects.filter(name__iexact=name).exclude(id=product.id).exists():
             raise ValidationError(_("The new name you want to enter is already associated with a product!"))
 
-        price = request.POST.get("price")
-        price, error = parse_value_br(str(price), _("Please enter a valid price!"))
-        if error:
-            raise ValidationError([error])
+        raw_price = request.POST.get("price")
+
+        try:
+            price = Decimal(sanitize_separators(raw_price))
+            if price < 1:
+                raise ValidationError([_("Enter a price greater than 0")])
+        except:
+            raise ValidationError([_("Please enter a valid price!")])
 
         selected_ids = request.POST.getlist("ingredients")
         if not selected_ids:
@@ -629,9 +663,13 @@ def product_update(request: HttpRequest, id: int) -> HttpResponse:
         ingredients_list = []
         for ingredient_id in new_ingredients_ids:
             quantity = request.POST.get(f"q-{ingredient_id}")
-            quantity, error = parse_value_br(str(quantity), _("Enter a valid quantity for the ingredient %(ingredient)s!" % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name}))
-            if error:
-                errors.append(error)
+
+            try:
+                quantity = Decimal(sanitize_separators(quantity))
+                if quantity < 1:
+                    errors.append(_("Enter a quantity greater then 0 for the ingredient %(ingredient)s!") % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name})
+            except:
+                errors.append(_("Enter a valid quantity for the ingredient %(ingredient)s!") % {"ingredient": Ingredient.objects.get(pk=ingredient_id).name})
                 continue
 
             ingredients_list.append((ingredient_id, quantity))

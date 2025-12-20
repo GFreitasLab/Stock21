@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 15:05-0300\n"
+"POT-Creation-Date: 2025-12-20 05:57-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,6 +166,7 @@ msgstr "Filtrar por"
 
 #: accounts/templates/account_list.html:27
 #: stock/templates/ingredient_list.html:28 stock/templates/product_list.html:26
+#: templates/home.html:72
 msgid "Value"
 msgstr "Valor"
 
@@ -294,8 +295,8 @@ msgstr "Deslogado com sucesso!"
 msgid "Account sucessfully changed!"
 msgstr "Conta atualizada com sucesso!"
 
-#: accounts/views.py:267 movements/views.py:172 stock/views.py:171
-#: stock/views.py:405 stock/views.py:688
+#: accounts/views.py:267 movements/views.py:172 stock/views.py:172
+#: stock/views.py:430 stock/views.py:726
 msgid "The password you entered is incorrect!"
 msgstr "A senha que você inseriu está incorreta!"
 
@@ -325,37 +326,37 @@ msgstr "Quilos"
 msgid "Units"
 msgstr "Unidades"
 
-#: movements/services.py:35
+#: movements/services.py:36
 msgid "The period cannot be negative."
 msgstr "O período não pode ser negativo."
 
-#: movements/services.py:38
+#: movements/services.py:39
 msgid "The maximum consultation period is 30 days."
 msgstr "O período máximo de consulta é de 30 dias."
 
-#: movements/services.py:48
+#: movements/services.py:49
 msgid "Insert a valid date"
 msgstr "Insira uma data válida"
 
-#: movements/services.py:91
-#, python-format
-msgid "Insert a valid value to %(name)s"
-msgstr "Insira um valor válido para %(name)s"
+#: movements/services.py:99
+msgid "Select at least 1 ingredient"
+msgstr "Selecione ao menos 1 ingrediente"
 
-#: movements/services.py:95
+#: movements/services.py:110 movements/services.py:180
 #, python-format
 msgid "Enter a value greater than 0 to %(name)s"
 msgstr "Inisira um valor maior que 0 para %(name)s"
 
-#: movements/services.py:124
-msgid "Select at least 1 ingredient"
-msgstr "Selecione ao menos 1 ingrediente"
+#: movements/services.py:112 movements/services.py:182
+#, python-format
+msgid "Insert a valid value to %(name)s"
+msgstr "Insira um valor válido para %(name)s"
 
-#: movements/services.py:189
+#: movements/services.py:170
 msgid "Select at least 1 product"
 msgstr "Selecione ao menos 1 produto"
 
-#: movements/services.py:209
+#: movements/services.py:194
 #, python-format
 msgid "Insufficient stock for ingredient %(ingredient)s!"
 msgstr "Estoque insuficiente para o ingrediente %(ingredient)s!"
@@ -375,7 +376,7 @@ msgstr "Tipo de movimentação"
 #: stock/templates/product_create.html:21
 #: stock/templates/product_detail.html:18
 #: stock/templates/product_update.html:19 templates/base.html:54
-#: templates/base.html:98 templates/home.html:25
+#: templates/base.html:98 templates/home.html:26
 msgid "Ingredients"
 msgstr "Ingredientes"
 
@@ -457,12 +458,12 @@ msgid "Responsible"
 msgstr "Responsável"
 
 #: movements/templates/movement_detail.html:18
-#: movements/templates/movement_list.html:43 templates/home.html:73
+#: movements/templates/movement_list.html:43 templates/home.html:71
 msgid "Type"
 msgstr "Tipo"
 
 #: movements/templates/movement_detail.html:23
-#: movements/templates/movement_list.html:44 templates/home.html:72
+#: movements/templates/movement_list.html:44 templates/home.html:70
 msgid "Date"
 msgstr "Data"
 
@@ -567,6 +568,14 @@ msgstr "Criar Ingrediente"
 #: stock/templates/ingredient_update.html:15
 msgid "Category"
 msgstr "Categoria"
+
+#: stock/templates/ingredient_create.html:38
+#: stock/templates/ingredient_create.html:43
+#: stock/templates/ingredient_update.html:35
+#: stock/templates/ingredient_update.html:41
+#: stock/templates/product_create.html:17
+msgid "0,000.00"
+msgstr "0.000,00"
 
 #: stock/templates/ingredient_create.html:42
 #: stock/templates/ingredient_detail.html:23
@@ -674,92 +683,115 @@ msgstr "Editar Produto"
 msgid "Update Product"
 msgstr "Atualizar Produto"
 
-#: stock/views.py:41
+#: stock/views.py:42
 msgid "The category you want to register already exists!"
 msgstr "A categoria que deseja registar já existe!"
 
-#: stock/views.py:48
+#: stock/views.py:49
 msgid "Category successfully created!"
 msgstr "categoria criada com sucesso!"
 
-#: stock/views.py:130
+#: stock/views.py:131
 msgid "The new name you want to enter is already associated with a category!"
 msgstr "O novo nome que deseja inserir já está associado a uma categoria!"
 
-#: stock/views.py:137
+#: stock/views.py:138
 msgid "Category successfully changed!"
 msgstr "Categoria atualizada com sucesso!"
 
-#: stock/views.py:176
+#: stock/views.py:177
 msgid "Category successfully deleted!"
 msgstr "Categoria deletada com sucesso!"
 
-#: stock/views.py:215
+#: stock/views.py:216
 msgid "The ingredient you want to register already exists!"
 msgstr "O ingrediente que deseja registar já existe!"
 
-#: stock/views.py:218 stock/views.py:349
+#: stock/views.py:224 stock/views.py:232 stock/views.py:367 stock/views.py:490
+msgid "Enter a quantity greater than 0"
+msgstr "Inisira uma quantidade maior que 0 para %(name)s"
+
+#: stock/views.py:226 stock/views.py:369
 msgid "Please enter a valid quantity!"
 msgstr "Insira uma quantidade válida!"
 
-#: stock/views.py:221 stock/views.py:352
+#: stock/views.py:234 stock/views.py:377
 msgid "Please enter a valid minimum quantity!"
 msgstr "Insira uma quantidade mínima válida!"
 
-#: stock/views.py:236
+#: stock/views.py:249
 msgid "Ingredient successfully registered!"
 msgstr "Ingrediente registrado com sucesso!"
 
-#: stock/views.py:346
+#: stock/views.py:359
 msgid ""
 "The new name you want to enter is already associated with an ingredient."
 msgstr "O novo nome que deseja inserir já está associado a um ingrediente!"
 
-#: stock/views.py:366
+#: stock/views.py:375
+msgid "Enter a minimum quantity greater than 0"
+msgstr "Inisira um valor maior que 0 para %(name)s"
+
+#: stock/views.py:391
 msgid "Ingredient successfully changed!"
 msgstr "Ingrediente atualizado com sucesso!"
 
-#: stock/views.py:410
+#: stock/views.py:435
 msgid "Ingredient successfully deleted!"
 msgstr "Ingrediente deletado com sucesso!"
 
-#: stock/views.py:442
+#: stock/views.py:467
 msgid "The product you want to create already exists!"
 msgstr "O produto que deseja registar já existe!"
 
-#: stock/views.py:448 stock/views.py:523 stock/views.py:608
-msgid "Please enter a valid price!"
+#: stock/views.py:476 stock/views.py:642
+msgid "Enter a price greater than 0"
+msgstr "Inisira um valor maior que 0 para %(name)s"
+
+#: stock/views.py:478
+msgid "Enter a valid price!"
 msgstr "Insira um preço válido!"
 
-#: stock/views.py:455
+#: stock/views.py:482
 msgid "Select at least 1 ingredient!"
 msgstr "Selecione ao menos 1 ingrediente!"
 
-#: stock/views.py:460
+#: stock/views.py:492
+#, python-format
 msgid "Insert a valid quantity to %(ingredient)s!"
 msgstr "Insira uma quantidada válida para %(ingredient)s"
 
-#: stock/views.py:481
+#: stock/views.py:509
 msgid "Product sucessfully created!"
 msgstr "Produto criado com sucesso!"
 
-#: stock/views.py:605
+#: stock/views.py:554 stock/views.py:644
+msgid "Please enter a valid price!"
+msgstr "Insira um preço válido!"
+
+#: stock/views.py:635
 msgid "The new name you want to enter is already associated with a product!"
 msgstr "O novo nome que deseja inserir já está associado a um produto!"
 
-#: stock/views.py:614
+#: stock/views.py:648
 msgid "Please enter at least 1 ingredient!"
 msgstr "Selecione ao menos 1 ingrediente!"
 
-#: stock/views.py:632
+#: stock/views.py:670
+#, fuzzy, python-format
+msgid "Enter a quantity greater then 0 for the ingredient %(ingredient)s!"
+msgstr "Insira uma quantidate maior que 0 para o ingrediente %(ingredient)s!"
+
+#: stock/views.py:672
+#, python-format
 msgid "Enter a valid quantity for the ingredient %(ingredient)s!"
 msgstr "Insira uma quantidate válida para o ingrediente %(ingredient)s!"
 
-#: stock/views.py:649
+#: stock/views.py:687
 msgid "Product successfully changed!"
 msgstr "Produto atualizado com sucesso!"
 
-#: stock/views.py:693
+#: stock/views.py:731
 msgid "Product successfully deleted!"
 msgstr "Produto deletado com sucesso!"
 
@@ -791,34 +823,40 @@ msgstr "Movimentações"
 msgid "Logout"
 msgstr "Sair"
 
-#: templates/home.html:3
+#: templates/home.html:4
 msgid "Home"
 msgstr "Início"
 
-#: templates/home.html:7
+#: templates/home.html:9
 #, python-format
 msgid "Hello, %(name)s"
 msgstr "Olá, %(name)s"
 
-#: templates/home.html:8
+#: templates/home.html:10
 msgid "Welcome to the inventory system control panel."
 msgstr "Bem vindo ao sistema de controle de estoque"
 
-#: templates/home.html:13
+#: templates/home.html:14
 msgid "Total Movements"
 msgstr "Movimentações"
 
-#: templates/home.html:17
+#: templates/home.html:18
 msgid "Products in Stock"
 msgstr "Produtos"
 
-#: templates/home.html:21
+#: templates/home.html:22
 msgid "Low Stock"
 msgstr "Estoque Baixo"
 
 #: templates/home.html:33
 msgid "Today's Revenue"
 msgstr "Vendas do Dia"
+
+#: templates/home.html:35 templates/home.html:37 templates/home.html:43
+#: templates/home.html:45 templates/home.html:51 templates/home.html:53
+#: templates/home.html:81 templates/home.html:83
+msgid "$"
+msgstr "R$"
 
 #: templates/home.html:41
 msgid "Weekly Revenue"
@@ -828,26 +866,26 @@ msgstr "Vendas da Semana"
 msgid "Monthly Revenue"
 msgstr "Vendas do Mês"
 
-#: templates/home.html:61
+#: templates/home.html:60
 msgid "New Stock Movement"
 msgstr "Nova movimentação"
 
-#: templates/home.html:63
+#: templates/home.html:62
 msgid "Add Product"
 msgstr "Adicionar Produto"
 
-#: templates/home.html:74
-msgid "value"
-msgstr "Valor"
+#: templates/home.html:66
+msgid "Latest Movements"
+msgstr "Últimas Movimentações"
 
-#: templates/home.html:91
+#: templates/home.html:88
 msgid "No recent movement"
 msgstr "Sem movimentações recentes"
 
-#: templates/home.html:101
+#: templates/home.html:97
 msgid "Attention!"
 msgstr "Atenção!"
 
-#: templates/home.html:106 templates/home.html:110
+#: templates/home.html:102 templates/home.html:106
 msgid "below the minimum"
 msgstr "Abaixo do mínimo"
