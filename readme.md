@@ -142,4 +142,4 @@ Follow the prompts to configure your name, email, and password.
 
 ### License
 
-This Project is under the MIT license - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for more details
+This Project is under the MIT license - see the [LICENSE]([https://www.google.com/search?q=LICENSE](https://github.com/GFreitasLab/Stock21/blob/main/LICENSE)) file for more details
