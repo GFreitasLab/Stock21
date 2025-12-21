@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-20 18:38-0300\n"
+"POT-Creation-Date: 2025-12-21 08:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,11 +305,11 @@ msgid "Account successfully deleted!"
 msgstr "Conta deletada com sucesso!"
 
 #: movements/models.py:20
-msgid "Inflow"
+msgid "Stock In"
 msgstr "Entrada"
 
 #: movements/models.py:20
-msgid "Outflow"
+msgid "Stock Out"
 msgstr "Saída"
 
 #: movements/models.py:45 movements/templates/movement_create.html:68
@@ -467,6 +467,14 @@ msgstr "Tipo"
 msgid "Date"
 msgstr "Data"
 
+#: movements/templates/movement_detail.html:43
+#: stock/templates/product_list.html:54 templates/home.html:35
+#: templates/home.html:37 templates/home.html:43 templates/home.html:45
+#: templates/home.html:51 templates/home.html:53 templates/home.html:81
+#: templates/home.html:83
+msgid "$"
+msgstr "R$"
+
 #: movements/templates/movement_list.html:4
 msgid "Movement List"
 msgstr "Lista de Movimentações"
@@ -526,19 +534,18 @@ msgstr "Responsável: %(user)s"
 msgid "Total value: $ %(value)s"
 msgstr "Valor Total: R$ %(value)s"
 
-#: movements/views.py:247 movements/views.py:261
-#: stock/templates/ingredient_list.html:23
-#: stock/templates/ingredient_list.html:57
-#: stock/templates/ingredient_update.html:34
-#: stock/templates/product_create.html:27
-#: stock/templates/product_detail.html:25
-msgid "Quantity"
-msgstr "Quantidate"
+#: movements/views.py:247
+msgid "Quantity Purchased"
+msgstr "Quantidade Vendida"
 
 #: movements/views.py:255 movements/views.py:269
 #, python-format
 msgid "$ %(price)s"
 msgstr "R$ %(price)s"
+
+#: movements/views.py:261
+msgid "Quantity Sold"
+msgstr "Quantidade Comprada"
 
 #: movements/views.py:275
 msgid "Finantial Resume"
@@ -546,12 +553,12 @@ msgstr "Resumo Financeiro"
 
 #: movements/views.py:278
 #, python-format
-msgid "Total Inflow: $ %(t_in)s"
+msgid "Total Stock In: $ %(t_in)s"
 msgstr "Total de Entrada: R$ %(t_in)s"
 
 #: movements/views.py:279
 #, python-format
-msgid "Total Outflow: $ %(t_out)s"
+msgid "Total Stock Out: $ %(t_out)s"
 msgstr "Total de Saída: R$ %(t_out)s"
 
 #: movements/views.py:280
@@ -656,6 +663,7 @@ msgstr "Detalhes do Ingrediente"
 
 #: stock/templates/ingredient_detail.html:19
 #: stock/templates/ingredient_detail.html:28
+#: stock/templates/ingredient_list.html:57
 msgid "Quantity in Stock"
 msgstr "Quantidate em Estoque"
 
@@ -666,6 +674,13 @@ msgstr "Listar Ingredientes"
 #: stock/templates/ingredient_list.html:11
 msgid "List of Ingredients"
 msgstr "Lista de Ingredientes"
+
+#: stock/templates/ingredient_list.html:23
+#: stock/templates/ingredient_update.html:34
+#: stock/templates/product_create.html:27
+#: stock/templates/product_detail.html:25
+msgid "Quantity"
+msgstr "Quantidate"
 
 #: stock/templates/ingredient_list.html:50
 msgid "Register Ingredient"
@@ -822,7 +837,7 @@ msgid "Please enter at least 1 ingredient!"
 msgstr "Selecione ao menos 1 ingrediente!"
 
 #: stock/views.py:670
-#, fuzzy, python-format
+#, python-format
 msgid "Enter a quantity greater then 0 for the ingredient %(ingredient)s!"
 msgstr "Insira uma quantidate maior que 0 para o ingrediente %(ingredient)s!"
 
@@ -895,12 +910,6 @@ msgstr "Estoque Baixo"
 #: templates/home.html:33
 msgid "Today's Balance"
 msgstr "Saldo do Dia"
-
-#: templates/home.html:35 templates/home.html:37 templates/home.html:43
-#: templates/home.html:45 templates/home.html:51 templates/home.html:53
-#: templates/home.html:81 templates/home.html:83
-msgid "$"
-msgstr "R$"
 
 #: templates/home.html:41
 msgid "Weekly Balance"

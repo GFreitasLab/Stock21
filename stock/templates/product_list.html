@@ -51,7 +51,7 @@
           <tr class="table-row"
               onclick="window.location='{% url 'product_detail' product.id %}'">
             <td class="table-text">{{ product.name }}</td>
-            <td class="table-text">R$ {{ product.price }}</td>
+            <td class="table-text">{% trans "$" %} {{ product.price }}</td>
             <td class="px-4 py-2 text-right">
               <div class="flex flex-row justify-end space-x-2 space-y-0">
                 <a href="{% url 'product_update' product.id %}">

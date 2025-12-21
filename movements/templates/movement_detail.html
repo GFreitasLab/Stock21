@@ -40,7 +40,7 @@
                   {% for ingredient in movement.ingredients.all %}
                     <tr class="table-row">
                       <td class="px-4 py-2">{{ ingredient.name }}</td>
-                      <td class="px-4 py-2">R$ {{ ingredient.price }}</td>
+                      <td class="px-4 py-2">{% trans "$" %} {{ ingredient.price }}</td>
                       <td class="px-4 py-2">
                         {% if ingredient.measure == "kg" %}
                           {{ ingredient.quantity }} {{ ingredient.get_measure_display }}

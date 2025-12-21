@@ -17,7 +17,7 @@ class Movement(models.Model):
 
     user = models.CharField(max_length=100)
     value = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    type = models.CharField(max_length=10, choices=([("in", _("Inflow")), ("out", _("Outflow"))]))
+    type = models.CharField(max_length=10, choices=([("in", _("Stock In")), ("out", _("Stock Out"))]))
     date = models.DateTimeField(auto_now_add=True)
     commentary = models.TextField(null=True, blank=True)
 

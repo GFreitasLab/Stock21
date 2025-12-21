@@ -244,7 +244,7 @@ def report(request: HttpRequest) -> HttpResponse:
             total_in += movement.value
             pdf.set_font("Arial", "B", 10)
             pdf.cell(80, 8, _("Name"), border=1)
-            pdf.cell(40, 8, _("Quantity"), border=1)
+            pdf.cell(40, 8, _("Quantity Purchased"), border=1)
             pdf.cell(40, 8, _("Price"), border=1)
             pdf.ln()
 
@@ -258,7 +258,7 @@ def report(request: HttpRequest) -> HttpResponse:
             total_out += movement.value
             pdf.set_font("Arial", "B", 10)
             pdf.cell(80, 8, _("Name"), border=1)
-            pdf.cell(40, 8, _("Quantity"), border=1)
+            pdf.cell(40, 8, _("Quantity Sold"), border=1)
             pdf.cell(40, 8, _("Price"), border=1)
             pdf.ln()
 
@@ -275,8 +275,8 @@ def report(request: HttpRequest) -> HttpResponse:
     pdf.cell(0, 10, _("Finantial Resume"), ln=True)
 
     pdf.set_font("Arial", size=10)
-    pdf.cell(0, 8, _("Total Inflow: $ %(t_in)s") % {"t_in": number_format(total_in, 2)}, ln=True)
-    pdf.cell(0, 8, _("Total Outflow: $ %(t_out)s") % {"t_out": number_format(total_out, 2)}, ln=True)
+    pdf.cell(0, 8, _("Total Stock In: $ %(t_in)s") % {"t_in": number_format(total_in, 2)}, ln=True)
+    pdf.cell(0, 8, _("Total Stock Out: $ %(t_out)s") % {"t_out": number_format(total_out, 2)}, ln=True)
     pdf.cell(0, 8, _("Total Balance: $ %(tt)s") % {"tt": number_format(total_out - total_in, 2)}, ln=True)
 
     # Returning the PDF as an HTTP response
