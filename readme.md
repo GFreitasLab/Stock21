@@ -1,6 +1,6 @@
 # Stock21
 
-**Stock21** is a simple and lightweight inventory management web application aimed at small and medium-sized pizzerias.
+**Stock21** is a simple and lightweight inventory management web application aimed at small and medium-sized food businesses, especially pizzarias.
 
 ## Features
 
